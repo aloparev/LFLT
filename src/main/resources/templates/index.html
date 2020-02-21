@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!--https://webaim.org/resources/contrastchecker/ -->
+<!--https://www.w3schools.com/colors/colors_picker.asp -->
+<!--https://contrast-ratio.com -->
+
+<head>
+    <meta charset="utf-8">
+    <title>LFLT | About</title>
+
+<!--    <link href='https://fonts.googleapis.com/css?family=Roboto Mono' rel='stylesheet'>-->
+
+    <style>
+        /* Custom properties/variables  */
+        :root {
+            /* color contrast 11, hover 16 */
+            --darkNavColor: #0b0b0c;
+            --navFont: #bdc3c7;
+            --navFontHover: #e8e8e8;
+            --topNav: 2.5rem;
+            --topPic: 22.5rem;
+
+            /* color contrast 11 */
+            --block: #fafafa;
+            --blockFont: #34393D;
+            --contentWrap: var(--topNav) + var(--topPic);
+            --contentBlockWidth: 600px;
+
+            --footer: #f5f5f5;
+            --fooAlt: #1d1d1d;
+            --margin: 10px;
+        }
+
+        /* Base reset */
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        /* box-sizing and font sizing */
+        *,
+        *::before,
+        *::after {
+            box-sizing: inherit;
+        }
+
+        body {
+            /*font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Helvetica Neue", Arial, sans-serif;*/
+            /*font-family: 'Roboto Mono', "Roboto", "Helvetica Neue", Arial, sans-serif;*/
+            font-family: "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", sans-serif;
+        }
+
+        .pageContent {
+            position: relative;
+            min-height: 100vh;
+        }
+
+        .contentWrap {
+            padding-top: var(--contentWrap);
+            padding-bottom: var(--topNav); /* Footer */
+            color: var(--blockFont);
+        }
+
+        .nav {
+            height: var(--topNav);
+            position: absolute;
+            top: 0;
+            width: 100%;
+            background: var(--darkNavColor);
+            font-size: 1vmin;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .nav a {
+            color: var(--navFont);
+            font-weight: 400;
+            font-size: 1rem;
+            letter-spacing: 2px;
+            text-decoration: none;
+            padding: 0 calc(var(--margin) * 3);
+            display: inline-block;
+            /*width: 100%;*/
+            text-align: center;
+            /*border: white solid 1px;*/
+        }
+
+        .nav a:hover {
+            /*background: #b0b0b0;*/
+            color: var(--navFontHover);
+            /*font-weight: 600;*/
+        }
+
+        .nav a.active {
+            color: var(--navFontHover);
+        }
+
+        .heroImageWrapper {
+            display: flex;
+            width: 100%;
+            height: var(--topPic);
+            top: var(--topNav);
+        }
+
+        .heroImage {
+            background-image: linear-gradient(rgba(10, 10, 10, 0.6), rgba(20, 20, 20, 0.7)), url("cube-2031511_1920x655.jpg");
+            /*background-image: url("cube-2031511_1920x655.jpg");*/
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            flex: 0 0 auto;
+            width: 900px;
+            max-width: 100%;
+            height: auto;
+        }
+
+        .responsive {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .heroImageMargin {
+            flex: 1 1 auto;
+            background: var(--darkNavColor);
+        }
+
+        /*.heroImage {*/
+        /*    background-image: linear-gradient(rgba(10, 10, 10, 0.6), rgba(20, 20, 20, 0.7)), url("cube-2031511_1920x655.jpg");*/
+        /*    !*background-image: url("cube-2031511_1920x655.jpg");*!*/
+        /*    width: 100%;*/
+        /*    height: var(--topPic);*/
+        /*    top: var(--topNav);*/
+
+        /*    !* Center and scale the image nicely *!*/
+        /*    background-position: center;*/
+        /*    background-repeat: no-repeat;*/
+        /*    background-size: cover;*/
+        /*}*/
+
+        .footer {
+            height: var(--topNav);
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            background: var(--footer);
+            text-align: center;
+            font-size: 1vmin;
+        }
+
+        .blockWrapper {
+            background: var(--block);
+            text-align: center;
+            margin: var(--margin);
+        }
+
+
+        .block {
+            max-width: var(--contentBlockWidth);
+            display: inline-block;
+            padding: var(--margin);
+        }
+
+        h1 {
+            /*text-align: center;*/
+            margin: calc(var(--margin) * 6) var(--margin) var(--margin)
+        }
+
+        #underTitle {
+            text-align: center;
+            font-style: italic;
+            margin: 0 auto calc(var(--margin) * 8);
+            /*border: black solid 1px;*/
+        }
+
+        h4 {
+            margin: calc(var(--margin) * 4) var(--margin) var(--margin)
+        }
+
+        p {
+            text-align: justify;
+        }
+
+        @media all and (max-width: 400px) {
+            .nav a {
+                padding: 0 var(--margin);
+            }
+        }
+
+        /*@media all and (max-width: 1000px) {*/
+        /*    .navigation ul {*/
+        /*        flex-wrap: wrap;*/
+        /*    }*/
+
+        /*    .navigation li {*/
+        /*        flex: 1 1 50%;*/
+        /*    }*/
+
+        /*    .navigation .user {*/
+        /*        flex: 1 1 33.33%;*/
+        /*    }*/
+        /*}*/
+
+        /*@media all and (max-width: 480px) {*/
+        /*    .navigation li {*/
+        /*        flex-basis: 100%;*/
+        /*    }*/
+
+        /*    .navigation .user {*/
+        /*        flex-basis: 50%;*/
+        /*    }*/
+    </style>
+</head>
+
+<body>
+<div class="pageContent">
+    <!--    <div class="nav"></div>-->
+    <div class="nav">
+        <!--        <ul>-->
+        <!--            <li><a href="#">Home</a></li>-->
+        <!--            <li><a href="#">Experiment</a></li>-->
+        <!--            <li><a href="#">Feedback</a></li>-->
+        <!--        </ul>-->
+        <a class="active" href="index.html">Home</a>
+        <a href="dashboard.html">Experiment</a>
+        <a href="#">Feedback</a>
+    </div>
+    <div class="heroImageWrapper">
+        <div class="heroImageMargin"></div>
+        <div class="heroImage"></div>
+        <div class="heroImageMargin"></div>
+    </div>
+    <div class="contentWrap">
+        <!--        <img src="cube-2031511_1920x655.jpg" alt="Game of Luck" class="responsive">-->
+        <main>
+            <div class="blockWrapper">
+                <div class="block">
+                    <h1>
+                        Stock-Picking Experiment
+                    </h1>
+                    <p id="underTitle">Inspired by Daniel Kahneman's "Thinking, Fast and Slow".</p>
+                    <h4>
+                        The Illusion of Validity
+                    </h4>
+                    <p>
+                        In chapter 20 "The Illusion of Validity" Kahneman argues, that there is no such thing as
+                        stock-picking skill, it is just an illusion. And people who believe otherwise while trading on
+                        the stock market are playing the game of luck.
+                    </p>
+                    <h4>What is it about?</h4>
+                    <p>
+                        Chocolate cake sweet roll liquorice chocolate cake. Marzipan pastry pie cake. Sugar plum sweet
+                        chocolate bar chocolate cake. Macaroon danish icing dessert cookie fruitcake topping cake.
+                        Liquorice jelly beans macaroon. Brownie cake bonbon gingerbread gummi bears marshmallow dragée
+                        chupa chups. Donut powder gummies brownie tiramisu cupcake lollipop. Sesame snaps macaroon
+                        lollipop icing donut toffee. Brownie brownie chupa chups sweet roll cheesecake cupcake. Lollipop
+                        dragée brownie fruitcake. Lollipop donut pudding bonbon. Dragée dragée pudding liquorice
+                        tiramisu tootsie roll. Candy jelly-o dessert gingerbread. Candy gummi bears pie candy jelly
+                        beans tiramisu topping.
+                    </p>
+                    <p>
+                        Candy chocolate cake lemon drops. Pudding jelly-o dessert apple pie marshmallow cotton candy.
+                        Carrot cake lemon drops brownie gummi bears bonbon. Halvah lemon drops apple pie jelly
+                        chocolate. Candy marshmallow cupcake tart danish danish marzipan cupcake lemon drops. Tootsie
+                        roll pudding cheesecake. Liquorice dessert brownie jujubes halvah gummi bears. Marshmallow
+                        tootsie roll cookie. Gingerbread pudding toffee biscuit halvah cotton candy halvah. Liquorice
+                        dragée cotton candy tootsie roll bear claw. Chocolate bar bear claw cake. Tiramisu donut
+                        cheesecake soufflé cake. Marshmallow toffee chupa chups jelly beans.
+                    </p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <div class="footer">
+        <footer>
+            Copyright &copy; LFLT 2020
+        </footer>
+    </div>
+</div>
+</body>
+</html>

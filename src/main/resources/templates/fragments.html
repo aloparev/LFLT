@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8; width=device-width, initial-scale=1.0"
+          name="viewport"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/static/journal/journal.css}"/>
+    <title>Menu Fragment</title>
+</head>
+
+<body>
+<nav class="navbar navbar-expand-sm navbar-light bg-light" th:fragment="menu">
+    <a class="navbar-brand" href="/">LFLT</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor03"
+            aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarColor03">
+        <ul class="navbar-nav mr-auto">
+            <li th:classappend="${#httpServletRequest.getRequestURI() == '/' ? ' active' : ''}" class="nav-item">
+                <!--                <a class="nav-link" href="/">Home<span class="sr-only">(current)</span></a>-->
+                <a class="nav-link" href="/">Home</a>
+            </li>
+            <li th:classappend="${#httpServletRequest.getRequestURI() == '/dashboard' ? ' active' : ''}"
+                class="nav-item">
+                <a class="nav-link" href="/dashboard">Experiment</a>
+            </li>
+            <li th:classappend="${#httpServletRequest.getRequestURI() == '/feedback' ? ' active' : ''}"
+                class="nav-item">
+                <a class="nav-link" href="/feedback">Feedback</a>
+            </li>
+        </ul>
+        <!--                <form class="form-inline my-2 my-lg-0">-->
+        <!--                    <input class="form-control mr-sm-2" type="text" placeholder="Search">-->
+        <!--                    <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>-->
+        <!--                </form>-->
+        <!--        <ul class="nav navbar-nav">-->
+        <!--            <li th:classappend="${#httpServletRequest.getRequestURI() == '/dashboard' ? 'active':''}"><a th:href="@{/dashboard}"><span>Dashboard</span></a></li>-->
+        <!--            <li th:classappend="${#httpServletRequest.getRequestURI() == '/orders' ? 'active':''}"><a th:href="@{/orders}"><span>Orders</span></a></li>-->
+        <!--            <li th:classappend="${#httpServletRequest.getRequestURI() == '/income' ? 'active':''}"><a th:href="@{/income}"><span>Income</span></a></li>-->
+        <!--            <li role="separator" ></li>-->
+        <!--        </ul>-->
+    </div>
+</nav>
+
+<div th:fragment="footer">
+<hr>
+<footer style="display: flex; justify-content: center; align-items: center; margin: 10px; text-align: center;">
+    Copyright &copy; LFLT 2020
+</footer>
+</div>
+
+<!--bootstrap with dependencies 3.4.1-->
+<script type="text/javascript" th:src="@{/static/bs/js/jquery-3.4.1.js}"></script>
+<script type="text/javascript" th:src="@{/static/bs/js/bootstrapBundle.js}"></script>
+</body>
+</html>
+

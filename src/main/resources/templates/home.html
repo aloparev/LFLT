@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8; width=device-width, initial-scale=1.0"
+          name="viewport"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/journal/journal.css}"/>
+    <title>Home</title>
+
+    <style>
+        .pageContent {
+            position: relative;
+            min-height: 100vh;
+        }
+
+        .contentWrap {
+            padding-top: var(--contentWrap);
+            padding-bottom: var(--topNav); /* Footer */
+            color: var(--blockFont);
+        }
+
+        .heroImageWrapper {
+            display: flex;
+            width: 100%;
+            height: var(--topPic);
+            top: var(--topNav);
+        }
+
+        .heroImage {
+            background-image: linear-gradient(rgba(10, 10, 10, 0.6), rgba(20, 20, 20, 0.7)), url("cube-2031511_1920x655.jpg");
+            /*background-image: url("cube-2031511_1920x655.jpg");*/
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            flex: 0 0 auto;
+            width: 900px;
+            max-width: 100%;
+            height: auto;
+        }
+
+        .heroImageMargin {
+            flex: 1 1 auto;
+            background: var(--darkNavColor);
+        }
+
+        .blockWrapper {
+            background: var(--block);
+            text-align: center;
+            margin: var(--margin);
+        }
+
+
+        .block {
+            max-width: var(--contentBlockWidth);
+            display: inline-block;
+            padding: var(--margin);
+        }
+
+        h1 {
+            /*text-align: center;*/
+            margin: calc(var(--margin) * 6) var(--margin) var(--margin)
+        }
+
+        #underTitle {
+            text-align: center;
+            font-style: italic;
+            margin: 0 auto calc(var(--margin) * 8);
+            /*border: black solid 1px;*/
+        }
+
+        h4 {
+            margin: calc(var(--margin) * 4) var(--margin) var(--margin)
+        }
+
+        p {
+            text-align: justify;
+        }
+
+    </style>
+</head>
+
+<body>
+<!--    <img th:src="@{/images/TacoCloud.png}"/>-->
+<!--    <a th:href="@{/design}" id="design">Design a taco</a>-->
+<div class="pageContent">
+    <div th:insert="fragments :: menu"></div>
+
+    <div class="heroImageWrapper">
+        <div class="heroImageMargin"></div>
+        <div class="heroImage"></div>
+        <div class="heroImageMargin"></div>
+    </div>
+
+    <div class="contentWrap">
+        <!--        <img src="cube-2031511_1920x655.jpg" alt="Game of Luck" class="responsive">-->
+        <main>
+            <div class="blockWrapper">
+                <div class="block">
+                    <h1>
+                        Stock-Picking Experiment
+                    </h1>
+                    <p id="underTitle">Inspired by Daniel Kahneman's "Thinking, Fast and Slow".</p>
+                    <h4>
+                        The Illusion of Validity
+                    </h4>
+                    <p>
+                        In chapter 20 "The Illusion of Validity" Kahneman argues, that there is no such thing as
+                        stock-picking skill, it is just an illusion. And people who believe otherwise while trading on
+                        the stock market are playing the game of luck.
+                    </p>
+                    <h4>What is it about?</h4>
+                    <p>
+                        Chocolate cake sweet roll liquorice chocolate cake. Marzipan pastry pie cake. Sugar plum sweet
+                        chocolate bar chocolate cake. Macaroon danish icing dessert cookie fruitcake topping cake.
+                        Liquorice jelly beans macaroon. Brownie cake bonbon gingerbread gummi bears marshmallow dragée
+                        chupa chups. Donut powder gummies brownie tiramisu cupcake lollipop. Sesame snaps macaroon
+                        lollipop icing donut toffee. Brownie brownie chupa chups sweet roll cheesecake cupcake. Lollipop
+                        dragée brownie fruitcake. Lollipop donut pudding bonbon. Dragée dragée pudding liquorice
+                        tiramisu tootsie roll. Candy jelly-o dessert gingerbread. Candy gummi bears pie candy jelly
+                        beans tiramisu topping.
+                    </p>
+                    <p>
+                        Candy chocolate cake lemon drops. Pudding jelly-o dessert apple pie marshmallow cotton candy.
+                        Carrot cake lemon drops brownie gummi bears bonbon. Halvah lemon drops apple pie jelly
+                        chocolate. Candy marshmallow cupcake tart danish danish marzipan cupcake lemon drops. Tootsie
+                        roll pudding cheesecake. Liquorice dessert brownie jujubes halvah gummi bears. Marshmallow
+                        tootsie roll cookie. Gingerbread pudding toffee biscuit halvah cotton candy halvah. Liquorice
+                        dragée cotton candy tootsie roll bear claw. Chocolate bar bear claw cake. Tiramisu donut
+                        cheesecake soufflé cake. Marshmallow toffee chupa chups jelly beans.
+                    </p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+<!--    <div class="footer">-->
+<!--        <footer>-->
+<!--            Copyright &copy; LFLT 2020-->
+<!--        </footer>-->
+<!--    </div>-->
+    <div th:insert="fragments :: footer"></div>
+</div>
+
+<!--bootstrap with dependencies 3.4.1-->
+<script type="text/javascript" th:src="@{/bs/js/jquery-3.4.1.js}"></script>
+<script type="text/javascript" th:src="@{/bs/js/bootstrapBundle.js}"></script>
+</body>
+</html>
