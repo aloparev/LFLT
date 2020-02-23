@@ -1,4 +1,4 @@
-package home.lflt.model;
+package home.lflt.shadow;
 
 import lombok.Data;
 import lombok.RequiredArgsConstructor;

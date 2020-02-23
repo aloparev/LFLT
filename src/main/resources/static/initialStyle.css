@@ -1,0 +1,129 @@
+:root {
+    /* color contrast 11, hover 16 */
+    --darkNavColor: #0b0b0c;
+    --navFont: #bdc3c7;
+
+    /* white 91 */
+    --navFontHover: #e8e8e8;
+    --topNav: 2.5rem;
+    --topPic: 22.5rem;
+
+    /* color contrast 11 */
+    /* white 98 */
+    --block: #fafafa;
+    --blockFont: #34393D;
+    --contentWrap: var(--topNav) + var(--topPic);
+    --contentBlockWidth: 600px;
+
+    --footer: #f5f5f5;
+    --fooAlt: #1d1d1d;
+    --margin10: 10px;
+}
+
+/* Base reset */
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.pageContent {
+    position: relative;
+    min-height: 100vh;
+}
+
+.contentWrap {
+    padding-top: var(--contentWrap);
+    /*padding-bottom: var(--topNav); !* Footer *!*/
+    color: var(--blockFont);
+}
+
+.heroImageWrapper {
+    display: flex;
+    width: 100%;
+    height: var(--topPic);
+    top: var(--topNav);
+}
+
+.heroImage {
+    background-image: linear-gradient(rgba(10, 10, 10, 0.6), rgba(20, 20, 20, 0.7)), url("cube-2031511_1920x655.jpg");
+    /*background-image: url("cube-2031511_1920x655.jpg");*/
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    flex: 0 0 auto;
+    width: 900px;
+    max-width: 100%;
+    height: auto;
+}
+
+.responsive {
+    max-width: 100%;
+    height: auto;
+}
+
+.heroImageMargin {
+    flex: 1 1 auto;
+    background: var(--darkNavColor);
+}
+
+.blockWrapper {
+    background: var(--block);
+    text-align: center;
+    margin: var(--margin10);
+}
+
+
+.block {
+    max-width: var(--contentBlockWidth);
+    display: inline-block;
+    padding: var(--margin10);
+}
+
+h1 {
+    /*text-align: center;*/
+    margin: calc(var(--margin10) * 6) var(--margin10) var(--margin10)
+}
+
+#underTitle {
+    text-align: center;
+    font-style: italic;
+    margin: 0 auto calc(var(--margin10) * 8);
+    /*border: black solid 1px;*/
+}
+
+h4 {
+    margin: calc(var(--margin10) * 4) var(--margin10) var(--margin10)
+}
+
+p {
+    text-align: justify;
+}
+
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+#footerLine {
+    margin: 0;
+}
+
+footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: var(--margin10);
+    text-align: center;
+    font-size: .7rem;
+}

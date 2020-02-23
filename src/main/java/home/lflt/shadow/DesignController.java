@@ -1,11 +1,10 @@
-package home.lflt.controller;
+package home.lflt.shadow;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 import javax.validation.Valid;
 
-import home.lflt.model.Taco;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -14,17 +13,37 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import lombok.extern.slf4j.Slf4j;
-import home.lflt.model.Ingredient;
-import home.lflt.model.Ingredient.Type;
+import home.lflt.shadow.Ingredient.Type;
 
 @Slf4j
 @Controller
 @RequestMapping("/design")
 public class DesignController {
 
-//    hard coded list of ingredients >> till chapter 3
-    @ModelAttribute
-    public void addIngredientsToModel(Model model) {
+//    @ModelAttribute
+//    public void addIngredientsToModel(Model model) {
+//        List<Lot> lots = Arrays.asList(
+//                new Lot("FLTO", "Flour Tortilla", Type.WRAP),
+//                new Lot("COTO", "Corn Tortilla", Type.WRAP),
+//                new Lot("GRBF", "Ground Beef", Type.PROTEIN),
+//                new Lot("CARN", "Carnitas", Type.PROTEIN),
+//                new Lot("TMTO", "Diced Tomatoes", Type.VEGGIES),
+//                new Lot("LETC", "Lettuce", Type.VEGGIES),
+//                new Lot("CHED", "Cheddar", Type.CHEESE),
+//                new Lot("JACK", "Monterrey Jack", Type.CHEESE),
+//                new Lot("SLSA", "Salsa", Type.SAUCE),
+//                new Lot("SRCR", "Sour Cream", Type.SAUCE)
+//        );
+//        Type[] types = Lot.Type.values();
+//        for (Type type : types) {
+//            model.addAttribute(type.toString().toLowerCase(),
+//                    filterByType(lots, type));
+//        }
+//    }
+
+    //tag::showDesignForm[]
+    @GetMapping
+    public String showDesignForm(Model model) {
         List<Ingredient> ingredients = Arrays.asList(
                 new Ingredient("FLTO", "Flour Tortilla", Type.WRAP),
                 new Ingredient("COTO", "Corn Tortilla", Type.WRAP),
@@ -37,18 +56,15 @@ public class DesignController {
                 new Ingredient("SLSA", "Salsa", Type.SAUCE),
                 new Ingredient("SRCR", "Sour Cream", Type.SAUCE)
         );
+
         Type[] types = Ingredient.Type.values();
         for (Type type : types) {
             model.addAttribute(type.toString().toLowerCase(),
                     filterByType(ingredients, type));
         }
-    }
 
-    //tag::showDesignForm[]
-    @GetMapping
-    public String showDesignForm(Model model) {
-        model.addAttribute("feedback", new Taco());
-        return "feedback";
+        model.addAttribute("design", new Taco());
+        return "sDesign";
     }
 //end::showDesignForm[]
 
@@ -68,9 +84,9 @@ public class DesignController {
 
     //tag::processDesignValidated[]
     @PostMapping
-    public String processDesign(@Valid @ModelAttribute("design") Taco design, Errors errors, Model model) {
+    public String processDesign(@ModelAttribute("design") Taco design, Errors errors, Model model) {
         if (errors.hasErrors()) {
-            return "design";
+            return "sDesign";
         }
         // Save the taco design...
         // We'll do this in chapter 3

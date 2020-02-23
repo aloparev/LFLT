@@ -3,86 +3,14 @@
       lang="en">
 
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8; width=device-width, initial-scale=1.0"
-          name="viewport"/>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" th:href="@{/journal/journal.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{initialStyle.css}"/>
     <title>Home</title>
-
-    <style>
-        .pageContent {
-            position: relative;
-            min-height: 100vh;
-        }
-
-        .contentWrap {
-            padding-top: var(--contentWrap);
-            padding-bottom: var(--topNav); /* Footer */
-            color: var(--blockFont);
-        }
-
-        .heroImageWrapper {
-            display: flex;
-            width: 100%;
-            height: var(--topPic);
-            top: var(--topNav);
-        }
-
-        .heroImage {
-            background-image: linear-gradient(rgba(10, 10, 10, 0.6), rgba(20, 20, 20, 0.7)), url("cube-2031511_1920x655.jpg");
-            /*background-image: url("cube-2031511_1920x655.jpg");*/
-            background-position: center;
-            background-repeat: no-repeat;
-            background-size: cover;
-            flex: 0 0 auto;
-            width: 900px;
-            max-width: 100%;
-            height: auto;
-        }
-
-        .heroImageMargin {
-            flex: 1 1 auto;
-            background: var(--darkNavColor);
-        }
-
-        .blockWrapper {
-            background: var(--block);
-            text-align: center;
-            margin: var(--margin);
-        }
-
-
-        .block {
-            max-width: var(--contentBlockWidth);
-            display: inline-block;
-            padding: var(--margin);
-        }
-
-        h1 {
-            /*text-align: center;*/
-            margin: calc(var(--margin) * 6) var(--margin) var(--margin)
-        }
-
-        #underTitle {
-            text-align: center;
-            font-style: italic;
-            margin: 0 auto calc(var(--margin) * 8);
-            /*border: black solid 1px;*/
-        }
-
-        h4 {
-            margin: calc(var(--margin) * 4) var(--margin) var(--margin)
-        }
-
-        p {
-            text-align: justify;
-        }
-
-    </style>
 </head>
 
 <body>
-<!--    <img th:src="@{/images/TacoCloud.png}"/>-->
-<!--    <a th:href="@{/design}" id="design">Design a taco</a>-->
 <div class="pageContent">
     <div th:insert="fragments :: menu"></div>
 
@@ -105,10 +33,19 @@
                         The Illusion of Validity
                     </h4>
                     <p>
-                        In chapter 20 "The Illusion of Validity" Kahneman argues, that there is no such thing as
-                        stock-picking skill, it is just an illusion. And people who believe otherwise while trading on
-                        the stock market are playing the game of luck.
+                        In chapter 20, called "The Illusion of Validity", Kahneman argues that there is no such thing as
+                        a
+                        stock-picking skill, but only an illusion of it. He illustrates that even the professional stock
+                        pickers (on average) fail the basic test of skill - permanent achievement. I.e. the traders are
+                        playing the game of chance, because they are making educated guesses in a situation of great
+                        uncertainty.
                     </p>
+
+                    <h4>LFLT</h4>
+                    <p>
+                        LFLT is an acronym for "Low Frequency Luck Trading". The aim of LFLT is to demonstrate how stock picking is done by blind guesses and how a stock portfolio with such picks performs over time.
+                    </p>
+
                     <h4>What is it about?</h4>
                     <p>
                         Chocolate cake sweet roll liquorice chocolate cake. Marzipan pastry pie cake. Sugar plum sweet
@@ -134,11 +71,11 @@
         </main>
     </div>
 
-<!--    <div class="footer">-->
-<!--        <footer>-->
-<!--            Copyright &copy; LFLT 2020-->
-<!--        </footer>-->
-<!--    </div>-->
+    <!--    <div class="footer">-->
+    <!--        <footer>-->
+    <!--            Copyright &copy; LFLT 2020-->
+    <!--        </footer>-->
+    <!--    </div>-->
     <div th:insert="fragments :: footer"></div>
 </div>
 

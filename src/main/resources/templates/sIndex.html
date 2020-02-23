@@ -29,7 +29,7 @@
 
             --footer: #f5f5f5;
             --fooAlt: #1d1d1d;
-            --margin: 10px;
+            --margin10: 10px;
         }
 
         /* Base reset */
@@ -80,7 +80,7 @@
             font-size: 1rem;
             letter-spacing: 2px;
             text-decoration: none;
-            padding: 0 calc(var(--margin) * 3);
+            padding: 0 calc(var(--margin10) * 3);
             display: inline-block;
             /*width: 100%;*/
             text-align: center;
@@ -152,30 +152,30 @@
         .blockWrapper {
             background: var(--block);
             text-align: center;
-            margin: var(--margin);
+            margin: var(--margin10);
         }
 
 
         .block {
             max-width: var(--contentBlockWidth);
             display: inline-block;
-            padding: var(--margin);
+            padding: var(--margin10);
         }
 
         h1 {
             /*text-align: center;*/
-            margin: calc(var(--margin) * 6) var(--margin) var(--margin)
+            margin: calc(var(--margin10) * 6) var(--margin10) var(--margin10)
         }
 
         #underTitle {
             text-align: center;
             font-style: italic;
-            margin: 0 auto calc(var(--margin) * 8);
+            margin: 0 auto calc(var(--margin10) * 8);
             /*border: black solid 1px;*/
         }
 
         h4 {
-            margin: calc(var(--margin) * 4) var(--margin) var(--margin)
+            margin: calc(var(--margin10) * 4) var(--margin10) var(--margin10)
         }
 
         p {
@@ -184,7 +184,7 @@
 
         @media all and (max-width: 400px) {
             .nav a {
-                padding: 0 var(--margin);
+                padding: 0 var(--margin10);
             }
         }
 
@@ -222,7 +222,7 @@
         <!--            <li><a href="#">Experiment</a></li>-->
         <!--            <li><a href="#">Feedback</a></li>-->
         <!--        </ul>-->
-        <a class="active" href="index.html">Home</a>
+        <a class="active" href="sIndex.html">Home</a>
         <a href="dashboard.html">Experiment</a>
         <a href="#">Feedback</a>
     </div>

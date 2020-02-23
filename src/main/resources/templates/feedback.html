@@ -3,14 +3,69 @@
       lang="en">
 
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8; width=device-width, initial-scale=1.0"
-          name="viewport"/>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" th:href="@{/journal/journal.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{initialStyle.css}"/>
     <title>Feedback</title>
 </head>
 
 <body>
 <div th:insert="fragments :: menu"></div>
+<h1>Give us a feedback</h1>
+
+<!--<form method="POST" th:object="${feedbackPojo}">-->
+<!--    <fieldset class="form-group">-->
+<!--        <legend>Feedback type</legend>-->
+
+<!--        <div class="form-check">-->
+<!--            <label class="form-check-label">-->
+<!--                <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios1" value="option1" checked="">-->
+<!--                Option one is this and that—be sure to include why it's great-->
+<!--            </label>-->
+<!--        </div>-->
+
+<!--        <div class="form-check">-->
+<!--            <label class="form-check-label">-->
+<!--                <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios2" value="option2">-->
+<!--                Option two can be something else and selecting it will deselect option one-->
+<!--            </label>-->
+<!--        </div>-->
+<!--        <div class="form-check disabled">-->
+<!--            <label class="form-check-label">-->
+<!--                <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios3" value="option3" disabled="">-->
+<!--                Option three is disabled-->
+<!--            </label>-->
+<!--        </div>-->
+<!--    </fieldset>-->
+
+<!--    &lt;!&ndash; tag::all[] &ndash;&gt;-->
+<!--    <div class="grid">-->
+<!--        &lt;!&ndash; end::formTag[] &ndash;&gt;-->
+<!--        &lt;!&ndash; end::head[] &ndash;&gt;-->
+<!--        <div class="ingredient-group" id="wraps">-->
+<!--            &lt;!&ndash; tag::designateWrap[] &ndash;&gt;-->
+<!--            <h3>Feedback category:</h3>-->
+<!--            <div th:each="i : ${feedbackTypes}">-->
+<!--                <input name="i" type="checkbox" th:value="${i}"/>-->
+<!--                <span th:text="${ingredient.name}">INGREDIENT</span><br/>-->
+<!--            </div>-->
+<!--            &lt;!&ndash; end::designateWrap[] &ndash;&gt;-->
+<!--        </div>-->
+
+<!--    <div>-->
+<!--        <h3>Name your taco creation:</h3>-->
+<!--        <input type="text" th:field="*{name}"/>-->
+<!--        &lt;!&ndash; end::all[] &ndash;&gt;-->
+<!--        <span th:text="${#fields.hasErrors('name')}">XXX</span>-->
+<!--        <span class="validationError"-->
+<!--              th:if="${#fields.hasErrors('name')}"-->
+<!--              th:errors="*{name}">Name Error</span>-->
+<!--        <br/>-->
+<!--        <button>Submit your feedback</button>-->
+<!--    </div>-->
+<!--</form>-->
+
 <div th:insert="fragments :: footer"></div>
 
 <!--bootstrap with dependencies 3.4.1-->
