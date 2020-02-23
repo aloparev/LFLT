@@ -26,9 +26,9 @@ public class Feedback {
 //    private Feedback.Type type;
 
 
-    private String url;
-    private String device;
-    private String os;
+//    private String url;
+//    private String device;
+//    private String os;
 
     @NotNull
     @NotBlank(message = INPUT_REQUIRED)
