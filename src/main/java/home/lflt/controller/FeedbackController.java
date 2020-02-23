@@ -17,6 +17,9 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import javax.validation.Valid;
 import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Slf4j
 @Controller
@@ -29,7 +32,11 @@ public class FeedbackController {
 //        for (Type type : types) {
 //            model.addAttribute(type.toString().toLowerCase(), type);
 //        }
-        model.addAttribute("feedbackTypes", Arrays.asList(Feedback.Type.values()));
+
+        model.addAttribute(
+                "feedbackTypes", Stream.of("Suggestion", "GUI", "Bug", "Other").collect(Collectors.toList())
+        );
+//        model.addAttribute("feedbackTypes", Arrays.asList(Feedback.Type.values()));
         model.addAttribute("feedbackPojo", new Feedback());
         return "feedback";
     }

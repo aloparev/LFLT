@@ -12,59 +12,48 @@
 
 <body>
 <div th:insert="fragments :: menu"></div>
-<h1>Give us a feedback</h1>
+<h1>Share your feedback</h1>
 
-<!--<form method="POST" th:object="${feedbackPojo}">-->
+<form method="POST" th:object="${feedbackPojo}">
 <!--    <fieldset class="form-group">-->
-<!--        <legend>Feedback type</legend>-->
-
-<!--        <div class="form-check">-->
-<!--            <label class="form-check-label">-->
-<!--                <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios1" value="option1" checked="">-->
-<!--                Option one is this and that—be sure to include why it's great-->
-<!--            </label>-->
-<!--        </div>-->
-
-<!--        <div class="form-check">-->
-<!--            <label class="form-check-label">-->
-<!--                <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios2" value="option2">-->
-<!--                Option two can be something else and selecting it will deselect option one-->
-<!--            </label>-->
-<!--        </div>-->
-<!--        <div class="form-check disabled">-->
-<!--            <label class="form-check-label">-->
-<!--                <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios3" value="option3" disabled="">-->
-<!--                Option three is disabled-->
+<!--        <div class="form-check" th:each="tt = ${feedbackTypes}">-->
+<!--            <label class="form-check-label" th:for="${tt}">-->
+<!--                <input type="radio" th:id="${tt}" class="form-check-input" name="feedbackType" th:value="${tt}" th:field="*{type}" checked="">-->
+<!--                &lt;!&ndash;                Option one is this and that—be sure to include why it's great&ndash;&gt;-->
+<!--                <span th:text="${tt}">PLACEHOLDER</span>-->
 <!--            </label>-->
 <!--        </div>-->
 <!--    </fieldset>-->
 
-<!--    &lt;!&ndash; tag::all[] &ndash;&gt;-->
-<!--    <div class="grid">-->
-<!--        &lt;!&ndash; end::formTag[] &ndash;&gt;-->
-<!--        &lt;!&ndash; end::head[] &ndash;&gt;-->
-<!--        <div class="ingredient-group" id="wraps">-->
-<!--            &lt;!&ndash; tag::designateWrap[] &ndash;&gt;-->
-<!--            <h3>Feedback category:</h3>-->
-<!--            <div th:each="i : ${feedbackTypes}">-->
-<!--                <input name="i" type="checkbox" th:value="${i}"/>-->
-<!--                <span th:text="${ingredient.name}">INGREDIENT</span><br/>-->
-<!--            </div>-->
-<!--            &lt;!&ndash; end::designateWrap[] &ndash;&gt;-->
-<!--        </div>-->
+<!--    <li th:each="ty : ${allTypes}">-->
+<!--        <input type="radio" th:field="*{type}" th:value="${ty}" />-->
+<!--        <label th:for="${#ids.prev('type')}" th:text="#{${'seedstarter.type.' + ty}}">Wireframe</label>-->
 
-<!--    <div>-->
-<!--        <h3>Name your taco creation:</h3>-->
-<!--        <input type="text" th:field="*{name}"/>-->
-<!--        &lt;!&ndash; end::all[] &ndash;&gt;-->
-<!--        <span th:text="${#fields.hasErrors('name')}">XXX</span>-->
+<!--    <div class="form-group">-->
+<!--        <label for="exampleInputEmail1">Email address</label>-->
+<!--        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" th:field="*{message}">-->
+<!--        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>-->
 <!--        <span class="validationError"-->
-<!--              th:if="${#fields.hasErrors('name')}"-->
-<!--              th:errors="*{name}">Name Error</span>-->
-<!--        <br/>-->
-<!--        <button>Submit your feedback</button>-->
+<!--              th:if="${#fields.hasErrors('message')}"-->
+<!--              th:errors="*{message}">Input Error-->
+<!--        </span>-->
 <!--    </div>-->
-<!--</form>-->
+
+    <label for="msg"></label>
+    <input type="text" th:field="*{message}" id="msg"/>
+    <span class="validationError"
+          th:if="${#fields.hasErrors('message')}"
+          th:errors="*{message}">Input Error</span>
+    <br/>
+
+    <label for="email">Email</label>
+    <input type="text" th:field="*{email}" id="email"/>
+    <span class="validationError"
+          th:if="${#fields.hasErrors('email')}"
+          th:errors="*{email}">Input Error</span>
+    <br/>
+    <button>Submit your feedback</button>
+</form>
 
 <div th:insert="fragments :: footer"></div>
 
