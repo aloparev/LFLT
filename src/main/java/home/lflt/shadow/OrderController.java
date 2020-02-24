@@ -38,7 +38,7 @@ public class OrderController {
 
     //tag::handlePostWithValidation[]
     @PostMapping
-    public String processOrder(Order order, Errors errors) {
+    public String processOrder(@Valid Order order, Errors errors) {
         if (errors.hasErrors()) {
             return "sOrderForm";
         }
