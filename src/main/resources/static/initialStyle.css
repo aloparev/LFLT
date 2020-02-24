@@ -90,7 +90,12 @@ body {
     padding: var(--margin10);
 }
 
-h1 {
+/*h1 {*/
+/*    !*text-align: center;*!*/
+/*    margin: calc(var(--margin10) * 6) var(--margin10) var(--margin10)*/
+/*}*/
+
+#headerUnderHero {
     /*text-align: center;*/
     margin: calc(var(--margin10) * 6) var(--margin10) var(--margin10)
 }
