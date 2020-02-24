@@ -19,62 +19,60 @@
         <div class="heroImage"></div>
         <div class="heroImageMargin"></div>
     </div>
-    <div class="contentWrap">
-        <!--        <img src="cube-2031511_1920x655.jpg" alt="Game of Luck" class="responsive">-->
-        <main>
-            <div class="blockWrapper">
-                <div class="block">
-                    <h1 id="headerUnderHero">Stock-Picking Experiment</h1>
-                    <p id="underTitle">Inspired by Daniel Kahneman's "Thinking, Fast and Slow".</p>
 
-                    <table>
-                        <tr>
-                            <th>Company</th>
-                            <th>Contact</th>
-                            <th>Country</th>
-                        </tr>
+    <main class="contentWrap">>
+        <div class="blockWrapper">
+            <div class="block">
+                <h1 id="headerUnderHero">Stock-Picking Experiment</h1>
+                <p id="underTitle">Inspired by Daniel Kahneman's "Thinking, Fast and Slow".</p>
 
-                        <tr th:each="i : ${stocksKey}">
-                            <td th:text="${i.symbol}"/>
-                            <td th:text="${i.name}"/>
-                            <td th:text="${i.market}"/>
-                        </tr>
+                <table>
+                    <tr>
+                        <th>Company</th>
+                        <th>Contact</th>
+                        <th>Country</th>
+                    </tr>
 
-                        <tr>
-                            <td>Alfreds Futterkiste</td>
-                            <td>Maria Anders</td>
-                            <td>Germany</td>
-                        </tr>
-                        <tr>
-                            <td>Centro comercial Moctezuma</td>
-                            <td>Francisco Chang</td>
-                            <td>Mexico</td>
-                        </tr>
-                        <tr>
-                            <td>Ernst Handel</td>
-                            <td>Roland Mendel</td>
-                            <td>Austria</td>
-                        </tr>
-                        <tr>
-                            <td>Island Trading</td>
-                            <td>Helen Bennett</td>
-                            <td>UK</td>
-                        </tr>
-                        <tr>
-                            <td>Laughing Bacchus Winecellars</td>
-                            <td>Yoshi Tannamuri</td>
-                            <td>Canada</td>
-                        </tr>
-                        <tr>
-                            <td>Magazzini Alimentari Riuniti</td>
-                            <td>Giovanni Rovelli</td>
-                            <td>Italy</td>
-                        </tr>
-                    </table>
-                </div>
+                    <tr th:each="i : ${stocksKey}">
+                        <td th:text="${i.symbol}"/>
+                        <td th:text="${i.name}"/>
+                        <td th:text="${i.market}"/>
+                    </tr>
+
+                    <tr>
+                        <td>Alfreds Futterkiste</td>
+                        <td>Maria Anders</td>
+                        <td>Germany</td>
+                    </tr>
+                    <tr>
+                        <td>Centro comercial Moctezuma</td>
+                        <td>Francisco Chang</td>
+                        <td>Mexico</td>
+                    </tr>
+                    <tr>
+                        <td>Ernst Handel</td>
+                        <td>Roland Mendel</td>
+                        <td>Austria</td>
+                    </tr>
+                    <tr>
+                        <td>Island Trading</td>
+                        <td>Helen Bennett</td>
+                        <td>UK</td>
+                    </tr>
+                    <tr>
+                        <td>Laughing Bacchus Winecellars</td>
+                        <td>Yoshi Tannamuri</td>
+                        <td>Canada</td>
+                    </tr>
+                    <tr>
+                        <td>Magazzini Alimentari Riuniti</td>
+                        <td>Giovanni Rovelli</td>
+                        <td>Italy</td>
+                    </tr>
+                </table>
             </div>
-        </main>
-    </div>
+        </div>
+    </main>
 
     <!--    <div class="footer">-->
     <!--        <footer>-->
@@ -82,10 +80,11 @@
     <!--        </footer>-->
     <!--    </div>-->
     <div th:insert="fragments :: footer"></div>
+</div>
 
-    <!--bootstrap js-->
-    <script type="text/javascript" th:src="@{/bs441/js/jquery-3.4.1.js}"></script>
-    <script type="text/javascript" th:src="@{/bs441/js/bootstrap.bundle.js}"></script>
+<!--bootstrap js-->
+<script type="text/javascript" th:src="@{/bs441/js/jquery-3.4.1.js}"></script>
+<script type="text/javascript" th:src="@{/bs441/js/bootstrap.bundle.js}"></script>
 </div>
 </body>
 </html>
