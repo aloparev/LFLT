@@ -15,101 +15,112 @@
     <div th:insert="fragments :: menu"></div>
 
     <main class="blockWrapper">
-        <h1 class="text-center">Feedback</h1>
-        <p id="underTitle">Feel free to share your thoughts on LFLT</p>
+        <div class="row">
+            <div class="col"></div>
 
-        <!--        <div class="block">-->
-        <form method="POST" th:object="${feedbackPojo}">
+            <div class="col-12 col-sm-10 col-md-8 col-lg-6 col-xl-4">
+                <h1 class="text-center">Feedback</h1>
+                <p id="underTitle">Feel free to share your thoughts on LFLT</p>
 
-            <fieldset class="form-group">
-                <div class="rowCustom">
-                    <legend class="col-form-label col-sm-2 pt-0">Feedback type</legend>
-                    <div class="col-sm-6">
-                        <div th:each="tt : ${feedbackTypes}" class="form-check">
-                            <input type="radio" th:value="${tt}" th:field="*{type}" class="form-check-input"/>
-                            <label class="form-check-label" th:text="${tt}">PLACEHOLDER</label>
+                <form method="POST" th:object="${feedbackPojo}">
+
+                    <fieldset class="form-group">
+                        <div class="rowCustom">
+                            <div class="col-sm-4">
+                                <legend class="col-form-label pt-0">Feedback type</legend>
+                                <span class="text-danger"
+                                      th:if="${#fields.hasErrors('type')}"
+                                      th:errors="*{type}">Input Error</span>
+                            </div>
+                            <div class="col-sm-8">
+                                <div th:each="tt : ${feedbackTypes}" class="form-check">
+                                    <input type="radio" th:value="${tt}" th:field="*{type}"
+                                           class="form-check-input"/>
+                                    <label class="form-check-label" th:text="${tt}">PLACEHOLDER</label>
+                                </div>
+
+                            </div>
                         </div>
+                    </fieldset>
 
-                    </div>
-                    <div class="col-sm-4">
-                        <span class="validationError text-danger"
-                              th:if="${#fields.hasErrors('type')}"
-                              th:errors="*{type}">Input Error</span>
-                    </div>
-                </div>
-            </fieldset>
-
-            <div class="form-group rowCustom">
-                <label for="msg" class="col-sm-2 col-form-label">Message</label>
-                <div class="col-sm-6">
+                    <div class="form-group rowCustom">
+                        <div class="col-sm-4">
+                            <label for="msg" class="col-form-label">Message</label>
+                            <span class="validationError text-danger"
+                                  th:if="${#fields.hasErrors('msg')}" th:errors="*{msg}">Input Error</span>
+                        </div>
+                        <div class="col-sm-8">
                     <textarea class="form-control" rows="4" placeholder="Type your message here"
                               th:field="*{msg}"></textarea>
-                    <!--                    <input type="text" th:field="*{msg}" class="form-control" placeholder="Type your feedback">-->
-                </div>
-                <div class="col-sm-4">
-                <span class="validationError text-danger"
-                      th:if="${#fields.hasErrors('msg')}" th:errors="*{msg}">Input Error</span>
-                </div>
-            </div>
-
-            <div class="form-group rowCustom">
-                <label for="device" class="col-sm-2 col-form-label">Device</label>
-                <div class="col-sm-6">
-                    <input type="text" class="form-control" placeholder="Device" th:field="*{device}"/>
-                </div>
-                <div class="col-sm-4">
-                <span class="validationError text-danger" th:if="${#fields.hasErrors('device')}"
-                      th:errors="*{device}">Input Error</span>
-                </div>
-            </div>
-
-            <div class="form-group rowCustom">
-                <label for="os" class="col-sm-2 col-form-label">Operating system</label>
-                <div class="col-sm-6">
-                    <input type="text" class="form-control" placeholder="Operating system" th:field="*{os}"/>
-                </div>
-                <div class="col-sm-4">
-                <span class="validationError text-danger" th:if="${#fields.hasErrors('os')}"
-                      th:errors="*{os}">Input Error</span>
-                </div>
-            </div>
-
-            <div class="form-group rowCustom">
-                <label for="name" class="col-sm-2 col-form-label">Name</label>
-                <div class="col-sm-6">
-                    <input type="text" class="form-control" placeholder="Name" th:field="*{name}"/>
-                </div>
-                <div class="col-sm-4">
-                <span class="validationError text-danger" th:if="${#fields.hasErrors('name')}"
-                      th:errors="*{name}">Input Error</span>
-                </div>
-            </div>
-
-            <div class="form-group rowCustom">
-                <label for="email" class="col-sm-2 col-form-label">Email</label>
-                <div class="col-sm-6">
-                    <input type="email" class="form-control" placeholder="Email" th:field="*{email}"/>
-                </div>
-                <div class="col-sm-4">
-                <span class="validationError text-danger" th:if="${#fields.hasErrors('email')}"
-                      th:errors="*{email}">Input Error</span>
-                </div>
-            </div>
-
-            <div class="container">
-                <div class="rowCustom justify-content-end">
-                    <div class="col-sm-8" th:switch="${feedbackJam}">
-                        <button th:case="true" class="btn btn-secondary marginTop40" disabled>Submit your feedback
-                        </button>
-                        <button th:case="*" class="btn btn-secondary marginTop40">Submit your feedback</button>
+                        </div>
                     </div>
-                    <div class="col-sm-4">
-                        <span class="text-danger" th:if="${feedbackJam}">Server error</span>
+
+                    <div class="form-group rowCustom">
+                        <div class="col-sm-4">
+                            <label for="device" class="col-form-label">Device</label>
+                            <span class="validationError text-danger" th:if="${#fields.hasErrors('device')}"
+                                  th:errors="*{device}">Input Error</span>
+                        </div>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" placeholder="Device" th:field="*{device}"/>
+                        </div>
                     </div>
-                </div>
+
+                    <div class="form-group rowCustom">
+                        <div class="col-sm-4">
+                            <label for="os" class="col-form-label">Operating system</label>
+                            <span class="validationError text-danger" th:if="${#fields.hasErrors('os')}"
+                                  th:errors="*{os}">Input Error</span>
+                        </div>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" placeholder="Operating system"
+                                   th:field="*{os}"/>
+                        </div>
+                    </div>
+
+                    <div class="form-group rowCustom">
+                        <div class="col-sm-4">
+                            <label for="name" class="col-form-label">Name</label>
+                            <span class="validationError text-danger" th:if="${#fields.hasErrors('name')}"
+                                  th:errors="*{name}">Input Error</span>
+                        </div>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" placeholder="Name" th:field="*{name}"/>
+                        </div>
+                    </div>
+
+                    <div class="form-group rowCustom">
+                        <div class="col-sm-4">
+                            <label for="email" class="col-form-label">Email</label>
+                            <span class="text-danger" th:if="${#fields.hasErrors('email')}"
+                                  th:errors="*{email}">Input Error</span>
+                        </div>
+                        <div class="col-sm-8">
+                            <input type="email" class="form-control" placeholder="Email" th:field="*{email}"/>
+                        </div>
+                    </div>
+
+                    <div class="rowCustom">
+                        <!--                        <div class="col-sm" th:switch="${feedbackJam}">-->
+                        <!--                            <button th:case="true" class="btn btn-secondary marginTop40" disabled>Submit your-->
+                        <!--                                feedback-->
+                        <!--                            </button>-->
+                        <!--                            <button th:case="*" class="btn btn-secondary marginTop40">Submit your feedback-->
+                        <!--                            </button>-->
+                        <!--                        </div>-->
+                        <div class="col text-center">
+                            <button th:unless="${feedbackJam}" class="btn btn-secondary marginTop40">Submit your
+                                feedback</button>
+                            <span class="text-danger" th:if="${feedbackJam}">Server error</span>
+                        </div>
+                        <!--                        <div class="col-sm-4">-->
+                        <!--                            <span class="text-danger" th:if="${feedbackJam}">Server error</span>-->
+                        <!--                        </div>-->
+                    </div>
+                </form>
             </div>
-        </form>
-        <!--        </div>-->
+            <div class="col"></div>
+        </div>
     </main>
     <div th:insert="fragments :: footer"></div>
 </div>
