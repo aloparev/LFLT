@@ -1,6 +1,7 @@
 package home.lflt.controller;
 
 import home.lflt.model.Feedback;
+import home.lflt.repo.FeedbackRepo;
 import home.lflt.shadow.Ingredient;
 import home.lflt.shadow.Order;
 import lombok.extern.slf4j.Slf4j;
@@ -26,6 +27,12 @@ import java.util.stream.Stream;
 @RequestMapping("/feedback")
 public class FeedbackController {
 
+    private FeedbackRepo feedbackRepo;
+
+    public FeedbackController(FeedbackRepo feedbackRepo) {
+        this.feedbackRepo = feedbackRepo;
+    }
+
     @ModelAttribute
     public void addFeedbackTypes(Model model) {
         model.addAttribute("feedbackTypes",
@@ -35,6 +42,12 @@ public class FeedbackController {
 
     @GetMapping
     public String feedbackForm(Model model) {
+        long counter = feedbackRepo.count();
+        log.info("Feedback counter: " + counter);
+
+        if (counter >= 100) model.addAttribute("feedbackJam", true);
+        else model.addAttribute("feedbackJam", false);
+
         model.addAttribute("feedbackPojo", new Feedback());
         return "feedback";
     }
@@ -45,6 +58,7 @@ public class FeedbackController {
             return "feedback";
         }
         log.info("Feedback submitted: " + feedback);
+        feedbackRepo.save(feedback);
         return "redirect:/";
     }
 }

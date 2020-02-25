@@ -2,6 +2,10 @@ package home.lflt.model;
 
 import lombok.Data;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -13,15 +17,27 @@ import java.util.stream.Stream;
 import static home.lflt.utils.Constants.INPUT_REQUIRED;
 
 @Data
+@Entity
 public class Feedback {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
     @NotNull(message = INPUT_REQUIRED)
     @NotBlank(message = INPUT_REQUIRED)
     private String type;
 
 //    private String url;
-//    private String device;
-//    private String os;
+
+
+    @NotNull(message = INPUT_REQUIRED)
+    @NotBlank(message = INPUT_REQUIRED)
+    private String device;
+
+    @NotNull(message = INPUT_REQUIRED)
+    @NotBlank(message = INPUT_REQUIRED)
+    private String os;
 
     @NotNull(message = INPUT_REQUIRED)
     @NotBlank(message = INPUT_REQUIRED)

@@ -28,7 +28,7 @@
 
 body {
     font-family: "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", sans-serif;
-    overflow-x: hidden; /* Hide horizontal scrollbar */
+    /*overflow-x: hidden; !* Hide horizontal scrollbar *!*/
 }
 
 .pageContent {
@@ -76,12 +76,6 @@ body {
     margin: var(--margin10);
 }
 
-#blockWrapper {
-    background: var(--block);
-    text-align: center;
-    margin: var(--margin10);
-}
-
 .block {
     max-width: var(--contentBlockWidth);
     display: inline-block;
@@ -96,8 +90,15 @@ body {
 #underTitle {
     text-align: center;
     font-style: italic;
-    margin: 0 auto calc(var(--margin10) * 8);
     /*border: black solid 1px;*/
+}
+
+.marginTop40 {
+    margin-top: 40px;
+}
+
+.marginBottom80 {
+    margin: 0 auto calc(var(--margin10) * 8);
 }
 
 h4 {
@@ -171,4 +172,11 @@ footer {
     color: var(--navFont);
     background-color: var(--darkNavColor);
     border-color: #343a40;
+}
+
+.rowCustom {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
 }
