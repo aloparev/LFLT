@@ -106,10 +106,6 @@ h4 {
     margin: calc(var(--margin10) * 4) var(--margin10) var(--margin10)
 }
 
-.pJustify {
-    text-align: justify;
-}
-
 table {
     font-family: arial, sans-serif;
     border-collapse: collapse;

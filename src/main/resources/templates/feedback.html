@@ -68,13 +68,13 @@
 
                     <div class="form-group rowCustom">
                         <div class="col-sm-4">
-                            <label for="os" class="col-form-label">Operating system</label>
-                            <span class="validationError text-danger" th:if="${#fields.hasErrors('os')}"
-                                  th:errors="*{os}">Input Error</span>
+                            <label for="browser" class="col-form-label">Browser</label>
+                            <span class="validationError text-danger" th:if="${#fields.hasErrors('browser')}"
+                                  th:errors="*{browser}">Input Error</span>
                         </div>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" placeholder="Operating system"
-                                   th:field="*{os}"/>
+                            <input type="text" class="form-control" placeholder="Browser"
+                                   th:field="*{browser}"/>
                         </div>
                     </div>
 
