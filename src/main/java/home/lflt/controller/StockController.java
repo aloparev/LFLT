@@ -1,6 +1,7 @@
 package home.lflt.controller;
 
 import home.lflt.model.Stock;
+import home.lflt.repo.StockRepo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,17 +15,19 @@ import java.util.List;
 
 @Slf4j
 @Controller
-@RequestMapping("/each")
-public class StockController implements WebMvcConfigurer {
+@RequestMapping("/stocks")
+public class StockController {
+    private StockRepo stockRepo;
+
+    public StockController(StockRepo stockRepo){
+        this.stockRepo=stockRepo;
+    }
 
     @GetMapping
     public String listStudent(Model model) {
-        List<Stock> stocks = Arrays.asList(
-                new Stock("YNDX", "Yandex", "S&P 500"),
-                new Stock("TTWO", "Grand Theft Auto", "S&P 500")
-        );
+        Iterable<Stock> stocks = stockRepo.findAll();
 
-        model.addAttribute("stocksKey", stocks);
-        return "each";
+        model.addAttribute("stocks", stocks);
+        return "stocks";
     }
 }

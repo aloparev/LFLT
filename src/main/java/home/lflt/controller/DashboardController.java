@@ -20,13 +20,13 @@ import java.util.List;
 public class DashboardController implements WebMvcConfigurer {
 
     @GetMapping
-    public String showStocks(Model model) {
-        List<Stock> stocks = Arrays.asList(
-                new Stock("YNDX", "Yandex", "S&P 500"),
-                new Stock("TTWO", "Grand Theft Auto", "S&P 500")
-        );
-
-        model.addAttribute("stocksKey", stocks);
+    public String showDummyTable(Model model) {
+//        List<Stock> stocks = Arrays.asList(
+//                new Stock("YNDX", "Yandex", "S&P 500"),
+//                new Stock("TTWO", "Grand Theft Auto", "S&P 500")
+//        );
+//
+//        model.addAttribute("stocksKey", stocks);
         return "dashboard";
     }
 }

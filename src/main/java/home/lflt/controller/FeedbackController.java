@@ -26,7 +26,6 @@ import java.util.stream.Stream;
 @Controller
 @RequestMapping("/feedback")
 public class FeedbackController {
-
     private FeedbackRepo feedbackRepo;
 
     public FeedbackController(FeedbackRepo feedbackRepo) {
