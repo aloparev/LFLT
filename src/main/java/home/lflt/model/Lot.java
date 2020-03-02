@@ -1,21 +1,22 @@
 package home.lflt.model;
 
 import lombok.Data;
-import lombok.RequiredArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
 import java.util.Date;
-
-import static home.lflt.utils.Constants.INPUT_REQUIRED;
 
 @Data
 @Entity
 @Table(name = "lots")
 public class Lot {
+    public Lot(String symbol, int units, double price, Date tstamp) {
+        this.symbol = symbol;
+        this.units = units;
+        this.ip = price;
+        this.ipt = units * price;
+        this.tstamp = tstamp;
+    }
 
     @Id
     private String symbol;
@@ -24,29 +25,25 @@ public class Lot {
     private double ip;
     private double ipt;
 
+    @CreationTimestamp
+    private Date tstamp;
+
     @Transient
     private double cp;
-
     @Transient
     private double cpt;
-
     @Transient
     private double change;
-
     @Transient
     private double yc;
-
     @Transient
     private double pld;
-
     @Transient
     private double plt;
-
-    @CreationTimestamp
-    private Date timestamp;
 
     @Transient
     @OneToOne
     @MapsId
     private Stock stock;
+
 }
