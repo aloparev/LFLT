@@ -19,8 +19,10 @@ CREATE TABLE stocks (
     tstamp timestamptz default now()
 );
 
+DROP TABLE lots;
 CREATE TABLE lots (
-    symbol varchar(9) PRIMARY KEY REFERENCES stocks(symbol),
+    id SERIAL PRIMARY KEY,
+    symbol varchar(9) REFERENCES stocks(symbol),
     units INTEGER,
     ip REAL,
     ipt REAL,

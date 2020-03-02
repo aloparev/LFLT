@@ -40,7 +40,7 @@ public class LotController {
         log.info("get quote: " + quote.toString());
 
         int units = 10;
-        Lot lot = new Lot(stock.getSymbol(), units, quote.getPrice(), quote.getDateFromTstamp());
+        Lot lot = new Lot(stock.getSymbol(), units, quote.getPrice());
         log.info("lot created: " + lot.toString());
 
         lotRepo.save(lot);

@@ -10,17 +10,18 @@ import java.util.Date;
 @Entity
 @Table(name = "lots")
 public class Lot {
-    public Lot(String symbol, int units, double price, Date tstamp) {
+    public Lot(String symbol, int units, double price) {
         this.symbol = symbol;
         this.units = units;
         this.ip = price;
         this.ipt = units * price;
-        this.tstamp = tstamp;
     }
 
     @Id
-    private String symbol;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
 
+    private String symbol;
     private int units;
     private double ip;
     private double ipt;
@@ -40,10 +41,4 @@ public class Lot {
     private double pld;
     @Transient
     private double plt;
-
-    @Transient
-    @OneToOne
-    @MapsId
-    private Stock stock;
-
 }
