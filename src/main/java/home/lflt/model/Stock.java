@@ -25,7 +25,7 @@ public class Stock {
     private  String industry;
     private  Date tstamp;
 
-    @Transient
-    @OneToOne(mappedBy = "stock")
-    private Lot lot;
+//    @Transient
+//    @OneToOne(mappedBy = "stock")
+//    private Lot lot;
 }
