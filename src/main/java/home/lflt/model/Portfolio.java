@@ -5,6 +5,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Set;
 
@@ -18,15 +19,17 @@ public class Portfolio {
     private long id;
 
     private String name;
-    private int funds;
-    private int epoch;
+    private String info;
     private String type;
 
+    private int funds;
+    private int epoch;
+
     @CreationTimestamp
-    private Date tstamp;
+    private LocalDateTime tstamp;
 
     @UpdateTimestamp
-    private Date ustamp;
+    private LocalDateTime ustamp;
 
     @OneToMany(targetEntity = Lot.class, cascade = CascadeType.ALL)
 //    @OneToMany(mappedBy = "portfolio", cascade = CascadeType.ALL)

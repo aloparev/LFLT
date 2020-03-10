@@ -39,12 +39,13 @@ DROP TABLE portfolios;
 CREATE TABLE portfolios (
     id SERIAL PRIMARY KEY,
     name VARCHAR(99),
-    info VARCHAR(240),
+    info VARCHAR(999),
     type VARCHAR(99),
     funds INTEGER,
     epoch INTEGER,
     tstamp TIMESTAMPTZ,
-    ustamp TIMESTAMPTZ
+    ustamp TIMESTAMPTZ,
+    lotid INTEGER references lots(id)
 );
 
 CREATE TABLE quotes (

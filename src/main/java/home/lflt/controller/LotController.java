@@ -36,7 +36,7 @@ public class LotController {
         this.quoteRepo = quoteRepo;
     }
 
-    @GetMapping
+    @GetMapping("/test")
     public String test(Model model) {
         Stock stock = stockRepo.getBySymbol("GOOG");
         log.info("get stock: " + stock);
@@ -52,19 +52,19 @@ public class LotController {
         return "stock";
     }
 
-//    @GetMapping
-//    public String saveAllQuotes(Model model) {
-//        Iterable<Stock> stocks = stockRepo.findAll();
-//        log.info("stocks retrieved: " + stockRepo.count());
-//
-//        for(Stock ss : stocks) {
-//            fmpQuote qq = getQuote(ss.getSymbol());
-//            log.info("quote retrieved: " + qq.toString());
-//            quoteRepo.save(qq);
-//        }
-//
-//        return "stock";
-//    }
+    @GetMapping("/update-quotes")
+    public String saveAllQuotes(Model model) {
+        Iterable<Stock> stocks = stockRepo.findAll();
+        log.info("stocks retrieved: " + stockRepo.count());
+
+        for(Stock ss : stocks) {
+            fmpQuote qq = getQuote(ss.getSymbol());
+            log.info("quote retrieved: " + qq.toString());
+            quoteRepo.save(qq);
+        }
+
+        return "stock";
+    }
 
 
 
