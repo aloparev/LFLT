@@ -1,8 +1,11 @@
 package home.lflt.controller;
 
+import home.lflt.model.Lot;
+import home.lflt.model.Portfolio;
 import home.lflt.model.Stock;
 import home.lflt.model.fmpQuote;
 import home.lflt.repo.LotRepo;
+import home.lflt.repo.PortfolioRepo;
 import home.lflt.repo.QuoteRepo;
 import home.lflt.repo.StockRepo;
 import lombok.extern.slf4j.Slf4j;
@@ -11,50 +14,39 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.List;
+
 import static home.lflt.utils.Utils.getQuote;
 
 @Slf4j
 @Controller
-@RequestMapping("/lot")
+@RequestMapping("/pf")
 public class PortfolioController {
     private LotRepo lotRepo;
     private StockRepo stockRepo;
     private QuoteRepo quoteRepo;
+    private PortfolioRepo portfolioRepo;
 
-    public PortfolioController(LotRepo lotRepo, StockRepo stockRepo, QuoteRepo quoteRepo) {
+    public PortfolioController(LotRepo lotRepo, StockRepo stockRepo, QuoteRepo quoteRepo, PortfolioRepo pr) {
         this.lotRepo = lotRepo;
         this.stockRepo = stockRepo;
         this.quoteRepo = quoteRepo;
+        this.portfolioRepo = pr;
     }
-//
-//    @GetMapping
-//    public String test(Model model) {
-//        Stock stock = stockRepo.getBySymbol("GOOG");
-//        log.info("get stock: " + stock);
-//
-//        fmpQuote quote = getQuote(stock.getSymbol());
-//        log.info("get quote: " + quote.toString());
-//
-//        int units = 10;
-//        Lot lot = new Lot(stock.getSymbol(), units, quote.getPrice());
-//        log.info("lot created: " + lot.toString());
-//
-//        lotRepo.save(lot);
-//        return "stock";
-//    }
 
     @GetMapping
-    public String test2(Model model) {
-        Iterable<Stock> stocks = stockRepo.findAll();
-        log.info("stocks retrieved: " + stockRepo.count());
+    public String show(Model model) {
+        Portfolio pf = portfolioRepo.findAll().iterator().next();
+        log.info(pf.toString());
 
-        for(Stock ss : stocks) {
-            fmpQuote qq = getQuote(ss.getSymbol());
-            log.info("quote retrieved: " + qq.toString());
-            quoteRepo.save(qq);
+        List<Lot> lots = pf.getLots();
+        log.info("lots retrieved: " + lots.size());
+
+        for(Lot lot : lots) {
+            log.info("lot retrieved: " + lot.toString());
         }
 
-        return "stock";
+        return "home";
     }
 
 

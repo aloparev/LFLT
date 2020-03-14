@@ -1,6 +1,8 @@
 package home.lflt.model;
 
+import lombok.AccessLevel;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
@@ -10,6 +12,8 @@ import java.util.Date;
 @Entity
 @Table(name = "lots")
 public class Lot {
+    public Lot(){}
+
     public Lot(String symbol, int units, double price) {
         this.symbol = symbol;
         this.units = units;
@@ -29,9 +33,12 @@ public class Lot {
     @CreationTimestamp
     private Date tstamp;
 
+//    private int portfolio_id;
+
     @ManyToOne
-    @JoinColumn(name="portfolio_id", nullable = false)
+    @JoinColumn
     private Portfolio portfolio;
+
 
     @Transient
     private double cp;
