@@ -18,9 +18,11 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.lang.reflect.Type;
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Collection;
 
-import static home.lflt.utils.Utils.getQuote;
+import static home.lflt.utils.Utils.*;
 
 @Slf4j
 @Controller
@@ -54,6 +56,7 @@ public class LotController {
 
     @GetMapping("/update-quotes")
     public String saveAllQuotes(Model model) {
+        log.info("/update-quotes");
         Iterable<Stock> stocks = stockRepo.findAll();
         log.info("stocks retrieved: " + stockRepo.count());
 
@@ -61,6 +64,20 @@ public class LotController {
             fmpQuote qq = getQuote(ss.getSymbol());
             log.info("quote retrieved: " + qq.toString());
             quoteRepo.save(qq);
+        }
+
+        return "stock";
+    }
+
+    @GetMapping("/past-quotes")
+    public String pastQuotes(Model model) {
+        LocalDate dateTo = LocalDate.now();
+//        LocalDate dateFrom = dateTo.minusDays(1);
+        Stock stock = stockRepo.getBySymbol("BKNG");
+        log.info("stock retrieved: " + stock);
+
+        for(int i = 0; i < 10; i++) {
+            historicalPrice(stock.getSymbol(), dateTo.minusYears(i).toString(), dateTo.minusYears(i).toString());
         }
 
         return "stock";

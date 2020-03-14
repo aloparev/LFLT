@@ -10,6 +10,20 @@ import java.net.URL;
 
 @Slf4j
 public class Utils {
+    public static void historicalPrice(String symbol, String from, String to) {
+        String baseUrl = "https://financialmodelingprep.com/api/v3/historical-price-full/";
+        String baseUrl1 = "?from=";
+        String baseUrl2 = "&to=";
+        String link = baseUrl.concat(symbol).concat(baseUrl1).concat(from).concat(baseUrl2).concat(to);
+
+        try {
+            log.info(readUrl(link));
+        } catch (Exception ee) {
+            ee.printStackTrace();
+            log.info("couldnt read from url");
+        }
+    }
+
     public static fmpQuote getQuote(String symbol) {
         String baseUrl = "https://financialmodelingprep.com/api/v3/quote/";
         String link = baseUrl.concat(symbol);

@@ -27,26 +27,28 @@ CREATE TABLE stocks (
 
 DROP TABLE lots;
 CREATE TABLE lots (
-    id SERIAL PRIMARY KEY,
+    id INTEGER PRIMARY KEY,
     symbol varchar(9) REFERENCES stocks(symbol),
+    portfolio_id integer references portfolios(id),
     units INTEGER,
     ip REAL,
     ipt REAL,
     tstamp TIMESTAMPTZ
 );
 
-DROP TABLE portfolios;
+DROP TABLE portfolioss;
 CREATE TABLE portfolios (
-    id SERIAL PRIMARY KEY,
+    id INTEGER PRIMARY KEY,
     name VARCHAR(99),
     info VARCHAR(999),
     type VARCHAR(99),
     funds INTEGER,
     epoch INTEGER,
-    tstamp TIMESTAMPTZ,
-    ustamp TIMESTAMPTZ,
-    lotid INTEGER references lots(id)
+    tstamp TIMESTAMPTZ default now(),
+    ustamp TIMESTAMPTZ default now()
 );
+insert into portfolios (id, name, info, type, funds, epoch, ustamp)
+values (0, 'Random Portfolio', 'random stock buy', 'RANDOM', 500, 3, '2020-03-10 04:31:57.537833+00');
 
 CREATE TABLE quotes (
     id INTEGER PRIMARY KEY,

@@ -6,7 +6,8 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.Date;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 @Data
@@ -31,9 +32,8 @@ public class Portfolio {
     @UpdateTimestamp
     private LocalDateTime ustamp;
 
-    @OneToMany(targetEntity = Lot.class, cascade = CascadeType.ALL)
-//    @OneToMany(mappedBy = "portfolio", cascade = CascadeType.ALL)
-    private Set<Lot> lots;
+    @OneToMany(mappedBy = "portfolio", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+    private List<Lot> lots = new ArrayList<>();
 
     @Transient
     private double cpts;
