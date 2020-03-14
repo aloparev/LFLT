@@ -33,13 +33,6 @@ public class Lot {
     @CreationTimestamp
     private Date tstamp;
 
-//    private int portfolio_id;
-
-    @ManyToOne
-    @JoinColumn
-    private Portfolio portfolio;
-
-
     @Transient
     private double cp;
     @Transient

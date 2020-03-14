@@ -50,6 +50,12 @@ CREATE TABLE portfolios (
 insert into portfolios (id, name, info, type, funds, epoch, ustamp)
 values (0, 'Random Portfolio', 'random stock buy', 'RANDOM', 500, 3, '2020-03-10 04:31:57.537833+00');
 
+drop table portfolios_lots;
+create table portfolios_lots (
+    portfolio_id integer references portfolios(id),
+    lots_id integer references lots(id)
+);
+
 CREATE TABLE quotes (
     id INTEGER PRIMARY KEY,
     symbol varchar(9),

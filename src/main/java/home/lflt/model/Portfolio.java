@@ -32,9 +32,7 @@ public class Portfolio {
     @UpdateTimestamp
     private LocalDateTime ustamp;
 
-    @OneToMany(mappedBy = "portfolio", cascade = CascadeType.ALL)
-//    @JoinColumn(name="portfolio_id", referencedColumnName="id", nullable = false)
-//    private List<Lot> lots;
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Lot> lots = new ArrayList<>();
 
     @Transient
