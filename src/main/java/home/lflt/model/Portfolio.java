@@ -24,16 +24,22 @@ public class Portfolio {
     private String type;
 
     private int funds;
-    private int epoch;
+    private int epochs;
 
-    @CreationTimestamp
+//    @CreationTimestamp
     private LocalDateTime tstamp;
 
-    @UpdateTimestamp
+//    @UpdateTimestamp
     private LocalDateTime ustamp;
 
+    @PrePersist
+    @PreUpdate
+    protected void onUpdate() {
+        ustamp = LocalDateTime.now();
+    }
+
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Lot> lots = new ArrayList<>();
+    private List<Lot> lots;
 
     @Transient
     private double cpts;

@@ -1,10 +1,8 @@
 package home.lflt.utils;
 
-import home.lflt.controller.LotController;
 import home.lflt.model.Lot;
 import home.lflt.model.Stock;
 import home.lflt.model.fmpQuote;
-import home.lflt.repo.LotRepo;
 import home.lflt.repo.StockRepo;
 
 import java.util.Random;
@@ -31,7 +29,7 @@ public class BuyingAlgorithm {
         String symbol = "UNDEFINED";
 
         while(!picked) {
-            int randomIndex = getRandomIntBordersInclusive(0, stockCounter - 1);
+            int randomIndex = getRandomMarginsIncl(0, stockCounter - 1);
             stock = stockRepo.getByIndex(randomIndex);
             quote = getQuote(stock.getSymbol());
 
@@ -43,14 +41,16 @@ public class BuyingAlgorithm {
         return new Lot(symbol, units, quote.getPrice());
     }
 
-    public int getRandomIntBordersInclusive(int min, int max) {
+    public int getRandomMarginsIncl(int min, int max) {
         boolean loop = true;
         Random rand = new Random();
         int num = 0;
+
         while(loop) {
             num = rand.nextInt(max + 1); //including border values
             if(min <= num && num <= max) loop = false;
         }
+
         return num;
     }
 

@@ -17,6 +17,7 @@ import static home.lflt.utils.Constants.INPUT_REQUIRED;
 
 @Data
 @Entity
+@Table(name = "feedbacks")
 public class Feedback {
 
     @Id
@@ -54,5 +55,5 @@ public class Feedback {
 //    @NotNull
 //    @Column(columnDefinition="TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP")
     @CreationTimestamp
-    private Date timestamp;
+    private Date tstamp;
 }

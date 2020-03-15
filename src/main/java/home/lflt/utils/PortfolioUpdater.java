@@ -17,6 +17,8 @@ import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.Date;
 
+import static home.lflt.utils.Utils.checkPortfolio;
+
 @Slf4j
 @Service
 public class PortfolioUpdater {
@@ -32,27 +34,19 @@ public class PortfolioUpdater {
 
     private QuoteRepo quoteRepo;
 
-//    public PortfolioUpdater(PortfolioRepo portfolioRepo, LotRepo lotRepo, QuoteRepo quoteRepo, StockRepo stockRepo) {
-//        this.portfolioRepo = portfolioRepo;
-//        this.lotRepo = lotRepo;
-//        this.quoteRepo = quoteRepo;
-//        this.stockRepo = stockRepo;
-//    }
-
-//    second, minute, hour,
-//      day of month, month, day(s) of week
+//    second, minute, hour, day of month, month, day(s) of week
     @Transactional
-    @Scheduled(cron = "1 * * * * ?")
+    @Scheduled(cron = "1 2 3 * * ?")
     public void update() {
         log.info("start updater");
         Iterable<Portfolio> portfolios = portfolioRepo.getByTypeNot("USER");
-        LocalDateTime dateNow = LocalDateTime.now();
+//        LocalDateTime dateNow = LocalDateTime.now();
 
         for(Portfolio pp : portfolios) {
+            boolean update = checkPortfolio(pp.getTstamp().toLocalDate(), pp.getEpochs());
             log.info("pp found: " + pp);
-            if(pp.getUstamp().plusHours(pp.getEpoch()).isAfter(dateNow))
-            log.info("if(pp.getUstamp().plusHours(pp.getEpoch()).isAfter(dateNow))");
-//            if(pp.getUstamp().plusDays(pp.getEpoch()).isAfter(dateNow))
+//            if(pp.getUstamp().plusHours(pp.getEpoch()).isAfter(dateNow))
+//            if(update)
                 switch (pp.getType()) {
                     case "DROP":
                         log.info("drop case");

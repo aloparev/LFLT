@@ -7,9 +7,31 @@ import lombok.extern.slf4j.Slf4j;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Slf4j
 public class Utils {
+    public static boolean checkPortfolio(LocalDate dateToCheck, int epochDays) {
+        LocalDateTime now = LocalDateTime.now();
+        boolean ans = false;
+        log.info("public static boolean checkPortfolio(LocalDate dateToCheck, int epochDays)");
+        log.info("epochs=" + epochDays);
+        log.info("dateToCheck.plusMonths(1).getMonthValue()=" + dateToCheck.plusMonths(1).getMonthValue());
+
+//        monthly
+        if(epochDays == 28 && dateToCheck.plusMonths(1).getMonthValue() <= now.getMonthValue()) {
+            log.info("if(epochDays == 28 && dateToCheck.plusMonths(1).getMonthValue() <= now.getMonthValue()) {");
+            ans = true;
+        }
+
+        if(dateToCheck.plusDays(epochDays).getDayOfMonth() <= now.getDayOfMonth())
+            ans = true;
+
+        log.info("ans=" + ans);
+        return ans;
+    }
+
     public static void historicalPrice(String symbol, String from, String to) {
         String baseUrl = "https://financialmodelingprep.com/api/v3/historical-price-full/";
         String baseUrl1 = "?from=";
