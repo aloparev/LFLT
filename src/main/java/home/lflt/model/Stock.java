@@ -17,6 +17,7 @@ public class Stock {
     private int index;
 
     @Id
+    @Column(length = 9)
     private  String symbol;
     private  String name;
     private  String market;

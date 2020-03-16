@@ -25,29 +25,34 @@ public class BuyingAlgorithm {
     public Lot buyStockRandomly() {
         Stock stock = null;
         fmpQuote quote = null;
-        int units = -1;
+
         String symbol = "UNDEFINED";
+        int units = -1;
+        int price = -1;
 
-        while(!picked) {
-            int randomIndex = getRandomMarginsIncl(0, stockCounter - 1);
-            stock = stockRepo.getByIndex(randomIndex);
-            quote = getQuote(stock.getSymbol());
+        if(stockRepo.count() != 0) {
+            while (!picked) {
+                int randomIndex = getRandomMargins(0, stockCounter);
+                stock = stockRepo.getByIndex(randomIndex);
+                quote = getQuote(stock.getSymbol());
+                if (quote.getPrice() <= funds) picked = true;
+            }
 
-            if(quote.getPrice() <= funds) picked = true;
+            symbol = stock.getSymbol();
+            units = funds / (int) quote.getPrice();
+            return new Lot(symbol, units, quote.getPrice());
         }
 
-        symbol = stock.getSymbol();
-        units = funds / (int) quote.getPrice();
-        return new Lot(symbol, units, quote.getPrice());
+        return new Lot(symbol, units, price);
     }
 
-    public int getRandomMarginsIncl(int min, int max) {
+    public int getRandomMargins(int min, int max) {
         boolean loop = true;
         Random rand = new Random();
         int num = 0;
 
         while(loop) {
-            num = rand.nextInt(max + 1); //including border values
+            num = rand.nextInt(max); // border not included
             if(min <= num && num <= max) loop = false;
         }
 

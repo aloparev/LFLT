@@ -1,4 +1,4 @@
-DROP TABLE feedback;
+DROP TABLE feedbacks;
 CREATE TABLE feedbacks (
     id integer PRIMARY KEY,
     type varchar(99),
@@ -15,11 +15,12 @@ CREATE TABLE stocks (
     symbol varchar(9) PRIMARY KEY,
     name varchar(99),
     market varchar(9),
-    country varchar(9),
+    land varchar(9),
     sector varchar(99),
     industry varchar(99),
     tstamp TIMESTAMPTZ default now()
 );
+
 
 DROP TABLE lots;
 CREATE TABLE lots (

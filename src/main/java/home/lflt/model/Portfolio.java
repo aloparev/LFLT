@@ -1,6 +1,9 @@
 package home.lflt.model;
 
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -11,7 +14,10 @@ import java.util.List;
 import java.util.Set;
 
 @Data
+@Slf4j
 @Entity
+//@Builder
+//@NoArgsConstructor
 @Table(name = "portfolios")
 public class Portfolio {
 
@@ -29,14 +35,13 @@ public class Portfolio {
 //    @CreationTimestamp
     private LocalDateTime tstamp;
 
-//    @UpdateTimestamp
     private LocalDateTime ustamp;
 
-    @PrePersist
-    @PreUpdate
-    protected void onUpdate() {
-        ustamp = LocalDateTime.now();
-    }
+//    @PreUpdate
+//    private void onUpdate() {
+//        log.info("private void onUpdate()");
+//        this.ustamp = LocalDateTime.now();
+//    }
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Lot> lots;
