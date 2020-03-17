@@ -1,17 +1,13 @@
-DROP TABLE feedbacks;
-CREATE TABLE feedbacks (
-    id integer PRIMARY KEY,
-    type varchar(99),
-    device varchar(99),
-    browser varchar(99),
-    msg varchar(999),
-    name varchar(99),
-    email varchar(99),
-    tstamp TIMESTAMPTZ
-);
+DROP TABLE IF EXISTS stocks CASCADE;
+DROP TABLE IF EXISTS portfolios CASCADE ;
+DROP TABLE IF EXISTS lots cascade ;
+drop table IF EXISTS portfolios_lots;
+DROP TABLE IF EXISTS stocks;
+DROP TABLE IF EXISTS feedbacks;
+DROP TABLE IF EXISTS quotes;
 
-DROP TABLE stocks;
 CREATE TABLE stocks (
+    index integer,
     symbol varchar(9) PRIMARY KEY,
     name varchar(99),
     market varchar(9),
@@ -21,8 +17,17 @@ CREATE TABLE stocks (
     tstamp TIMESTAMPTZ default now()
 );
 
+CREATE TABLE portfolios (
+    id INTEGER PRIMARY KEY,
+    name VARCHAR(99),
+    info VARCHAR(999),
+    type VARCHAR(99),
+    funds REAL,
+    epochs INTEGER,
+    ustamp TIMESTAMPTZ default now(),
+    tstamp TIMESTAMPTZ
+);
 
-DROP TABLE lots;
 CREATE TABLE lots (
     id INTEGER PRIMARY KEY,
     symbol varchar(9) REFERENCES stocks(symbol),
@@ -33,24 +38,20 @@ CREATE TABLE lots (
     tstamp TIMESTAMPTZ
 );
 
-DROP TABLE portfolios;
-CREATE TABLE portfolios (
-    id INTEGER PRIMARY KEY,
-    name VARCHAR(99),
-    info VARCHAR(999),
-    type VARCHAR(99),
-    funds INTEGER,
-    epochs INTEGER,
-    ustamp TIMESTAMPTZ default now(),
-    tstamp TIMESTAMPTZ
-);
-insert into portfolios (id, name, info, type, funds, epochs, ustamp, tstamp)
-values (0, 'Random Portfolio', 'New purchase for 1k$ every day', 'RANDOM', 1000, 1, '2020-03-15 10:38:57.537833+00', '2020-03-15 19:55:00+00');
-
-drop table portfolios_lots;
 create table portfolios_lots (
     portfolio_id integer references portfolios(id),
     lots_id integer references lots(id)
+);
+
+CREATE TABLE feedbacks (
+    id integer PRIMARY KEY,
+    type varchar(99),
+    device varchar(99),
+    browser varchar(99),
+    msg varchar(999),
+    name varchar(99),
+    email varchar(99),
+    tstamp TIMESTAMPTZ
 );
 
 CREATE TABLE quotes (

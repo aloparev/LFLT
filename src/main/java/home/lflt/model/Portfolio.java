@@ -29,7 +29,7 @@ public class Portfolio {
     private String info;
     private String type;
 
-    private int funds;
+    private double funds;
     private int epochs;
 
 //    @CreationTimestamp

@@ -14,11 +14,12 @@ import java.util.Date;
 //@NoArgsConstructor
 @Table(name = "stocks")
 public class Stock {
-    private int index;
 
     @Id
     @Column(length = 9)
     private  String symbol;
+
+    private int index;
     private  String name;
     private  String market;
     private  String land;

@@ -1,6 +1,8 @@
 package home.lflt.controller;
 
+import home.lflt.model.Portfolio;
 import home.lflt.model.Stock;
+import home.lflt.repo.PortfolioRepo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Controller;
@@ -17,11 +19,19 @@ import java.util.List;
 @Controller
 //@Configuration
 @RequestMapping("/dashboard")
-public class DashboardController implements WebMvcConfigurer {
+public class DashboardController {
+    private PortfolioRepo portfolioRepo;
+
+    public DashboardController(PortfolioRepo portfolioRepo) {
+        this.portfolioRepo = portfolioRepo;
+    }
 
     @GetMapping
-    public String showDummyTable(Model model) {
-//        List<Stock> stocks = Arrays.asList(
+    public String showDashboard(Model model) {
+        log.info("showDashboard");
+        Portfolio pf = portfolioRepo.getById(0);
+        log.info(pf.toString());
+        //        List<Stock> stocks = Arrays.asList(
 //                new Stock("YNDX", "Yandex", "S&P 500"),
 //                new Stock("TTWO", "Grand Theft Auto", "S&P 500")
 //        );

@@ -25,6 +25,7 @@ public class Lot {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
+    @Column(length = 9)
     private String symbol;
     private int units;
     private double ip;

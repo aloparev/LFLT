@@ -11,12 +11,12 @@ import static home.lflt.utils.Utils.getQuote;
 
 public class BuyingAlgorithm {
     private StockRepo stockRepo;
-    private int funds = -1;
+    private double funds = -1;
     private int stockCounter = -1;
     Lot lot;
     boolean picked = false;
 
-    public BuyingAlgorithm(StockRepo stockRepo, int funds){
+    public BuyingAlgorithm(StockRepo stockRepo, double funds){
         this.stockRepo = stockRepo;
         this.funds = funds;
         this.stockCounter = (int) stockRepo.count();
@@ -39,7 +39,7 @@ public class BuyingAlgorithm {
             }
 
             symbol = stock.getSymbol();
-            units = funds / (int) quote.getPrice();
+            units = (int) (funds / quote.getPrice());
             return new Lot(symbol, units, quote.getPrice());
         }
 
