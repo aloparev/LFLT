@@ -55,8 +55,6 @@ public class DashboardController {
         }
         log.info("pf after transient update=" + pf.toString());
 
-        log.info(new DecimalFormat("#.##").format(pf.getCptSum()));
-
         model.addAttribute("pf", pf);
         return "dashboard";
     }

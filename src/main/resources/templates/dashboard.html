@@ -18,7 +18,7 @@
         <h1 class="text-center">
             <span th:text="${pf.getName()}"></span>
         </h1>
-        <p id="underTitle">
+        <p class="text-center font-italic mb-4">
             <span th:text="${pf.getInfo()}"></span>
         </p>
 
@@ -30,68 +30,71 @@
 
                     <div class="row font-weight-bold">
                         <div class="col">
-                            <p>current value</p>
-                            <span th:text="${#numbers.formatDecimal(pf.getCptSum(), 1, 2)}"></span>
+                            <p>Worth</p>
+                            <p><span th:text="${#numbers.formatDecimal(pf.getCptSum(), 1, 2)}"/> &dollar;</p>
 <!--                            <p th:text="${#numbers.formatDecimal(pf.getCptSum(), 1, 2)}"></p>-->
                         </div>
                         <div class="col">
-                            <p>change</p>
-                            <span th:text="${#numbers.formatDecimal(pf.getChangeSum(), 1, 2)}" th:classappend="${pf.getChangeSum() > 0 ? 'text-success' : 'text-danger'}"> %</span>
+                            <p>Change</p>
+                            <p th:classappend="${pf.getChangeSum() > 0 ? 'text-success' : 'text-danger'}"><span th:text="${#numbers.formatDecimal(pf.getChangeSum(), 1, 2)}"/> &percnt;</p>
                         </div>
+<!--                        <div class="col">-->
+<!--                            <p class="font-weight-bold">daily P&L</p>-->
+<!--                            <span th:text="${#numbers.formatDecimal(pf.getPlDailySum(), 1, 2)}" th:classappend="${pf.getPlDailySum() > 0 ? 'text-success' : 'text-danger'}"> $</span>-->
+<!--                        </div>-->
                         <div class="col">
-                            <p class="font-weight-bold">daily P&L</p>
-                            <span th:text="${#numbers.formatDecimal(pf.getPlDailySum(), 1, 2)}" th:classappend="${pf.getPlDailySum() > 0 ? 'text-success' : 'text-danger'}"> $</span>
-                        </div>
-                        <div class="col">
-                            <p class="font-weight-bold">total P&L</p>
-                            <span th:text="${#numbers.formatDecimal(pf.getPlTotalSum(), 1, 2)}" th:classappend="${pf.getPlTotalSum() > 0 ? 'text-success' : 'text-danger'}"> $</span>
+                            <p class="font-weight-bold">P&L</p>
+                            <p th:classappend="${pf.getPlTotalSum() > 0 ? 'text-success' : 'text-danger'}"><span th:text="${#numbers.formatDecimal(pf.getPlTotalSum(), 1, 2)}"/> &dollar;</p>
                         </div>
                     </div>
                 </div>
 
                 <div class="row">
-                    <table class="table table-hover">
-                        <thead>
+                    <div class="table-responsive m-2">
+                    <table class="table table-hover table-striped">
+                        <thead style="background-color: #bbb">
                         <tr>
-                            <th>Stock</th>
-                            <th>Units</th>
-                            <th>Initial price</th>
-                            <th>Price base</th>
+                            <th>stock</th>
+                            <th>U</th>
+                            <th>IP</th>
+<!--                            <th>Price base</th>-->
 
-                            <th>Change</th>
-                            <th>Current price</th>
-                            <th>Total price</th>
-                            <th>Daily P&L</th>
-                            <th>Total P&L</th>
+<!--                            <th>change</th>-->
+                            <th>CP</th>
+<!--                            <th>Total price</th>-->
+<!--                            <th>Daily P&L</th>-->
+                            <th>P&L</th>
                         </tr>
                         </thead>
 
                         <tbody>
                         <tr th:each="ii : ${pf.getLots()}">
-                            <td>
+                            <td class="px-4">
                                 <div class="row">
                                     <span th:text="${ii.getSymbol()}"></span>
                                 </div>
                                 <div class="row">
-                                    <span class="small">Alexandria Real Estate Equities</span>
-                                    <!--                                    <span class="small" th:text="${ii.getName()()}"></span>-->
+<!--                                    <span class="small">Alexandria Real Estate Equities</span>-->
+                                    <span class="small" th:text="${ii.getName()}"/>
 
                                 </div>
                             </td>
                             <td th:text="${ii.getUnits()}"/>
-                            <td th:text="${ii.getIp()}"/>
-                            <td th:text="${ii.getIpt()}"/>
+                            <td th:text="${#numbers.formatDecimal(ii.getIp(), 1, 2)}"/>
+<!--                            <td th:text="${ii.getIpt()}"/>-->
 
-                            <td th:text="${ii.getChange()}"/>
-                            <td th:text="${ii.getCp()}"/>
-                            <td th:text="${ii.getCpt()}"/>
-                            <td th:text="${ii.getPld()}"/>
-                            <td th:text="${ii.getPlt()}"/>
+<!--                            <td th:text="${#numbers.formatDecimal(ii.getChange(), 1, 2)}"/>-->
+                            <td th:text="${#numbers.formatDecimal(ii.getCp(), 1, 2)}"/>
+<!--                            <td th:text="${ii.getCpt()}"/>-->
+<!--                            <td th:text="${ii.getPld()}"/>-->
+                            <td th:text="${#numbers.formatDecimal(ii.getPlt(), 1, 2)}"/>
                         </tr>
                         </tbody>
                     </table>
                 </div>
+                </div>
             </div>
+
             <div class="col"></div>
         </div>
     </main>

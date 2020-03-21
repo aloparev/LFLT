@@ -31,6 +31,10 @@ body {
     /*overflow-x: hidden; !* Hide horizontal scrollbar *!*/
 }
 
+.bg-white-91 {
+    background-color: var(--navFontHover) !important;
+}
+
 .pageContent {
     position: relative;
     min-height: 100vh;
