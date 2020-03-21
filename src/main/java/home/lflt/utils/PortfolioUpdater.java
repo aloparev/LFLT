@@ -36,7 +36,7 @@ public class PortfolioUpdater {
 
 //    second, minute, hour, day of month, month, day(s) of week
     @Transactional
-//    @Scheduled(cron = "1 2 3 * * ?")
+    @Scheduled(cron = "1 2 19 * * MON-FRI")
     public void update() {
         log.info("start updater");
         Iterable<Portfolio> portfolios = portfolioRepo.getByTypeNot("USER");
