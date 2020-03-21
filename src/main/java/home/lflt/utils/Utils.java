@@ -67,7 +67,7 @@ public class Utils {
         return gson.fromJson(cleanJson, fmpQuote.class);
     }
 
-    public static String readUrl(String urlString) throws Exception {
+    private static String readUrl(String urlString) throws Exception {
         BufferedReader bufferedReader = null;
 
         try {

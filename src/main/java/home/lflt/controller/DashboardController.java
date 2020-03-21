@@ -1,19 +1,18 @@
 package home.lflt.controller;
 
+import home.lflt.model.Lot;
 import home.lflt.model.Portfolio;
-import home.lflt.model.Stock;
+import home.lflt.model.fmpQuote;
 import home.lflt.repo.PortfolioRepo;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import java.util.Arrays;
 import java.util.List;
+
+import static home.lflt.utils.Utils.getQuote;
 
 @Slf4j
 @Controller
@@ -29,14 +28,33 @@ public class DashboardController {
     @GetMapping
     public String showDashboard(Model model) {
         log.info("showDashboard");
+
         Portfolio pf = portfolioRepo.getById(0);
-        log.info(pf.toString());
-        //        List<Stock> stocks = Arrays.asList(
-//                new Stock("YNDX", "Yandex", "S&P 500"),
-//                new Stock("TTWO", "Grand Theft Auto", "S&P 500")
-//        );
-//
-//        model.addAttribute("stocksKey", stocks);
+        pf.setCptSum(0);
+        pf.setChangeSum(0);
+        pf.setPlDailySum(0);
+        pf.setPlTotalSum(0);
+        log.info("got pf=" + pf.toString());
+
+        List<Lot> lots = pf.getLots();
+        for(Lot lot : lots) {
+            fmpQuote quote = getQuote(lot.getSymbol());
+
+            lot.setCp(quote.getPrice());
+            lot.setCpt(lot.getUnits() * lot.getCp());
+            lot.setChange(quote.getChangesPercentage());
+            lot.setYc(quote.getPreviousClose());
+            lot.setPld(lot.getCpt() - (lot.getUnits() * lot.getYc()));
+            lot.setPlt(lot.getCpt() - lot.getIpt());
+
+            pf.setCptSum(pf.getCptSum() + lot.getCpt());
+            pf.setChangeSum(pf.getChangeSum() + lot.getChange());
+            pf.setPlDailySum(pf.getPlDailySum() + lot.getPld());
+            pf.setPlTotalSum(pf.getPlTotalSum() + lot.getPlt());
+        }
+        log.info("pf after transient update=" + pf.toString());
+
+        model.addAttribute("pf", pf);
         return "dashboard";
     }
 }

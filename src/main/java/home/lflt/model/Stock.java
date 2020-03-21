@@ -19,13 +19,15 @@ public class Stock {
     @Column(length = 9)
     private  String symbol;
 
+    @Column(length = 49)
+    private String name;
+
     private int index;
-    private  String name;
-    private  String market;
-    private  String land;
-    private  String sector;
-    private  String industry;
-    private  Date tstamp;
+    private String market;
+    private String land;
+    private String sector;
+    private String industry;
+    private Date tstamp;
 
 //    @Transient
 //    @OneToOne(mappedBy = "stock")

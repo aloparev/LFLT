@@ -9,7 +9,7 @@ DROP TABLE IF EXISTS quotes;
 CREATE TABLE stocks (
     index integer,
     symbol varchar(9) PRIMARY KEY,
-    name varchar(99),
+    name varchar(49),
     market varchar(9),
     land varchar(9),
     sector varchar(99),
@@ -31,6 +31,7 @@ CREATE TABLE portfolios (
 CREATE TABLE lots (
     id INTEGER PRIMARY KEY,
     symbol varchar(9) REFERENCES stocks(symbol),
+    name varchar(49),
     portfolio_id integer references portfolios(id),
     units INTEGER,
     ip REAL,

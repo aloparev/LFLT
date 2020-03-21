@@ -14,8 +14,9 @@ import java.util.Date;
 public class Lot {
     public Lot(){}
 
-    public Lot(String symbol, int units, double price) {
+    public Lot(String symbol, String name, int units, double price) {
         this.symbol = symbol;
+        this.name = name;
         this.units = units;
         this.ip = price;
         this.ipt = units * price;
@@ -27,6 +28,10 @@ public class Lot {
 
     @Column(length = 9)
     private String symbol;
+
+    @Column(length = 49)
+    private String name;
+
     private int units;
     private double ip;
     private double ipt;

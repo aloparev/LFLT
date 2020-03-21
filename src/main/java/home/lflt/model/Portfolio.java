@@ -47,14 +47,14 @@ public class Portfolio {
     private List<Lot> lots;
 
     @Transient
-    private double cpts;
+    private double cptSum;
 
     @Transient
     private double changeSum;
 
     @Transient
-    private double plds;
+    private double plDailySum;
 
     @Transient
-    private double plts;
+    private double plTotalSum;
 }

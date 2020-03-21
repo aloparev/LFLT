@@ -11,78 +11,100 @@
 </head>
 
 <body>
-<div class="pageContent">
+<div class="container-fluid min-vh-100 p-0">
     <div th:insert="fragments :: menu"></div>
 
-    <div class="heroImageWrapper">
-        <div class="heroImageMargin"></div>
-        <div class="heroImage"></div>
-        <div class="heroImageMargin"></div>
-    </div>
+    <main class="container-fluid w-auto m-2 p-2 bg-light">
+        <div class="row">
+            <div class="col"></div>
 
-    <main class="blockWrapper text-center">
-        <div class="block">
-            <h1 id="headerUnderHero">Stock-Picking Experiment</h1>
-            <p id="underTitle" class="marginBottom80">Inspired by Daniel Kahneman's "Thinking, Fast and Slow".</p>
+            <div class="col-12 col-md-10 col-lg-8">
+                <h1 class="text-center">
+                    <span th:text="${pf.getName()}"></span>
+                </h1>
+                <p id="underTitle">
+                    <span th:text="${pf.getInfo()}"></span>
+                </p>
 
-            <table>
-                <tr>
-                    <th>Company</th>
-                    <th>Contact</th>
-                    <th>Country</th>
-                </tr>
+                <div class="row border">
+                    <div class="col">
+                        <span class="border">
+                            <p class="font-weight-bold">Current value</p>
+                            <span th:text="${pf.getCptSum()}"></span>
+                        </span>
+                    </div>
+                    <div class="col">
+                        <span class="border" th:classappend="${pf.getChangeSum() > 0 ? '' : 'border-danger'}">
+                            <p class="font-weight-bold">Changes in %</p>
+                            <span th:text="${pf.getChangeSum()}"></span>
+                        </span>
+                    </div>
+                    <div class="col">
+                        <span class="border" th:classappend="${pf.getPlDailySum() > 0 ? '' : 'border-danger'}">
+                            <p class="font-weight-bold">Daily P&L</p>
+                            <span th:text="${pf.getPlDailySum()}"></span>
+                        </span>
+                    </div>
+                    <div class="col">
+                        <span class="border" th:classappend="${pf.getPlTotalSum() > 0 ? '' : 'border-danger'}">
+                            <p class="font-weight-bold">Total P&L</p>
+                            <span th:text="${pf.getPlTotalSum()}"></span>
+                        </span>
+                    </div>
+                </div>
 
-                <tr th:each="i : ${stocksKey}">
-                    <td th:text="${i.symbol}"/>
-                    <td th:text="${i.name}"/>
-                    <td th:text="${i.market}"/>
-                </tr>
+                <div class="row">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Stock</th>
+                            <th>Units</th>
+                            <th>Initial price</th>
+                            <th>Price base</th>
 
-                <tr>
-                    <td>Alfreds Futterkiste</td>
-                    <td>Maria Anders</td>
-                    <td>Germany</td>
-                </tr>
-                <tr>
-                    <td>Centro comercial Moctezuma</td>
-                    <td>Francisco Chang</td>
-                    <td>Mexico</td>
-                </tr>
-                <tr>
-                    <td>Ernst Handel</td>
-                    <td>Roland Mendel</td>
-                    <td>Austria</td>
-                </tr>
-                <tr>
-                    <td>Island Trading</td>
-                    <td>Helen Bennett</td>
-                    <td>UK</td>
-                </tr>
-                <tr>
-                    <td>Laughing Bacchus Winecellars</td>
-                    <td>Yoshi Tannamuri</td>
-                    <td>Canada</td>
-                </tr>
-                <tr>
-                    <td>Magazzini Alimentari Riuniti</td>
-                    <td>Giovanni Rovelli</td>
-                    <td>Italy</td>
-                </tr>
-            </table>
+                            <th>Change</th>
+                            <th>Current price</th>
+                            <th>Total price</th>
+                            <th>Daily P&L</th>
+                            <th>Total P&L</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr th:each="ii : ${pf.getLots()}">
+                            <td>
+                                <div class="row">
+                                    <span th:text="${ii.getSymbol()}"></span>
+                                </div>
+                                <div class="row">
+                                    <span class="small">Alexandria Real Estate Equities</span>
+<!--                                    <span class="small" th:text="${ii.getName()()}"></span>-->
+
+                                </div>
+                            </td>
+                            <td th:text="${ii.getUnits()}"/>
+                            <td th:text="${ii.getIp()}"/>
+                            <td th:text="${ii.getIpt()}"/>
+
+                            <td th:text="${ii.getChange()}"/>
+                            <td th:text="${ii.getCp()}"/>
+                            <td th:text="${ii.getCpt()}"/>
+                            <td th:text="${ii.getPld()}"/>
+                            <td th:text="${ii.getPlt()}"/>
+                        </tr>
+                    </tbody>
+                </table>
+                </div>
+            </div>
+            <div class="col"></div>
         </div>
     </main>
 
-    <!--    <div class="footer">-->
-    <!--        <footer>-->
-    <!--            Copyright &copy; LFLT 2020-->
-    <!--        </footer>-->
-    <!--    </div>-->
     <div th:insert="fragments :: footer"></div>
 </div>
 
 <!--bootstrap js-->
 <script type="text/javascript" th:src="@{/bs441/js/jquery-3.4.1.js}"></script>
 <script type="text/javascript" th:src="@{/bs441/js/bootstrap.bundle.js}"></script>
-</div>
 </body>
 </html>

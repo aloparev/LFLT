@@ -13,7 +13,6 @@ public class BuyingAlgorithm {
     private StockRepo stockRepo;
     private double funds = -1;
     private int stockCounter = -1;
-    Lot lot;
     boolean picked = false;
 
     public BuyingAlgorithm(StockRepo stockRepo, double funds){
@@ -40,10 +39,10 @@ public class BuyingAlgorithm {
 
             symbol = stock.getSymbol();
             units = (int) (funds / quote.getPrice());
-            return new Lot(symbol, units, quote.getPrice());
+            return new Lot(symbol, stock.getName(), units, quote.getPrice());
         }
 
-        return new Lot(symbol, units, price);
+        return new Lot(symbol, symbol, units, price);
     }
 
     public int getRandomMargins(int min, int max) {
