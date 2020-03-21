@@ -1,5 +1,6 @@
 package home.lflt.utils;
 
+import home.lflt.model.Lot;
 import home.lflt.model.Portfolio;
 import home.lflt.repo.LotRepo;
 import home.lflt.repo.PortfolioRepo;
@@ -56,7 +57,9 @@ public class PortfolioUpdater {
                         break;
                     default:
                         log.info("random (default) case");
-                        pp.getLots().add(new BuyingAlgorithm(stockRepo, pp.getFunds()).buyStockRandomly());
+                        Lot newLot = new BuyingAlgorithm(stockRepo, pp.getFunds()).buyStockRandomly();
+                        newLot.setPortfolio(pp);
+                        pp.getLots().add(newLot);
                         log.info("pp updated: " + pp);
                         pp.setUstamp(LocalDateTime.now());
                         log.info("pp ustamp: " + pp.getTstamp());

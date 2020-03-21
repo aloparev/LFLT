@@ -43,8 +43,8 @@ public class Portfolio {
 //        this.ustamp = LocalDateTime.now();
 //    }
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Lot> lots;
+    @OneToMany(mappedBy = "portfolio", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Lot> lots;
 
     @Transient
     private double cptSum;

@@ -5,6 +5,9 @@ drop table IF EXISTS portfolios_lots;
 DROP TABLE IF EXISTS stocks;
 DROP TABLE IF EXISTS feedbacks;
 DROP TABLE IF EXISTS quotes;
+drop sequence if exists hibernate_sequence;
+
+CREATE SEQUENCE hibernate_sequence START 1;
 
 CREATE TABLE stocks (
     index integer,

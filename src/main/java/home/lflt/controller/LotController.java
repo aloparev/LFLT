@@ -6,6 +6,7 @@ import home.lflt.model.Lot;
 import home.lflt.model.Stock;
 import home.lflt.model.fmpQuote;
 import home.lflt.repo.LotRepo;
+import home.lflt.repo.PortfolioRepo;
 import home.lflt.repo.QuoteRepo;
 import home.lflt.repo.StockRepo;
 import lombok.extern.slf4j.Slf4j;
@@ -31,11 +32,13 @@ public class LotController {
     private LotRepo lotRepo;
     private StockRepo stockRepo;
     private QuoteRepo quoteRepo;
+    private PortfolioRepo portfolioRepo;
 
-    public LotController(LotRepo lotRepo, StockRepo stockRepo, QuoteRepo quoteRepo) {
+    public LotController(LotRepo lotRepo, StockRepo stockRepo, QuoteRepo quoteRepo, PortfolioRepo portfolioRepo) {
         this.lotRepo = lotRepo;
         this.stockRepo = stockRepo;
         this.quoteRepo = quoteRepo;
+        this.portfolioRepo = portfolioRepo;
     }
 
     @GetMapping("/test")
@@ -48,9 +51,10 @@ public class LotController {
 
         int units = 10;
         Lot lot = new Lot(stock.getSymbol(), stock.getName(), units, quote.getPrice());
+        lot.setPortfolio(portfolioRepo.getById(0));
         log.info("lot created: " + lot.toString());
 
-//        lotRepo.save(lot);
+        lotRepo.save(lot);
         return "stock";
     }
 
@@ -60,17 +64,18 @@ public class LotController {
         Iterable<Stock> stocks = stockRepo.findAll();
         log.info("stocks retrieved: " + stockRepo.count());
 
-        for(Stock ss : stocks) {
-            fmpQuote qq = getQuote(ss.getSymbol());
-            log.info("quote retrieved: " + qq.toString());
-            quoteRepo.save(qq);
-        }
+//        for(Stock ss : stocks) {
+//            fmpQuote qq = getQuote(ss.getSymbol());
+//            log.info("quote retrieved: " + qq.toString());
+//            quoteRepo.save(qq);
+//        }
 
         return "stock";
     }
 
     @GetMapping("/past-quotes")
     public String pastQuotes(Model model) {
+        log.info("/past-quotes");
         LocalDate dateTo = LocalDate.now();
 //        LocalDate dateFrom = dateTo.minusDays(1);
         Stock stock = stockRepo.getBySymbol("BKNG");

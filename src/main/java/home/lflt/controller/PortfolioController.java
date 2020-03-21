@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
+import java.util.Set;
 
 import static home.lflt.utils.Utils.getQuote;
 
@@ -39,7 +40,7 @@ public class PortfolioController {
         Portfolio pf = portfolioRepo.findAll().iterator().next();
         log.info(pf.toString());
 
-        List<Lot> lots = pf.getLots();
+        Set<Lot> lots = pf.getLots();
         log.info("lots retrieved: " + lots.size());
 
         for(Lot lot : lots) {

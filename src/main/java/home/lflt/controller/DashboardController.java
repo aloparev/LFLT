@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.text.DecimalFormat;
 import java.util.List;
+import java.util.Set;
 
 import static home.lflt.utils.Utils.getQuote;
 
@@ -37,7 +38,7 @@ public class DashboardController {
         pf.setPlTotalSum(0);
         log.info("got pf=" + pf.toString());
 
-        List<Lot> lots = pf.getLots();
+        Set<Lot> lots = pf.getLots();
         for(Lot lot : lots) {
             fmpQuote quote = getQuote(lot.getSymbol());
 
