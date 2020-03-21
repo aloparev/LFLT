@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 import static home.lflt.utils.Utils.getQuote;
@@ -53,6 +54,8 @@ public class DashboardController {
             pf.setPlTotalSum(pf.getPlTotalSum() + lot.getPlt());
         }
         log.info("pf after transient update=" + pf.toString());
+
+        log.info(new DecimalFormat("#.##").format(pf.getCptSum()));
 
         model.addAttribute("pf", pf);
         return "dashboard";

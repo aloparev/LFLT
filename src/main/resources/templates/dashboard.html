@@ -15,47 +15,43 @@
     <div th:insert="fragments :: menu"></div>
 
     <main class="container-fluid w-auto m-2 p-2 bg-light">
+        <h1 class="text-center">
+            <span th:text="${pf.getName()}"></span>
+        </h1>
+        <p id="underTitle">
+            <span th:text="${pf.getInfo()}"></span>
+        </p>
+
         <div class="row">
             <div class="col"></div>
 
             <div class="col-12 col-md-10 col-lg-8">
-                <h1 class="text-center">
-                    <span th:text="${pf.getName()}"></span>
-                </h1>
-                <p id="underTitle">
-                    <span th:text="${pf.getInfo()}"></span>
-                </p>
+                <div class="jumbotron">
 
-                <div class="row border">
-                    <div class="col">
-                        <span class="border">
-                            <p class="font-weight-bold">Current value</p>
-                            <span th:text="${pf.getCptSum()}"></span>
-                        </span>
-                    </div>
-                    <div class="col">
-                        <span class="border" th:classappend="${pf.getChangeSum() > 0 ? '' : 'border-danger'}">
-                            <p class="font-weight-bold">Changes in %</p>
-                            <span th:text="${pf.getChangeSum()}"></span>
-                        </span>
-                    </div>
-                    <div class="col">
-                        <span class="border" th:classappend="${pf.getPlDailySum() > 0 ? '' : 'border-danger'}">
-                            <p class="font-weight-bold">Daily P&L</p>
-                            <span th:text="${pf.getPlDailySum()}"></span>
-                        </span>
-                    </div>
-                    <div class="col">
-                        <span class="border" th:classappend="${pf.getPlTotalSum() > 0 ? '' : 'border-danger'}">
-                            <p class="font-weight-bold">Total P&L</p>
-                            <span th:text="${pf.getPlTotalSum()}"></span>
-                        </span>
+                    <div class="row font-weight-bold">
+                        <div class="col">
+                            <p>current value</p>
+                            <span th:text="${#numbers.formatDecimal(pf.getCptSum(), 1, 2)}"></span>
+<!--                            <p th:text="${#numbers.formatDecimal(pf.getCptSum(), 1, 2)}"></p>-->
+                        </div>
+                        <div class="col">
+                            <p>change</p>
+                            <span th:text="${#numbers.formatDecimal(pf.getChangeSum(), 1, 2)}" th:classappend="${pf.getChangeSum() > 0 ? 'text-success' : 'text-danger'}"> %</span>
+                        </div>
+                        <div class="col">
+                            <p class="font-weight-bold">daily P&L</p>
+                            <span th:text="${#numbers.formatDecimal(pf.getPlDailySum(), 1, 2)}" th:classappend="${pf.getPlDailySum() > 0 ? 'text-success' : 'text-danger'}"> $</span>
+                        </div>
+                        <div class="col">
+                            <p class="font-weight-bold">total P&L</p>
+                            <span th:text="${#numbers.formatDecimal(pf.getPlTotalSum(), 1, 2)}" th:classappend="${pf.getPlTotalSum() > 0 ? 'text-success' : 'text-danger'}"> $</span>
+                        </div>
                     </div>
                 </div>
 
                 <div class="row">
-                <table class="table table-hover">
-                    <thead>
+                    <table class="table table-hover">
+                        <thead>
                         <tr>
                             <th>Stock</th>
                             <th>Units</th>
@@ -68,9 +64,9 @@
                             <th>Daily P&L</th>
                             <th>Total P&L</th>
                         </tr>
-                    </thead>
+                        </thead>
 
-                    <tbody>
+                        <tbody>
                         <tr th:each="ii : ${pf.getLots()}">
                             <td>
                                 <div class="row">
@@ -78,7 +74,7 @@
                                 </div>
                                 <div class="row">
                                     <span class="small">Alexandria Real Estate Equities</span>
-<!--                                    <span class="small" th:text="${ii.getName()()}"></span>-->
+                                    <!--                                    <span class="small" th:text="${ii.getName()()}"></span>-->
 
                                 </div>
                             </td>
@@ -92,8 +88,8 @@
                             <td th:text="${ii.getPld()}"/>
                             <td th:text="${ii.getPlt()}"/>
                         </tr>
-                    </tbody>
-                </table>
+                        </tbody>
+                    </table>
                 </div>
             </div>
             <div class="col"></div>
