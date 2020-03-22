@@ -18,7 +18,6 @@ import static home.lflt.utils.Utils.getQuote;
 
 @Slf4j
 @Controller
-//@Configuration
 @RequestMapping("/dashboard")
 public class DashboardController {
     private PortfolioRepo portfolioRepo;
@@ -29,16 +28,18 @@ public class DashboardController {
 
     @GetMapping
     public String showDashboard(Model model) {
-        log.info("showDashboard");
+        log.info("showDashboard(Model model)");
 
         Portfolio pf = portfolioRepo.getById(0);
+        log.info(">> portfolioRepo.getById(0);");
         pf.setCptSum(0);
         pf.setChangeSum(0);
         pf.setPlDailySum(0);
         pf.setPlTotalSum(0);
-        log.info("got pf=" + pf.toString());
+        log.info(">> pf after set = " + pf.toString());
 
         Set<Lot> lots = pf.getLots();
+        log.info(">> pf.getLots();");
         for(Lot lot : lots) {
             fmpQuote quote = getQuote(lot.getSymbol());
 

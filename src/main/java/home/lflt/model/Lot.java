@@ -2,6 +2,7 @@ package home.lflt.model;
 
 import lombok.AccessLevel;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -10,6 +11,7 @@ import java.util.Date;
 
 @Data
 @Entity
+//@EqualsAndHashCode(exclude = "portfolio")
 @Table(name = "lots")
 public class Lot {
     public Lot(){}
@@ -55,4 +57,10 @@ public class Lot {
     private double pld;
     @Transient
     private double plt;
+
+    @Override
+    public String toString() {
+        return "Lot [id=" + id + ", pf_id=" + portfolio.getId() + ", symbol=" + symbol + ", name=" + name +
+                ", units=" + units + ", IP=" + ip + ", IPT=" + ipt + ", tstamp=" + tstamp + "]";
+    }
 }

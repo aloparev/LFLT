@@ -42,10 +42,10 @@ CREATE TABLE lots (
     tstamp TIMESTAMPTZ
 );
 
-create table portfolios_lots (
-    portfolio_id integer references portfolios(id),
-    lots_id integer references lots(id)
-);
+-- create table portfolios_lots (
+--     portfolio_id integer references portfolios(id),
+--     lots_id integer references lots(id)
+-- );
 
 CREATE TABLE feedbacks (
     id integer PRIMARY KEY,

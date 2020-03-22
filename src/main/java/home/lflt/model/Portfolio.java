@@ -2,6 +2,7 @@ package home.lflt.model;
 
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.annotations.CreationTimestamp;
@@ -16,8 +17,7 @@ import java.util.Set;
 @Data
 @Slf4j
 @Entity
-//@Builder
-//@NoArgsConstructor
+@EqualsAndHashCode(exclude = "lots")
 @Table(name = "portfolios")
 public class Portfolio {
 
@@ -57,4 +57,5 @@ public class Portfolio {
 
     @Transient
     private double plTotalSum;
+
 }
