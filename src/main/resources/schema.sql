@@ -27,7 +27,7 @@ CREATE TABLE portfolios (
     type VARCHAR(99),
     funds REAL,
     epochs INTEGER,
-    ustamp TIMESTAMPTZ default now(),
+    ustamp TIMESTAMPTZ,
     tstamp TIMESTAMPTZ
 );
 

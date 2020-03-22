@@ -23,17 +23,18 @@ import static home.lflt.utils.Utils.checkPortfolio;
 @Slf4j
 @Service
 public class PortfolioUpdater {
-
-    @Autowired
     private PortfolioRepo portfolioRepo;
-
-    @Autowired
     private StockRepo stockRepo;
 
-    @Autowired
-    private LotRepo lotRepo;
+    public PortfolioUpdater(PortfolioRepo portfolioRepo, StockRepo stockRepo) {
+        this.portfolioRepo = portfolioRepo;
+        this.stockRepo = stockRepo;
+    }
 
-    private QuoteRepo quoteRepo;
+//    @Autowired
+//    private LotRepo lotRepo;
+//
+//    private QuoteRepo quoteRepo;
 
 //    second, minute, hour, day of month, month, day(s) of week
     @Transactional
@@ -45,10 +46,9 @@ public class PortfolioUpdater {
 //        LocalDateTime dateNow = LocalDateTime.now();
 
         for(Portfolio pp : portfolios) {
-            boolean update = checkPortfolio(pp.getTstamp().toLocalDate(), pp.getEpochs());
             log.info("pp found: " + pp);
-//            if(pp.getUstamp().plusHours(pp.getEpoch()).isAfter(dateNow))
-//            if(update)
+            boolean update = checkPortfolio(pp.getUstamp(), pp.getEpochs());
+            if(update)
                 switch (pp.getType()) {
                     case "DROP":
                         log.info("drop case");
@@ -63,9 +63,9 @@ public class PortfolioUpdater {
                         pp.getLots().add(newLot);
                         log.info("pp updated: " + pp);
                         pp.setUstamp(LocalDateTime.now());
-                        log.info("pp ustamp: " + pp.getTstamp());
+//                        log.info("pp ustamp: " + pp.getTstamp());
                         break;
-                };
+                }
         }
     }
 }

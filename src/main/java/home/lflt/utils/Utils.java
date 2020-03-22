@@ -1,6 +1,7 @@
 package home.lflt.utils;
 
 import com.google.gson.Gson;
+import home.lflt.model.Lot;
 import home.lflt.model.fmpQuote;
 import lombok.extern.slf4j.Slf4j;
 
@@ -12,23 +13,26 @@ import java.time.LocalDateTime;
 
 @Slf4j
 public class Utils {
-    public static boolean checkPortfolio(LocalDate dateToCheck, int epochDays) {
+    public static boolean checkPortfolio(LocalDateTime checkMe, int epochDays) {
+        log.info("checkMe=" + checkMe + ", epochs=" + epochDays);
+
         LocalDateTime now = LocalDateTime.now();
         boolean ans = false;
-        log.info("public static boolean checkPortfolio(LocalDate dateToCheck, int epochDays)");
-        log.info("epochs=" + epochDays);
-        log.info("dateToCheck.plusMonths(1).getMonthValue()=" + dateToCheck.plusMonths(1).getMonthValue());
+//        log.info("public static boolean checkPortfolio(LocalDate checkMe, int epochDays)");
+//        log.info("epochs=" + epochDays);
+//        log.info("checkMe.plusMonths(1).getMonthValue()=" + checkMe.plusMonths(1).getMonthValue());
 
-//        monthly
-        if(epochDays == 28 && dateToCheck.plusMonths(1).getMonthValue() <= now.getMonthValue()) {
-            log.info("if(epochDays == 28 && dateToCheck.plusMonths(1).getMonthValue() <= now.getMonthValue()) {");
+        if(checkMe == null)
             ans = true;
+        else if(epochDays == 28 && now.compareTo(checkMe.plusMonths(1)) >= 0) {
+//            log.info("if(epochDays == 28 && now.compareTo(checkMe.plusMonths(1)) >= 0)");
+            ans = true;
+        } else if(now.compareTo(checkMe.plusDays(epochDays)) >= 0) {
+            ans = true;
+//            log.info("now.compareTo(checkMe.plusDays(epochDays)) >= 0");
         }
 
-        if(dateToCheck.plusDays(epochDays).getDayOfMonth() <= now.getDayOfMonth())
-            ans = true;
-
-        log.info("ans=" + ans);
+        log.info("checkPortfolio return=" + ans);
         return ans;
     }
 
