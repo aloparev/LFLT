@@ -11,6 +11,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -24,38 +25,41 @@ public class Portfolio {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-
     private String name;
     private String info;
     private String type;
-
     private double funds;
     private int epochs;
-
-//    @CreationTimestamp
+    //    @CreationTimestamp
     private LocalDateTime tstamp;
-
     private LocalDateTime ustamp;
-
 //    @PreUpdate
 //    private void onUpdate() {
 //        log.info("private void onUpdate()");
 //        this.ustamp = LocalDateTime.now();
 //    }
-
     @OneToMany(mappedBy = "portfolio", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Lot> lots;
-
     @Transient
     private double cptSum;
-
     @Transient
     private double changeSum;
-
     @Transient
     private double plDailySum;
-
     @Transient
     private double plTotalSum;
 
+    public void addLot(Lot lot) {
+        String newSymbol = lot.getSymbol();
+
+        for (Lot ll : this.lots) {
+            if (ll.getSymbol().equals(newSymbol)) {
+                int newUnits = ll.getUnits() + lot.getUnits();
+                double newPrice = (ll.getIp() + ll.getIp()) / newUnits;
+                lots.remove(ll);
+                lots.add(new Lot(newSymbol, lot.getName(), newUnits, newPrice));
+                break;
+            }
+        }
+    }
 }

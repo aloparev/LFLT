@@ -41,7 +41,8 @@ public class Lot {
     @CreationTimestamp
     private Date tstamp;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
+//    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(nullable = false)
     private Portfolio portfolio;
 

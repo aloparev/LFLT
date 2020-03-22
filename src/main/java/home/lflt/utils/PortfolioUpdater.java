@@ -17,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Set;
 
 import static home.lflt.utils.Utils.checkPortfolio;
 
@@ -43,11 +44,11 @@ public class PortfolioUpdater {
     public void update() {
         log.info("start updater");
         Iterable<Portfolio> portfolios = portfolioRepo.getByTypeNot("USER");
-//        LocalDateTime dateNow = LocalDateTime.now();
 
         for(Portfolio pp : portfolios) {
             log.info("pp found: " + pp);
             boolean update = checkPortfolio(pp.getUstamp(), pp.getEpochs());
+
             if(update)
                 switch (pp.getType()) {
                     case "DROP":
@@ -60,7 +61,8 @@ public class PortfolioUpdater {
                         log.info("random (default) case");
                         Lot newLot = new BuyingAlgorithm(stockRepo, pp.getFunds()).buyStockRandomly();
                         newLot.setPortfolio(pp);
-                        pp.getLots().add(newLot);
+
+                        pp.addLot(newLot);
                         log.info("pp updated: " + pp);
                         pp.setUstamp(LocalDateTime.now());
 //                        log.info("pp ustamp: " + pp.getTstamp());

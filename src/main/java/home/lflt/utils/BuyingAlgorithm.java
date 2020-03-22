@@ -32,7 +32,7 @@ public class BuyingAlgorithm {
         if(stockRepo.count() != 0) {
             while (!picked) {
                 int randomIndex = getRandomMargins(0, stockCounter);
-                stock = stockRepo.getByIndex(randomIndex);
+                stock = stockRepo.getByIndex(16);
                 quote = getQuote(stock.getSymbol());
                 if (quote.getPrice() <= funds) picked = true;
             }
