@@ -4,11 +4,13 @@ import home.lflt.model.Lot;
 import home.lflt.model.Stock;
 import home.lflt.model.fmpQuote;
 import home.lflt.repo.StockRepo;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.Random;
 
 import static home.lflt.utils.Utils.getQuote;
 
+@Slf4j
 public class BuyingAlgorithm {
     private StockRepo stockRepo;
     private double funds = -1;

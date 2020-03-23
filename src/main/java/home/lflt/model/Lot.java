@@ -41,8 +41,7 @@ public class Lot {
     @CreationTimestamp
     private Date tstamp;
 
-    @ManyToOne
-//    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(nullable = false)
     private Portfolio portfolio;
 
@@ -61,7 +60,8 @@ public class Lot {
 
     @Override
     public String toString() {
-        return "Lot [id=" + id + ", pf_id=" + portfolio.getId() + ", symbol=" + symbol + ", name=" + name +
+        return "\n\t" +
+                "Lot [id=" + id + ", pf_id=" + portfolio.getId() + ", symbol=" + symbol + ", name=" + name +
                 ", units=" + units + ", IP=" + ip + ", IPT=" + ipt + ", tstamp=" + tstamp + "]";
     }
 }

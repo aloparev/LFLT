@@ -8,5 +8,5 @@ import java.util.Set;
 
 public interface PortfolioRepo extends CrudRepository<Portfolio, Long> {
     Set<Portfolio> getByTypeNot(String type);
-    Portfolio getById(long ind);
+    Portfolio getById(long id);
 }

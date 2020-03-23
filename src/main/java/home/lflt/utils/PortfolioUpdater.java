@@ -26,16 +26,13 @@ import static home.lflt.utils.Utils.checkPortfolio;
 public class PortfolioUpdater {
     private PortfolioRepo portfolioRepo;
     private StockRepo stockRepo;
+    private LotRepo lotRepo;
 
-    public PortfolioUpdater(PortfolioRepo portfolioRepo, StockRepo stockRepo) {
+    public PortfolioUpdater(PortfolioRepo portfolioRepo, StockRepo stockRepo, LotRepo lotRepo) {
         this.portfolioRepo = portfolioRepo;
         this.stockRepo = stockRepo;
+        this.lotRepo = lotRepo;
     }
-
-//    @Autowired
-//    private LotRepo lotRepo;
-//
-//    private QuoteRepo quoteRepo;
 
 //    second, minute, hour, day of month, month, day(s) of week
     @Transactional
@@ -61,11 +58,20 @@ public class PortfolioUpdater {
                         log.info("random (default) case");
                         Lot newLot = new BuyingAlgorithm(stockRepo, pp.getFunds()).buyStockRandomly();
                         newLot.setPortfolio(pp);
+                        log.info("bought lot=" + newLot);
 
-                        pp.addLot(newLot);
-                        log.info("pp updated: " + pp);
+                        Lot alreadyExists = lotRepo.getByPortfolioIdAndSymbol(pp.getId(), newLot.getSymbol());
+                        if(alreadyExists == null) {
+                            pp.getLots().add(newLot);
+                            log.info("alreadyExists == null");
+                        } else {
+                            alreadyExists.setUnits(alreadyExists.getUnits() + newLot.getUnits());
+                            alreadyExists.setIpt(alreadyExists.getIpt() + newLot.getIpt());
+                            alreadyExists.setIp(alreadyExists.getIpt() / alreadyExists.getUnits());
+                            log.info("alreadyExists exists");
+                        }
                         pp.setUstamp(LocalDateTime.now());
-//                        log.info("pp ustamp: " + pp.getTstamp());
+                        log.info("pp updated: " + pp);
                         break;
                 }
         }

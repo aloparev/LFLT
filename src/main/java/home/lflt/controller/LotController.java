@@ -43,18 +43,16 @@ public class LotController {
 
     @GetMapping("/test")
     public String test(Model model) {
-        Stock stock = stockRepo.getBySymbol("GOOG");
-        log.info("get stock: " + stock);
+        log.info("\tpublic String test(Model model)");
 
-        fmpQuote quote = getQuote(stock.getSymbol());
-        log.info("get quote: " + quote.toString());
+        Lot aa = lotRepo.getByPortfolioIdAndSymbol(0, "FB");
+        log.info("get FB=" + aa);
 
-        int units = 10;
-        Lot lot = new Lot(stock.getSymbol(), stock.getName(), units, quote.getPrice());
-        lot.setPortfolio(portfolioRepo.getById(0));
-        log.info("lot created: " + lot.toString());
+        aa.setUnits(aa.getUnits() + 10);
+        aa.setIpt(aa.getIpt() + 2000);
+        aa.setIp(aa.getIpt() / aa.getUnits());
+        log.info("FB modified=" + aa);
 
-        lotRepo.save(lot);
         return "stock";
     }
 

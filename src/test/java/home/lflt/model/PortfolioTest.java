@@ -28,6 +28,7 @@ class PortfolioTest {
         log.info("ustamp updated=" + portfolio.getUstamp());
         LocalDateTime stampAfter = portfolio.getUstamp();
 
+        log.info(stamp + "=" + stampAfter + "?");
         assertFalse(stamp.isEqual(stampAfter));
     }
 }
