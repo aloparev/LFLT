@@ -2,8 +2,6 @@ package home.lflt.controller;
 
 import home.lflt.model.Feedback;
 import home.lflt.repo.FeedbackRepo;
-import home.lflt.shadow.Ingredient;
-import home.lflt.shadow.Order;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Controller;

@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" th:href="@{/bs441/css/bootstrap.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{initialStyle.css}"/>
-    <title>Experiment</title>
+    <title>LFLT | Experiment</title>
 </head>
 
 <body>
@@ -15,12 +15,8 @@
     <div th:insert="fragments :: menu"></div>
 
     <main class="container-fluid w-auto m-2 p-2 bg-light">
-        <h1 class="text-center">
-            <span th:text="${pf.getName()}"></span>
-        </h1>
-        <p class="text-center font-italic mb-4">
-            <span th:text="${pf.getInfo()}"></span>
-        </p>
+        <h1 class="text-center"><span th:text="${pf.getName()}"/></h1>
+        <p class="text-center font-italic mb-4"><span th:text="${pf.getInfo()}"/></p>
 
         <div class="row">
             <div class="col"></div>

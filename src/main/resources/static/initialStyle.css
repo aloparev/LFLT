@@ -85,7 +85,7 @@ body {
 }
 
 #headerUnderHero {
-    /*text-align: center;*/
+    text-align: center;
     margin: calc(var(--margin10) * 6) var(--margin10) var(--margin10)
 }
 

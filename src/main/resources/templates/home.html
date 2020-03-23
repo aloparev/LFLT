@@ -7,11 +7,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" th:href="@{/bs441/css/bootstrap.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{initialStyle.css}"/>
-    <title>Home</title>
+    <title>LFLT | Home</title>
 </head>
 
 <body>
-<div class="pageContent">
+<div class="container-fluid min-vh-100 p-0">
     <div th:insert="fragments :: menu"></div>
 
     <div class="heroImageWrapper">
@@ -20,50 +20,34 @@
         <div class="heroImageMargin"></div>
     </div>
 
-    <main class="blockWrapper text-center">
-        <div class="block">
-            <h1 id="headerUnderHero">
-                Stock-Picking Experiment
-            </h1>
-            <p id="underTitle" class="marginBottom80">Inspired by Daniel Kahneman's "Thinking, Fast and Slow".</p>
-            <h4>
-                The Illusion of Validity
-            </h4>
-            <p class="text-justify">
-                In chapter 20, called "The Illusion of Validity", Kahneman argues that there is no such thing as
-                a
-                stock-picking skill, but only an illusion of it. He illustrates that even the professional stock
-                pickers (on average) fail the basic test of skill - permanent achievement. I.e. the traders are
-                playing the game of chance, because they are making educated guesses in a situation of great
-                uncertainty.
-            </p>
+    <main class="container-fluid w-auto m-2 p-2 bg-light">
+        <h1 id="headerUnderHero">Stock-Picking Experiment</h1>
+        <p id="underTitle" class="marginBottom80">Inspired by Daniel Kahneman's "Thinking, Fast and Slow"</p>
 
-            <h4>LFLT</h4>
-            <p class="text-justify">
-                LFLT is an acronym for "Low Frequency Luck Trading". The aim of LFLT is to demonstrate how stock
-                picking is done by blind guesses and how a stock portfolio with such picks performs over time.
-            </p>
+        <div class="row">
+            <div class="col"></div>
 
-            <h4>What is it about?</h4>
-            <p class="text-justify">
-                Chocolate cake sweet roll liquorice chocolate cake. Marzipan pastry pie cake. Sugar plum sweet
-                chocolate bar chocolate cake. Macaroon danish icing dessert cookie fruitcake topping cake.
-                Liquorice jelly beans macaroon. Brownie cake bonbon gingerbread gummi bears marshmallow dragée
-                chupa chups. Donut powder gummies brownie tiramisu cupcake lollipop. Sesame snaps macaroon
-                lollipop icing donut toffee. Brownie brownie chupa chups sweet roll cheesecake cupcake. Lollipop
-                dragée brownie fruitcake. Lollipop donut pudding bonbon. Dragée dragée pudding liquorice
-                tiramisu tootsie roll. Candy jelly-o dessert gingerbread. Candy gummi bears pie candy jelly
-                beans tiramisu topping.
-            </p>
-            <p class="text-justify">
-                Candy chocolate cake lemon drops. Pudding jelly-o dessert apple pie marshmallow cotton candy.
-                Carrot cake lemon drops brownie gummi bears bonbon. Halvah lemon drops apple pie jelly
-                chocolate. Candy marshmallow cupcake tart danish danish marzipan cupcake lemon drops. Tootsie
-                roll pudding cheesecake. Liquorice dessert brownie jujubes halvah gummi bears. Marshmallow
-                tootsie roll cookie. Gingerbread pudding toffee biscuit halvah cotton candy halvah. Liquorice
-                dragée cotton candy tootsie roll bear claw. Chocolate bar bear claw cake. Tiramisu donut
-                cheesecake soufflé cake. Marshmallow toffee chupa chups jelly beans.
-            </p>
+            <div class="col-12 col-md-10 col-lg-8 text-justify">
+                <h4>The Illusion of Validity</h4>
+                <p>
+                    In chapter 20, "The Illusion of Validity", Kahneman argues that there is no such thing as
+                    a stock-picking skill, but only an illusion of it. He illustrates that even the professional
+                    stock
+                    pickers (on average) fail the basic test of skill - permanent achievement. I.e. the traders are
+                    playing the game of chance, because there is no correlation between their picks and their
+                    profits.
+                </p>
+
+                <h4>What is it about?</h4>
+                <p>
+                    So, if even the professional portfolio managers are rolling the dice, why not try it as well? Let's
+                    take the available stocks, randomly buy some of them and monitor the performance. That's exactly
+                    what this project, "Low Frequency Luck Trading", is doing. I.e. LFLT performs blind guesses about
+                    what stock to buy and then monitors the portfolio performance over time.
+                </p>
+            </div>
+
+            <div class="col"></div>
         </div>
     </main>
     <div th:insert="fragments :: footer"></div>

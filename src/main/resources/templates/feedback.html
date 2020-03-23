@@ -7,21 +7,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" th:href="@{/bs441/css/bootstrap.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{initialStyle.css}"/>
-    <title>Feedback</title>
+    <title>LFLT | Feedback</title>
 </head>
 
 <body>
-<div class="pageContent">
+<div class="container-fluid min-vh-100 p-0">
     <div th:insert="fragments :: menu"></div>
 
-    <main class="blockWrapper">
+    <main class="container-fluid w-auto m-2 p-2 bg-light">
+        <h1 class="text-center">Feedback</h1>
+        <p class="text-center font-italic mb-4">Feel free to share your thoughts</p>
+
         <div class="row">
             <div class="col"></div>
 
             <div class="col-12 col-md-10 col-lg-8">
-                <h1 class="text-center">Feedback</h1>
-                <p id="underTitle" class="mb-5">Feel free to share your thoughts on LFLT</p>
-
                 <form method="POST" th:object="${feedbackPojo}">
 
                     <fieldset class="form-group">
@@ -110,7 +110,8 @@
                         <!--                        </div>-->
                         <div class="col text-center">
                             <button th:unless="${feedbackJam}" class="btn btn-secondary marginTop40">Submit your
-                                feedback</button>
+                                feedback
+                            </button>
                             <span class="text-danger" th:if="${feedbackJam}">Server error</span>
                         </div>
                         <!--                        <div class="col-sm-4">-->
@@ -119,6 +120,7 @@
                     </div>
                 </form>
             </div>
+
             <div class="col"></div>
         </div>
     </main>
