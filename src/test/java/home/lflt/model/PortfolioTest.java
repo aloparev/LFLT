@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
+import java.util.concurrent.TimeUnit;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -11,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class PortfolioTest {
 
     @Test
-    void ustamp() {
+    void ustamp() throws Exception {
         Portfolio portfolio = new Portfolio();
         log.info("portfolio created=" + portfolio.toString());
 
@@ -23,6 +24,8 @@ class PortfolioTest {
         portfolio.setUstamp(LocalDateTime.now());
         log.info("portfolio initialized=" + portfolio.toString());
         LocalDateTime stamp = portfolio.getUstamp();
+
+        TimeUnit.MILLISECONDS.sleep(1);
 
         portfolio.setUstamp(LocalDateTime.now());
         log.info("ustamp updated=" + portfolio.getUstamp());

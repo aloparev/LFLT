@@ -7,7 +7,7 @@ DROP TABLE IF EXISTS feedbacks;
 DROP TABLE IF EXISTS quotes;
 drop sequence if exists hibernate_sequence;
 
-CREATE SEQUENCE hibernate_sequence START 1;
+CREATE SEQUENCE hibernate_sequence START 2000;
 
 CREATE TABLE stocks (
     index integer,

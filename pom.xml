@@ -10,7 +10,7 @@
     </parent>
     <groupId>home</groupId>
     <artifactId>lflt-demo</artifactId>
-    <version>0.0.4-SNAPSHOT</version>
+    <version>0.1.0-SNAPSHOT</version>
 <!--    <name>demo</name>-->
     <description>Low Frequency Luck Trading</description>
 
