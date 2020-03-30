@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.text.DecimalFormat;
@@ -29,11 +30,22 @@ public class DashboardController {
 
     @Transactional(readOnly = true)
     @GetMapping
-    public String showDashboard(Model model) {
-        log.info("showDashboard(Model model) >> do u see me?");
+    public String showPortfolios(Model model) {
+        log.info("showPortfolios");
 
-        Portfolio pf = portfolioRepo.getById(0);
-        log.info(">> portfolioRepo.getById(0);");
+        Iterable<Portfolio> portfolios = portfolioRepo.findAll();
+        model.addAttribute("portfolios", portfolios);
+
+        return "portfolioOverview";
+    }
+
+    @Transactional(readOnly = true)
+    @GetMapping("/{id}")
+    public String showPortfolioById(@PathVariable("id") Long id, Model model) {
+        log.info("showPortfolio(Model model)");
+
+        Portfolio pf = portfolioRepo.getById(id);
+        log.info(">> portfolioRepo.getById: " + id);
         pf.setCptSum(0);
         pf.setChangeSum(0);
         pf.setPlDailySum(0);

@@ -511,6 +511,7 @@ INSERT INTO public.stocks (index, symbol, name, market, land, sector, industry, 
 insert into portfolios (id, name, info, type, funds, epochs, ustamp, tstamp) values (0, 'Random Portfolio', 'New purchase for 1k$ every day', 'RANDOM', 1000, 1, '2020-03-29 10:38:57.537833+00', '2020-03-15 19:55:00+00');
 insert into portfolios(id, name, info, type, funds, epochs,tstamp) values(1,'Ludwig Portfolio','Random stock purchase for 1k daily', 'RANDOM',1000, 1, '2020-03-29');
 insert into portfolios(id, name, info, type, funds, epochs,tstamp) values(2,'Martha Portfolio','Random stock purchase for 1k weekly', 'RANDOM',1000,7, '2020-03-29');
+insert into portfolios(id, name, info, type, funds, epochs,tstamp) values(3,'Echo Portfolio','Random stock purchase for 1k daily', 'RANDOM',1000, 1, '2020-03-29');
 
 insert into lots(id, symbol, portfolio_id, units, ip, ipt, tstamp, name) values(1633, 'FB', 0, 6, 146.01, 876.06, '2020-03-17 21:35:00+00', 'Facebook, Inc.');
 insert into lots(id, symbol, portfolio_id, units, ip, ipt, tstamp, name) values(1644, 'GD', 0, 7, 131.46, 920.22, '2020-03-26 19:02:02.77', 'General Dynamics');
