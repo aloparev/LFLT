@@ -30,7 +30,7 @@ public class DashboardController {
     @Transactional(readOnly = true)
     @GetMapping
     public String showDashboard(Model model) {
-        log.info("showDashboard(Model model)");
+        log.info("showDashboard(Model model) >> do u see me?");
 
         Portfolio pf = portfolioRepo.getById(0);
         log.info(">> portfolioRepo.getById(0);");
