@@ -508,7 +508,7 @@ INSERT INTO public.stocks (index, symbol, name, market, land, sector, industry, 
 -- insert into stocks(index, symbol, name, market, land, sector, industry, tstamp)
 -- select index, symbol, name, market, land, sector, industry, tstamp from stocks500;
 
-insert into portfolios (id, name, info, type, balance, funds, epochs, ustamp, tstamp) values (0, 'Random Portfolio', 'The portfolio randomly invested 1k during a 10 day period and is now suspended to holding mode. You can follow the price development, but no further stocks are being bought.', 'RANDOM', 0, 1000, 1, '2020-03-29 10:38:57.537833+00', '2020-03-15 19:55:00+00');
+insert into portfolios (id, name, info, type, balance, funds, epochs, ustamp, tstamp) values (0, 'Random Portfolio', 'The portfolio randomly invested 1k every working day from 16 to 27 march (10 purchases) and is now suspended to the holding mode. The price development can be followed, but no further stocks are being bought.', 'USER', 523.17, 1000, 1, '2020-03-29 10:38:57.537833+00', '2020-03-15 19:55:00+00');
 insert into portfolios(id, name, info, type, balance, funds, epochs,tstamp) values(1,'Ludwig Portfolio','Random stock purchase for 1k daily', 'RANDOM', 0, 1000, 1, '2020-03-29');
 insert into portfolios(id, name, info, type, balance, funds, epochs,tstamp) values(2,'Martha Portfolio','Random stock purchase for 1k weekly', 'RANDOM',0, 1000,7, '2020-03-29');
 insert into portfolios(id, name, info, type, balance, funds, epochs,tstamp) values(3,'Echo Portfolio','Random stock purchase for 1k daily', 'RANDOM', 0, 1000, 1, '2020-03-29');

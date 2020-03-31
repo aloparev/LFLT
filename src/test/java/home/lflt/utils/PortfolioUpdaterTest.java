@@ -20,18 +20,19 @@ class PortfolioUpdaterTest {
 
     @Test
     void balancing() {
-        Portfolio pp = new Portfolio();
-        pp.setName("dummy pp");
-        pp.setInfo("to test balance field");
-        pp.setType("RANDOM");
-        pp.setBalance(0);
-        pp.setFunds(1000);
-        pp.setEpochs(1);
-        log.info("pp created=" + pp.toString());
+        Portfolio pp = new Portfolio("dummy P", "RANDOM", 0, 1000, 1);
+//        pp.setName("dummy pp");
+//        pp.setInfo("to test balance field");
+//        pp.setType("RANDOM");
+//        pp.setBalance(0);
+//        pp.setFunds(1000);
+//        pp.setEpochs(1);
+        log.info("pp created=" + pp);
 
         Lot newLot = new Lot("foo", "s1", 4, 210);
         newLot.setPortfolio(pp);
         pp.setBalance(pp.getBalance() + pp.getFunds() - newLot.getIpt());
+        pp.getLots().add(newLot);
         assertEquals(160, pp.getBalance());
 
         Lot anotherLot = new Lot("boo", "s2", 4, 240);
@@ -40,12 +41,16 @@ class PortfolioUpdaterTest {
 //        log.info("balance2=" + String.valueOf(pp.getBalance()));
 //        log.info("funds2=" + String.valueOf(pp.getFunds()));
         pp.setBalance(pp.getBalance() + pp.getFunds() - anotherLot.getIpt());
+        pp.getLots().add(anotherLot);
         // 1160 - 960
         assertEquals(200, pp.getBalance());
 
-        pp.setBalance(pp.getBalance() + newLot.getIpt() + anotherLot.getIpt());
+        for(Lot ll : pp.getLots())
+            pp.setBalance(pp.getBalance() + ll.getIpt());
+
+//        pp.setBalance(pp.getBalance() + newLot.getIpt() + anotherLot.getIpt());
         assertEquals(2000, pp.getBalance());
-        log.info("pp end=" + pp.toString());
+//        log.info("pp end=" + pp);
     }
 
     @Test

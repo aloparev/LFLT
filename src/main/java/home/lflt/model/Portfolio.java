@@ -21,6 +21,17 @@ import java.util.Set;
 @EqualsAndHashCode(exclude = "lots")
 @Table(name = "portfolios")
 public class Portfolio {
+    public Portfolio(){};
+
+    public Portfolio(String name, String type, double balance, double funds, int epochs) {
+        this.name = name;
+        this.type = type;
+        this.balance = balance;
+        this.funds = funds;
+        this.epochs = epochs;
+        this.lots = new HashSet<>();
+        this.tstamp = LocalDateTime.now();
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

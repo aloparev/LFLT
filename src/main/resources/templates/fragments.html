@@ -24,7 +24,8 @@
             <li th:classappend="${#httpServletRequest.getRequestURI() == '/' ? ' active' : ''}" class="nav-item">
                 <a class="nav-link" href="/">Home</a>
             </li>
-            <li th:classappend="${#httpServletRequest.getRequestURI() == '/dashboard' ? ' active' : ''}"
+<!--            <li th:classappend="${#httpServletRequest.getRequestURI().matches('dashboard.*') ? ' active' : ''}"-->
+            <li th:classappend="${#strings.contains(#httpServletRequest.requestURI, 'dashboard') ? ' active' : ''}"
                 class="nav-item">
                 <a class="nav-link" href="/dashboard">Experiment</a>
             </li>
@@ -53,7 +54,7 @@
         <p style="margin: 0;">
             Copyright &copy; LFLT 2020
             <br>
-            Version: 0.0.4-SNAPSHOT
+            Version: 0.0.5-SNAPSHOT
         </p>
     </footer>
 </div>
