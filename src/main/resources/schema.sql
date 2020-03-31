@@ -25,6 +25,7 @@ CREATE TABLE portfolios (
     name VARCHAR(99),
     info VARCHAR(999),
     type VARCHAR(99),
+    balance REAL,
     funds REAL,
     epochs INTEGER,
     ustamp TIMESTAMPTZ,

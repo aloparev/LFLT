@@ -43,7 +43,7 @@ public class PortfolioUpdater {
         Iterable<Portfolio> portfolios = portfolioRepo.getByTypeNot("USER");
 
         for(Portfolio pp : portfolios) {
-            log.info("pp found: " + pp);
+//            log.info("pp found: " + pp);
             boolean update = checkPortfolio(pp.getUstamp(), pp.getEpochs());
 
             if(update)
@@ -55,10 +55,11 @@ public class PortfolioUpdater {
                         log.info("positive case");
                         break;
                     default:
-                        log.info("random (default) case");
-                        Lot newLot = new BuyingAlgorithm(stockRepo, pp.getFunds()).buyStockRandomly();
+//                        log.info("random (default) case");
+                        Lot newLot = new BuyingAlgorithm(stockRepo, pp.getBalance() + pp.getFunds()).buyStockRandomly();
                         newLot.setPortfolio(pp);
-                        log.info("bought lot=" + newLot);
+                        pp.setBalance(pp.getBalance() + pp.getFunds() - newLot.getIpt());
+                        log.info("balance=" + pp.getBalance() + "; bought lot=" + newLot);
 
                         Lot alreadyExists = lotRepo.getByPortfolioIdAndSymbol(pp.getId(), newLot.getSymbol());
                         if(alreadyExists == null) {
@@ -71,7 +72,7 @@ public class PortfolioUpdater {
                             log.info("alreadyExists exists");
                         }
                         pp.setUstamp(LocalDateTime.now());
-                        log.info("pp updated: " + pp);
+//                        log.info("pp updated: " + pp);
                         break;
                 }
         }

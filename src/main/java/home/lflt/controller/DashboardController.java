@@ -42,18 +42,18 @@ public class DashboardController {
     @Transactional(readOnly = true)
     @GetMapping("/{id}")
     public String showPortfolioById(@PathVariable("id") Long id, Model model) {
-        log.info("showPortfolio(Model model)");
+        log.info("showPortfolioById");
 
         Portfolio pf = portfolioRepo.getById(id);
-        log.info(">> portfolioRepo.getById: " + id);
-        pf.setCptSum(0);
+//        log.info(">> portfolioRepo.getById: " + id);
+        pf.setCptSum(pf.getBalance());
         pf.setChangeSum(0);
         pf.setPlDailySum(0);
         pf.setPlTotalSum(0);
-        log.info(">> pf after set = " + pf.toString());
+//        log.info(">> pf after set = " + pf.toString());
 
         Set<Lot> lots = pf.getLots();
-        log.info(">> pf.getLots();");
+//        log.info(">> pf.getLots();");
         for(Lot lot : lots) {
             fmpQuote quote = getQuote(lot.getSymbol());
 
@@ -69,7 +69,7 @@ public class DashboardController {
             pf.setPlDailySum(pf.getPlDailySum() + lot.getPld());
             pf.setPlTotalSum(pf.getPlTotalSum() + lot.getPlt());
         }
-        log.info("pf after transient update=" + pf.toString());
+//        log.info("pf after transient update=" + pf.toString());
 
         model.addAttribute("pf", pf);
         return "dashboard";

@@ -28,6 +28,7 @@ public class Portfolio {
     private String name;
     private String info;
     private String type;
+    private double balance;
     private double funds;
     private int epochs;
     //    @CreationTimestamp
@@ -48,23 +49,4 @@ public class Portfolio {
     private double plDailySum;
     @Transient
     private double plTotalSum;
-
-    public void addLot(Lot lot) {
-        String newSymbol = lot.getSymbol();
-        log.info("addLot for " + newSymbol);
-        log.info("lots before=" + lots);
-
-        for (Lot ll : lots) {
-            if (ll.getSymbol().equals(newSymbol)) {
-                int newUnits = ll.getUnits() + lot.getUnits();
-                double newPrice = (ll.getIp() + ll.getIp()) / newUnits;
-                lots.remove(ll);
-                log.info("rm " + lots);
-                lots.add(new Lot(newSymbol, lot.getName(), newUnits, newPrice));
-                log.info("add " + lots);
-                break;
-            }
-        }
-        log.info("lots after=" + lots);
-    }
 }
