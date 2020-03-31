@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      lang="en">
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" th:href="@{/bs441/css/bootstrap.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{initialStyle.css}"/>
+    <title>LFLT | Portfolios</title>
+</head>
+
+<body>
+<div class="container-fluid min-vh-100 p-0">
+    <div th:insert="fragments :: menu"></div>
+
+    <main class="container-fluid w-auto m-2 p-2 bg-light">
+        <h1 class="text-center">Portfolios</h1>
+        <p class="text-center font-italic mb-4">Currently existing</p>
+
+        <div class="row mb-4">
+            <div class="col"></div>
+
+            <div class="col-12 col-md-10 col-lg-8">
+                <div class="card-deck">
+                <div class="card border-secondary" th:each="pp : ${portfolios}">
+                    <div class="card-body">
+                        <h5 class="card-title" th:text="${pp.getName()}"/>
+                        <p class="card-text" th:text="${pp.getInfo()}"/>
+                        <a th:href="@{/dashboard/{path}(path=${pp.getId()})}" class="btn btn-secondary btn-sm">See more</a>
+                    </div>
+                    <div class="card-footer bg-white">
+                        <small class="text-muted">Last updated
+                            <p th:text="${#temporals.format(pp.getUstamp(), 'dd-MM-yyyy HH:mm')}"></p></small>
+                    </div>
+                </div>
+                </div>
+<!--                <div class="row">-->
+<!--                    <div class="col" th:each="pp : ${portfolios}">-->
+<!--                        <td th:text="${pp.name}"/>-->
+<!--                        </divtr>-->
+<!--                    </div>-->
+<!--                </div>-->
+
+            </div>
+                <div class="col"></div>
+        </div>
+    </main>
+    <div th:insert="fragments :: footer"></div>
+</div>
+
+<!--bootstrap js-->
+<script type="text/javascript" th:src="@{/bs441/js/jquery-3.4.1.js}"></script>
+<script type="text/javascript" th:src="@{/bs441/js/bootstrap.bundle.js}"></script>
+</body>
+</html>
