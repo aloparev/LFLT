@@ -11,6 +11,8 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+import static home.lflt.utils.Constants.FMG_API;
+
 @Slf4j
 public class Utils {
     public static boolean checkPortfolio(LocalDateTime checkMe, int epochDays) {
@@ -52,7 +54,7 @@ public class Utils {
 
     public static fmpQuote getQuote(String symbol) {
         String baseUrl = "https://financialmodelingprep.com/api/v3/quote/";
-        String link = baseUrl.concat(symbol);
+        String link = baseUrl.concat(symbol).concat(FMG_API);
         String rawJson = "";
         String cleanJson = "";
         Gson gson = new Gson();

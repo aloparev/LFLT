@@ -42,14 +42,9 @@ public class Portfolio {
     private double balance;
     private double funds;
     private int epochs;
-    //    @CreationTimestamp
     private LocalDateTime tstamp;
     private LocalDateTime ustamp;
-//    @PreUpdate
-//    private void onUpdate() {
-//        log.info("private void onUpdate()");
-//        this.ustamp = LocalDateTime.now();
-//    }
+
     @OneToMany(mappedBy = "portfolio", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Lot> lots;
     @Transient

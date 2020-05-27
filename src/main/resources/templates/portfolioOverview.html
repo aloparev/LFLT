@@ -27,7 +27,8 @@
                     <div class="card-body">
                         <h5 class="card-title" th:text="${pp.getName()}"/>
                         <p class="card-text" th:text="${pp.getInfo()}"/>
-                        <a th:href="@{/dashboard/{path}(path=${pp.getId()})}" class="btn btn-secondary btn-sm">See more</a>
+                        <a th:href="@{/dashboard/{path}(path=${pp.getId()})}" class="btn btn-secondary btn-sm mt-1">See more</a>
+                        <a th:href="@{/dashboard/{path}/details(path=${pp.getId()})}" class="btn btn-secondary btn-sm mt-1 ml-1">See all</a>
                     </div>
                     <div class="card-footer bg-white">
                         <small class="text-muted">Last updated

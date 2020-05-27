@@ -48,6 +48,37 @@ public class DashboardController {
 //        log.info(">> portfolioRepo.getById: " + id);
         pf.setCptSum(pf.getBalance());
         pf.setChangeSum(0);
+        pf.setPlTotalSum(0);
+//        log.info(">> pf after set = " + pf.toString());
+
+        Set<Lot> lots = pf.getLots();
+//        log.info(">> pf.getLots();");
+        for(Lot lot : lots) {
+            fmpQuote quote = getQuote(lot.getSymbol());
+
+            lot.setCp(quote.getPrice());
+            lot.setCpt(lot.getUnits() * lot.getCp());
+            lot.setPlt(lot.getCpt() - lot.getIpt());
+
+            pf.setCptSum(pf.getCptSum() + lot.getCpt());
+            pf.setChangeSum(pf.getChangeSum() + lot.getChange());
+            pf.setPlTotalSum(pf.getPlTotalSum() + lot.getPlt());
+        }
+//        log.info("pf after transient update=" + pf.toString());
+
+        model.addAttribute("pf", pf);
+        return "dashboard";
+    }
+
+    @Transactional(readOnly = true)
+    @GetMapping("/{id}/details")
+    public String showPortfolioByIdDetails(@PathVariable("id") Long id, Model model) {
+        log.info("showPortfolioByIdDetails");
+
+        Portfolio pf = portfolioRepo.getById(id);
+//        log.info(">> portfolioRepo.getById: " + id);
+        pf.setCptSum(pf.getBalance());
+        pf.setChangeSum(0);
         pf.setPlDailySum(0);
         pf.setPlTotalSum(0);
 //        log.info(">> pf after set = " + pf.toString());
@@ -72,6 +103,6 @@ public class DashboardController {
 //        log.info("pf after transient update=" + pf.toString());
 
         model.addAttribute("pf", pf);
-        return "dashboard";
+        return "dashboardDetails";
     }
 }
