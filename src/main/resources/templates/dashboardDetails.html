@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      lang="en">
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" th:href="@{/bs441/css/bootstrap.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/initialStyle.css}"/>
+    <title>LFLT | Experiment</title>
+</head>
+
+<body>
+<div class="container-fluid min-vh-100 p-0">
+    <div th:insert="fragments :: menu"></div>
+
+    <main class="container-fluid w-auto m-2 p-2 bg-light">
+
+        <div class="row">
+            <div class="col"></div>
+
+            <div class="col-12 col-md-10 col-lg-8">
+                <h1 class="text-center mb-4"><span th:text="${pf.getName()}"/></h1>
+                <div class="jumbotron shadow-black p-3 mb-4 rounded"
+                     style="background-color: var(--tableJumbotronColor)">
+                    <p><b>Description: </b><span th:text="${pf.getInfo()}"/></p>
+                    <p><b>Type: </b><span th:text="${pf.getType()}"/></p>
+                    <p><b>Funds: </b><span th:text="${pf.getFunds()}"/> $</p>
+                    <p><b>Interval: </b><span th:text="${pf.getEpochs()}"/> day(s)</p>
+                    <p><b>Stocks: </b><span th:text="${pf.getLots().size()}"/></p>
+                    <p><b>Created: </b><span th:text="${#temporals.format(pf.getTstamp(), 'dd-MM-yyyy HH:mm')}"/></p>
+                    <p><b>Updated: </b><span th:text="${#temporals.format(pf.getUstamp(), 'dd-MM-yyyy HH:mm')}"/></p>
+                    <hr>
+
+                    <div class="row font-weight-bold">
+                        <div class="col">
+                            <p>Worth</p>
+                            <p><span th:text="${#numbers.formatDecimal(pf.getCptSum(), 1, 2)}"/> &dollar;</p>
+                        </div>
+                        <div class="col">
+                            <p>Change</p>
+                            <p th:classappend="${pf.getChangeSum() > 0 ? 'text-success' : 'text-danger'}"><span
+                                    th:text="${#numbers.formatDecimal(pf.getChangeSum(), 1, 2)}"/> &percnt;</p>
+                        </div>
+                        <div class="col">
+                            <p class="font-weight-bold">daily P&L</p>
+                            <span th:text="${#numbers.formatDecimal(pf.getPlDailySum(), 1, 2)}"
+                                  th:classappend="${pf.getPlDailySum() > 0 ? 'text-success' : 'text-danger'}"> &dollar;</span>
+                        </div>
+                        <div class="col">
+                            <p class="font-weight-bold">total P&L</p>
+                            <p th:classappend="${pf.getPlTotalSum() > 0 ? 'text-success' : 'text-danger'}"><span
+                                    th:text="${#numbers.formatDecimal(pf.getPlTotalSum(), 1, 2)}"/> &dollar;</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="table-responsive m-3">
+                        <table class="table table-hover table-striped">
+                            <thead style="background-color: var(--tableJumbotronColor)">
+                            <tr>
+                                <th>Stock</th>
+                                <th>U</th>
+                                <th>IP</th>
+                                <!--                            <th>Price base</th>-->
+
+                                <!--                            <th>change</th>-->
+                                <th>CP</th>
+                                <!--                            <th>Total price</th>-->
+                                <!--                            <th>Daily P&L</th>-->
+                                <th>P&L</th>
+                            </tr>
+                            </thead>
+
+                            <tbody>
+                            <tr th:each="ii : ${pf.getLots()}">
+                                <td class="px-4">
+                                    <div class="row">
+                                        <span th:text="${ii.getSymbol()}"></span>
+                                    </div>
+                                    <div class="row">
+                                        <!--                                    <span class="small">Alexandria Real Estate Equities</span>-->
+                                        <span class="small" th:text="${ii.getName()}"/>
+
+                                    </div>
+                                </td>
+                                <td th:text="${ii.getUnits()}"/>
+                                <td th:text="${#numbers.formatDecimal(ii.getIp(), 1, 2)}"/>
+                                <!--                            <td th:text="${ii.getIpt()}"/>-->
+
+                                <!--                            <td th:text="${#numbers.formatDecimal(ii.getChange(), 1, 2)}"/>-->
+                                <td th:text="${#numbers.formatDecimal(ii.getCp(), 1, 2)}"/>
+                                <!--                            <td th:text="${ii.getCpt()}"/>-->
+                                <!--                            <td th:text="${ii.getPld()}"/>-->
+                                <td th:text="${#numbers.formatDecimal(ii.getPlt(), 1, 2)}"/>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col"></div>
+        </div>
+    </main>
+
+    <div th:insert="fragments :: footer"></div>
+</div>
+
+<!--bootstrap js-->
+<script type="text/javascript" th:src="@{/bs441/js/jquery-3.4.1.js}"></script>
+<script type="text/javascript" th:src="@{/bs441/js/bootstrap.bundle.js}"></script>
+</body>
+</html>
