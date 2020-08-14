@@ -39,8 +39,8 @@
                         </div>
                         <div class="col">
                             <p>Change</p>
-                            <p th:classappend="${pf.getChangeSum() > 0 ? 'text-success' : 'text-danger'}"><span
-                                    th:text="${#numbers.formatDecimal(pf.getChangeSum(), 1, 2)}"/> &percnt;</p>
+                            <p th:classappend="${pf.getChangePct() > 0 ? 'text-success' : 'text-danger'}"><span
+                                    th:text="${#numbers.formatDecimal(pf.getChangePct(), 1, 2)}"/> &percnt;</p>
                         </div>
                         <div class="col">
                             <p class="font-weight-bold">daily P&L</p>

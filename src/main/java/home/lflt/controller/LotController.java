@@ -1,10 +1,7 @@
 package home.lflt.controller;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import home.lflt.model.Lot;
 import home.lflt.model.Stock;
-import home.lflt.model.fmpQuote;
 import home.lflt.repo.LotRepo;
 import home.lflt.repo.PortfolioRepo;
 import home.lflt.repo.QuoteRepo;
@@ -15,13 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.lang.reflect.Type;
-import java.net.URL;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.Collection;
 
 import static home.lflt.utils.Utils.*;
 
@@ -80,7 +71,7 @@ public class LotController {
         log.info("stock retrieved: " + stock);
 
         for(int i = 0; i < 10; i++) {
-            historicalPrice(stock.getSymbol(), dateTo.minusYears(i).toString(), dateTo.minusYears(i).toString());
+            fmpHistoricalPrice(stock.getSymbol(), dateTo.minusYears(i).toString(), dateTo.minusYears(i).toString());
         }
 
         return "stock";

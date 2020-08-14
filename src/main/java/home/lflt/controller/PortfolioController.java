@@ -2,8 +2,6 @@ package home.lflt.controller;
 
 import home.lflt.model.Lot;
 import home.lflt.model.Portfolio;
-import home.lflt.model.Stock;
-import home.lflt.model.fmpQuote;
 import home.lflt.repo.LotRepo;
 import home.lflt.repo.PortfolioRepo;
 import home.lflt.repo.QuoteRepo;
@@ -14,10 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.util.List;
 import java.util.Set;
-
-import static home.lflt.utils.Utils.getQuote;
 
 @Slf4j
 @Controller

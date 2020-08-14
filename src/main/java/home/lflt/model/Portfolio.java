@@ -38,9 +38,9 @@ public class Portfolio {
     private long id;
     private String name;
     private String info;
-    private String type;
-    private double balance;
-    private double funds;
+    private String type; //of management, man vs bot
+    private double balance; //current pf value
+    private double funds; //epochal investment sum
     private int epochs;
     private LocalDateTime tstamp;
     private LocalDateTime ustamp;
@@ -48,11 +48,11 @@ public class Portfolio {
     @OneToMany(mappedBy = "portfolio", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Lot> lots;
     @Transient
-    private double cptSum;
+    private double cptSum; //current lot price total
     @Transient
-    private double changeSum;
+    private double changePct;
     @Transient
-    private double plDailySum;
+    private double plDailySum; //profit loss
     @Transient
     private double plTotalSum;
 }

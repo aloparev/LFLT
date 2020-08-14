@@ -35,7 +35,7 @@ public class Lot {
     private String name;
 
     private int units;
-    private double ip;
+    private double ip; //initial buy price
     private double ipt;
 
     @CreationTimestamp
@@ -46,15 +46,15 @@ public class Lot {
     private Portfolio portfolio;
 
     @Transient
-    private double cp;
+    private double cp; //current price
     @Transient
     private double cpt;
     @Transient
-    private double change;
+    private double changePct;
     @Transient
-    private double yc;
+    private double yc; //yesterday close price
     @Transient
-    private double pld;
+    private double pld; //profit loss daily
     @Transient
     private double plt;
 

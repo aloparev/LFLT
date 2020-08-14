@@ -5,6 +5,7 @@ drop table IF EXISTS portfolios_lots;
 DROP TABLE IF EXISTS stocks;
 DROP TABLE IF EXISTS feedbacks;
 DROP TABLE IF EXISTS quotes;
+DROP TABLE IF EXISTS mquotes;
 drop sequence if exists hibernate_sequence;
 
 CREATE SEQUENCE hibernate_sequence START 2000;
@@ -82,4 +83,12 @@ CREATE TABLE quotes (
     earningsAnnouncement TIMESTAMPTZ,
     sharesOutstanding BIGINT,
     tstamp TIMESTAMPTZ
+);
+
+CREATE TABLE mquotes (
+    id INTEGER PRIMARY KEY,
+    symbol varchar(9),
+    price REAL,
+    changePct REAL,
+    changeAbs REAL,
 );

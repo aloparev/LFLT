@@ -8,7 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.util.Random;
 
-import static home.lflt.utils.Utils.getQuote;
+import static home.lflt.utils.Utils.fmpGetQuote;
 
 @Slf4j
 public class BuyingAlgorithm {
@@ -35,7 +35,7 @@ public class BuyingAlgorithm {
             while (!picked) {
                 int randomIndex = getRandomMargins(0, stockCounter);
                 stock = stockRepo.getByIndex(randomIndex);
-                quote = getQuote(stock.getSymbol());
+                quote = fmpGetQuote(stock.getSymbol());
                 if (quote.getPrice() <= funds) picked = true;
             }
 
