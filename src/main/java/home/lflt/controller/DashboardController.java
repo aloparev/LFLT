@@ -1,6 +1,7 @@
 package home.lflt.controller;
 
 import home.lflt.model.Lot;
+import home.lflt.model.MarketsInsiderHead;
 import home.lflt.model.Portfolio;
 import home.lflt.model.fmpQuote;
 import home.lflt.repo.PortfolioRepo;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.Set;
 
 import static home.lflt.utils.Utils.fmpGetQuote;
+import static home.lflt.utils.Utils.miGetQuote;
 
 @Slf4j
 @Controller
@@ -56,13 +58,17 @@ public class DashboardController {
         Set<Lot> lots = pf.getLots();
 //        log.info(">> pf.getLots();");
         for(Lot lot : lots) {
-            fmpQuote quote = fmpGetQuote(lot.getSymbol());
+            MarketsInsiderHead quote = miGetQuote(lot.getSymbol());
 
             lot.setCp(quote.getPrice());
             lot.setCpt(lot.getUnits() * lot.getCp());
-            lot.setChangePct(quote.getChangesPercentage());
-            lot.setPlt(lot.getCpt() - lot.getIpt());
-
+            lot.setChangePct(quote.getChangePct());
+            if (quote.getPrice() == 0) {
+                lot.setPlt(0);
+            } else {
+                lot.setPlt(lot.getCpt() - lot.getIpt());
+            }
+            
             pf.setCptSum(pf.getCptSum() + lot.getCpt());
             pf.setChangePct(pf.getChangePct() + lot.getChangePct());
             pf.setPlTotalSum(pf.getPlTotalSum() + lot.getPlt());

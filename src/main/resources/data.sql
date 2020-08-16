@@ -462,7 +462,7 @@ INSERT INTO public.stocks (index, symbol, name, market, land, sector, industry, 
 INSERT INTO public.stocks (index, symbol, name, market, land, sector, industry, tstamp) VALUES (460, 'UNH', 'United Health Group Inc.', 'S&P 500', 'US', 'Health Care', 'Managed Health Care', '2020-03-16 17:38:52.560484+01');
 INSERT INTO public.stocks (index, symbol, name, market, land, sector, industry, tstamp) VALUES (461, 'UPS', 'United Parcel Service', 'S&P 500', 'US', 'Industrials', 'Air Freight & Logistics', '2020-03-16 17:38:52.560484+01');
 INSERT INTO public.stocks (index, symbol, name, market, land, sector, industry, tstamp) VALUES (462, 'URI', 'United Rentals, Inc.', 'S&P 500', 'US', 'Industrials', 'Trading Companies & Distributors', '2020-03-16 17:38:52.560484+01');
-INSERT INTO public.stocks (index, symbol, name, market, land, sector, industry, tstamp) VALUES (463, 'UTX', 'United Technologies', 'S&P 500', 'US', 'Industrials', 'Aerospace & Defense', '2020-03-16 17:38:52.560484+01');
+INSERT INTO public.stocks (index, symbol, name, market, land, sector, industry, tstamp) VALUES (463, 'RTX', 'Raytheon Technologies Corporation', 'S&P 500', 'US', 'Industrials', 'Aerospace & Defense', '2020-03-16 17:38:52.560484+01');
 INSERT INTO public.stocks (index, symbol, name, market, land, sector, industry, tstamp) VALUES (464, 'UHS', 'Universal Health Services, Inc.', 'S&P 500', 'US', 'Health Care', 'Health Care Facilities', '2020-03-16 17:38:52.560484+01');
 INSERT INTO public.stocks (index, symbol, name, market, land, sector, industry, tstamp) VALUES (465, 'UNM', 'Unum Group', 'S&P 500', 'US', 'Financials', 'Life & Health Insurance', '2020-03-16 17:38:52.560484+01');
 INSERT INTO public.stocks (index, symbol, name, market, land, sector, industry, tstamp) VALUES (466, 'VFC', 'V.F. Corp.', 'S&P 500', 'US', 'Consumer Discretionary', 'Apparel, Accessories & Luxury Goods', '2020-03-16 17:38:52.560484+01');
@@ -520,6 +520,6 @@ insert into lots(id, symbol, portfolio_id, units, ip, ipt, tstamp, name) values(
 insert into lots(id, symbol, portfolio_id, units, ip, ipt, tstamp, name) values(1637, 'AMD', 0, 25, 39.12, 978, '2020-03-19 03:02:02.863+00', 'Advanced Micro Devices Inc');
 insert into lots(id, symbol, portfolio_id, units, ip, ipt, tstamp, name) values(1641, 'APH', 0, 14, 69.18, 968.52, '2020-03-23 19:02:01.653+00', 'Amphenol Corp');
 insert into lots(id, symbol, portfolio_id, units, ip, ipt, tstamp, name) values(1642, 'HPQ', 0, 66, 15.05, 993.3, '2020-03-24 19:02:02+00', 'HP Inc.');
-insert into lots(id, symbol, portfolio_id, units, ip, ipt, tstamp, name) values(1643, 'UTX', 0, 10, 99, 990, '2020-03-25 19:02:02.663+00', 'United Technologies');
+insert into lots(id, symbol, portfolio_id, units, ip, ipt, tstamp, name) values(1643, 'RTX', 0, 10, 99, 990, '2020-03-25 19:02:02.663+00', 'Raytheon Technologies Corporation');
 insert into lots(id, symbol, portfolio_id, units, ip, ipt, tstamp, name) values(1645, 'KMI', 0, 71, 13.89, 986.19, '2020-03-27 19:02:01.587+00', 'Kinder Morgan');
 insert into lots(id, symbol, portfolio_id, units, ip, ipt, tstamp, name) values(1638, 'CTXS', 0, 7, 125.31, 877.17, '2020-03-20 03:02:02+00', 'Citrix Systems');

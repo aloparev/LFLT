@@ -84,11 +84,3 @@ CREATE TABLE quotes (
     sharesOutstanding BIGINT,
     tstamp TIMESTAMPTZ
 );
-
-CREATE TABLE mquotes (
-    id INTEGER PRIMARY KEY,
-    symbol varchar(9),
-    price REAL,
-    changePct REAL,
-    changeAbs REAL,
-);

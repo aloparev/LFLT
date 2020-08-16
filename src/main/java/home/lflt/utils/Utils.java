@@ -101,36 +101,29 @@ public class Utils {
         String miBaseUrlStart = "https://markets.businessinsider.com/stocks/";
         String miBaseUrlEnd = "-stock";
         String link = miBaseUrlStart.concat(symbol).concat(miBaseUrlEnd);
-        double price = -1;
+        double price = 0;
         double changePct = -1;
         double changeAbs = -1;
 
         Document doc = null;
         try {
-//            doc = Jsoup.connect("https://en.wikipedia.org/").get();
             doc = Jsoup.connect(link).get();
         } catch (IOException e) {
             e.printStackTrace();
         }
 
         try {
-            log.info("scraped title: " + doc.title());
-
-//            Elements newsHeadlines = doc.select("#mp-itn b a");
-//            for (Element headline : newsHeadlines) {
-//                log.info(headline.attr("title") + "\n\t" + headline.absUrl("href"));
-//            }
-
             NumberFormat nf = NumberFormat.getInstance(Locale.US); // Looks like a US format
             String changePctStr = doc.select("#pushBorder div.aktien-big-font.text-nowrap span").last().text();
             price = nf.parse(doc.select("#pushBorder span.push-data.aktien-big-font.text-nowrap.no-padding-at-all").text()).doubleValue();
             changeAbs = nf.parse(doc.select("#pushBorder div.aktien-big-font.text-nowrap span").first().text()).doubleValue();
             changePct = nf.parse(changePctStr.substring(1, changePctStr.length()-2)).doubleValue();
 
-            log.info("price " + price);
 //            log.info("changeAbs " + doc.select("#pushBorder div.aktien-big-font.text-nowrap span.push-data.colorRed.aktien-big-font.text-nowrap.big-font-small.colorBlack").text());
-            log.info("changeAbs " + changeAbs);
-            log.info("changePct " + changePct);
+//            log.info("scraped title: " + doc.title());
+//            log.info("price " + price);
+//            log.info("changeAbs " + changeAbs);
+//            log.info("changePct " + changePct);
         } catch (Exception ne) {
             log.info("null pointer while reading doc");
         }
