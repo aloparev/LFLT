@@ -20,7 +20,7 @@ class PortfolioUpdaterTest {
 
     @Test
     void balancing() {
-        Portfolio pp = new Portfolio("dummy P", "RANDOM", 0, 1000, 1);
+        Portfolio pp = new Portfolio("dummy P", "RANDOM", 0, 1000, 'd', 1);
 //        pp.setName("dummy pp");
 //        pp.setInfo("to test balance field");
 //        pp.setType("RANDOM");

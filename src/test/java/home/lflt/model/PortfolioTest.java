@@ -20,7 +20,8 @@ class PortfolioTest {
         portfolio.setInfo("to test ustamp");
         portfolio.setType("RANDOM");
         portfolio.setFunds(1000);
-        portfolio.setEpochs(1);
+        portfolio.setCron('d');
+        portfolio.setDelay(1);
         portfolio.setUstamp(LocalDateTime.now());
         log.info("portfolio initialized=" + portfolio.toString());
         LocalDateTime stamp = portfolio.getUstamp();

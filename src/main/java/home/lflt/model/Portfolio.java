@@ -1,18 +1,12 @@
 package home.lflt.model;
 
-import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Data
@@ -23,12 +17,13 @@ import java.util.Set;
 public class Portfolio {
     public Portfolio(){};
 
-    public Portfolio(String name, String type, double balance, double funds, int epochs) {
+    public Portfolio(String name, String type, double balance, double funds, char cron, int delay) {
         this.name = name;
         this.type = type;
         this.balance = balance;
         this.funds = funds;
-        this.epochs = epochs;
+        this.cron = cron;
+        this.delay = delay;
         this.lots = new HashSet<>();
         this.tstamp = LocalDateTime.now();
     }
@@ -41,7 +36,8 @@ public class Portfolio {
     private String type; //of management, man vs bot
     private double balance; //current pf value
     private double funds; //epochal investment sum
-    private int epochs;
+    private char cron;
+    private int delay;
     private LocalDateTime tstamp;
     private LocalDateTime ustamp;
 

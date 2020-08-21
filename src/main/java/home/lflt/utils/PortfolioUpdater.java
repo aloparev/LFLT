@@ -45,7 +45,7 @@ public class PortfolioUpdater {
 
         for(Portfolio pp : portfolios) {
 //            log.info("pp found: " + pp);
-            boolean update = checkPortfolio(pp.getUstamp(), pp.getEpochs());
+            boolean update = checkPortfolio(pp.getUstamp(), pp.getCron(), pp.getDelay());
 
             if(update)
                 switch (pp.getType()) {

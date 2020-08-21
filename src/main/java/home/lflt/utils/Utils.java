@@ -15,32 +15,40 @@ import java.net.URL;
 import java.text.NumberFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.temporal.WeekFields;
 import java.util.Locale;
 
 @Slf4j
 public class Utils {
-    public static boolean checkPortfolio(LocalDateTime checkMe, char type, int epochDays) {
-        log.info("checkMe=" + checkMe + ", type=" + type + ", epochs=" + epochDays);
-
+    public static boolean checkPortfolio(LocalDateTime checkMe, char updateType, int delay) {
+        log.info("checkMe = " + checkMe + ", updateType=" + updateType + ", epochs=" + delay);
         LocalDateTime now = LocalDateTime.now();
-        boolean ans = false;
-//        log.info("public static boolean checkPortfolio(LocalDate checkMe, int epochDays)");
-//        log.info("epochs=" + epochDays);
+        boolean update = true;
+
+        if(checkMe != null)
+            switch (updateType) {
+                case 'd':
+//                    log.info("now.getDayOfMonth()="+now.getDayOfMonth());
+//                    log.info("then.getDayOfMonth()="+checkMe.getDayOfMonth());
+                    update = now.getDayOfMonth() != checkMe.getDayOfMonth();
+                    break;
+                case 'w':
+//                    log.info("now.getWeek="+now.get(WeekFields.of(Locale.US).weekOfWeekBasedYear()));
+//                    log.info("then.getWeek="+checkMe.get(WeekFields.of(Locale.US).weekOfWeekBasedYear()));
+                    update = now.get(WeekFields.of(Locale.US).weekOfWeekBasedYear()) != checkMe.get(WeekFields.of(Locale.US).weekOfWeekBasedYear());
+                    break;
+                case 'M':
+                    update = now.getMonthValue() != checkMe.getMonthValue();
+                    break;
+            }
+
+//        log.info("public static boolean checkPortfolio(LocalDate checkMe, int delay)");
+//        log.info("epochs=" + delay);
 //        log.info("checkMe.plusMonths(1).getMonthValue()=" + checkMe.plusMonths(1).getMonthValue());
 
-        if(checkMe == null)
-            ans = true;
-        else if(epochDays == 28 && now.compareTo(checkMe.plusMonths(1)) >= 0) {
-//            log.info("if(epochDays == 28 && now.compareTo(checkMe.plusMonths(1)) >= 0)");
-            ans = true;
-        } else if(now.compareTo(checkMe.plusDays(epochDays)) >= 0) {
-            ans = true;
-//            log.info("now.compareTo(checkMe.plusDays(epochDays)) >= 0");
+        log.info("checkMe=" + update);
+        return update;
         }
-
-        log.info("checkPortfolio return=" + ans);
-        return ans;
-    }
 
     public static void fmpHistoricalPrice(String symbol, String from, String to) {
         String baseUrl = "https://financialmodelingprep.com/api/v3/historical-price-full/";

@@ -7,4 +7,8 @@ public final class Constants {
     public enum buyingAlgorithm {
         RANDOM, DROP, POSITIVE, USER
     }
+
+    public enum portfolioState {
+        USER, RANDOM, OVER
+    }
 }

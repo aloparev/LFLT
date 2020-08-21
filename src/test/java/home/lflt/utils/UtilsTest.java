@@ -12,7 +12,7 @@ import static home.lflt.utils.Utils.checkPortfolio;
 
 @Slf4j
 class UtilsTest {
-    private LocalDateTime date = LocalDateTime.now();
+    private final LocalDateTime date = LocalDateTime.now();
     private int day = 1;
     private int week = 7;
     private int month = 28;
@@ -24,36 +24,36 @@ class UtilsTest {
 
     @Test
     void yesterdayOneEpochShouldBeUpdated() {
-        assertTrue(checkPortfolio(date.minusDays(day), day));
+        assertTrue(checkPortfolio(date.minusDays(day), 'd', day));
     }
 
     @Test
     void nowOneEpochShouldNotBeUpdated() {
-        assertFalse(checkPortfolio(date, day));
+        assertFalse(checkPortfolio(date, 'd', day));
     }
 
     @Test
-    void oneWeekShouldBeUpdated() {
-        assertTrue(checkPortfolio(date.minusDays(week), week));
+    void weekAgoShouldBeUpdated() {
+        assertTrue(checkPortfolio(date.minusDays(week), 'd', week));
     }
 
     @Test
-    void oneWeekShouldNotBeUpdated() {
-        assertFalse(checkPortfolio(date.minusDays(day), week));
+    void weekAgoNowMinusDayShouldNotBeUpdated() {
+        assertFalse(checkPortfolio(date.minusDays(day), 'w', week));
     }
 
     @Test
     void lastMonthShouldBeUpdated() {
-        assertTrue(checkPortfolio(date.minusMonths(1), month));
+        assertTrue(checkPortfolio(date.minusMonths(1), 'M', month));
     }
 
     @Test
     void lastMonthShouldNotBeUpdated() {
-        assertFalse(checkPortfolio(date.minusDays(week), month));
+        assertFalse(checkPortfolio(date.minusDays(week), 'M', month));
     }
 
     @Test
     void nullShouldBeUpdated() {
-        assertTrue(checkPortfolio(null, month));
+        assertTrue(checkPortfolio(null, 'd', month));
     }
 }
