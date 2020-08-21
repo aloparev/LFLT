@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.time.LocalDateTime;
 import java.util.Set;
 
 import static home.lflt.utils.Utils.fmpGetQuote;
@@ -60,15 +61,16 @@ public class DashboardController {
         for(Lot lot : lots) {
             MarketsInsiderHead quote = miGetQuote(lot.getSymbol());
 
-            lot.setCp(quote.getPrice());
-            lot.setCpt(lot.getUnits() * lot.getCp());
-            lot.setChangePct(quote.getChangePct());
-            if (quote.getPrice() == 0) {
-                lot.setPlt(0);
-            } else {
-                lot.setPlt(lot.getCpt() - lot.getIpt());
+            lot.setYc(lot.getCp());
+            if (quote.getPrice() != 0) {
+                lot.setCp(quote.getPrice());
+                lot.setUstamp(LocalDateTime.now());
             }
-            
+            lot.setCpt(lot.getUnits() * lot.getCp());
+            lot.setIpt(lot.getUnits() * lot.getIp());
+            lot.setChangePct(quote.getChangePct());
+            lot.setPlt(lot.getCpt() - lot.getIpt());
+
             pf.setCptSum(pf.getCptSum() + lot.getCpt());
             pf.setChangePct(pf.getChangePct() + lot.getChangePct());
             pf.setPlTotalSum(pf.getPlTotalSum() + lot.getPlt());

@@ -24,6 +24,7 @@
                 <p class="text-center font-italic mb-4"><span th:text="${pf.getInfo()}"/></p>
                 <div class="jumbotron shadow-black p-3 mb-4 rounded" style="background-color: var(--tableJumbotronColor)">
 
+<!--                    pf summary row-->
                     <div class="row font-weight-bold">
                         <div class="col">
                             <p>Worth</p>
@@ -47,6 +48,7 @@
                     </div>
                 </div>
 
+<!--                lots header row-->
                 <div class="row">
                     <div class="table-responsive m-3">
                         <table class="table table-hover table-striped">
@@ -56,7 +58,6 @@
                                 <th>U</th>
                                 <th>IP</th>
                                 <!--                            <th>Price base</th>-->
-
                                 <!--                            <th>change</th>-->
                                 <th>CP</th>
                                 <!--                            <th>Total price</th>-->
@@ -65,8 +66,9 @@
                             </tr>
                             </thead>
 
+<!--                            data rows from here on-->
                             <tbody>
-                            <tr th:each="ii : ${pf.getLots()}">
+                            <tr th:each="ii : ${pf.getLots()}" th:classappend="${ii.getYc() == ii.getCp() ? 'bg-warning' : ''}">
                                 <td class="px-4">
                                     <div class="row">
                                         <span th:text="${ii.getSymbol()}"></span>

@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Data
@@ -21,7 +22,8 @@ public class Lot {
         this.name = name;
         this.units = units;
         this.ip = price;
-        this.ipt = units * price;
+        this.cp = price;
+//        this.ipt = units * price;
     }
 
     @Id
@@ -31,22 +33,26 @@ public class Lot {
     @Column(length = 9)
     private String symbol;
 
-    @Column(length = 49)
+    @Column(length = 99)
     private String name;
 
     private int units;
     private double ip; //initial buy price
-    private double ipt;
+    private double cp;
 
     @CreationTimestamp
     private Date tstamp;
+
+    private LocalDateTime ustamp;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(nullable = false)
     private Portfolio portfolio;
 
+//    not in db
+
     @Transient
-    private double cp; //current price
+    private double ipt;
     @Transient
     private double cpt;
     @Transient

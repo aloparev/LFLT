@@ -19,8 +19,8 @@ import java.util.Locale;
 
 @Slf4j
 public class Utils {
-    public static boolean checkPortfolio(LocalDateTime checkMe, int epochDays) {
-        log.info("checkMe=" + checkMe + ", epochs=" + epochDays);
+    public static boolean checkPortfolio(LocalDateTime checkMe, char type, int epochDays) {
+        log.info("checkMe=" + checkMe + ", type=" + type + ", epochs=" + epochDays);
 
         LocalDateTime now = LocalDateTime.now();
         boolean ans = false;
@@ -58,8 +58,7 @@ public class Utils {
 
     public static fmpQuote fmpGetQuote(String symbol) {
         String baseUrl = "https://financialmodelingprep.com/api/v3/quote/";
-        String link = baseUrl.concat(symbol).concat("?apikey=148413889da13eff86f99945088b5ffe");
-//        String link = baseUrl.concat(symbol).concat(System.getenv("FMG_API"));
+        String link = baseUrl.concat(symbol).concat(System.getenv("FMP_API"));
         String rawJson = "";
         String cleanJson = "";
         Gson gson = new Gson();
@@ -109,7 +108,7 @@ public class Utils {
         try {
             doc = Jsoup.connect(link).get();
         } catch (IOException e) {
-            e.printStackTrace();
+            log.info(symbol + " not found\n" + e.getMessage());
         }
 
         try {
@@ -125,7 +124,7 @@ public class Utils {
 //            log.info("changeAbs " + changeAbs);
 //            log.info("changePct " + changePct);
         } catch (Exception ne) {
-            log.info("null pointer while reading doc");
+            log.info("couldn't parse double");
         }
 
         return MarketsInsiderHead.builder()
