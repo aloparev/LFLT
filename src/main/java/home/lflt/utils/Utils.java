@@ -13,42 +13,37 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.text.NumberFormat;
-import java.time.LocalDate;
+import java.time.Duration;
 import java.time.LocalDateTime;
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.time.temporal.WeekFields;
 import java.util.Locale;
 
+import static home.lflt.utils.Constants.*;
+
 @Slf4j
 public class Utils {
-    public static boolean checkPortfolio(LocalDateTime checkMe, char updateType, int delay) {
-        log.info("checkMe = " + checkMe + ", updateType=" + updateType + ", epochs=" + delay);
+    public static boolean checkPortfolio(LocalDateTime then, char updateFreq, int delay) {
+        log.info("then = " + then + ", updateFreq=" + updateFreq + ", epochs=" + delay);
         LocalDateTime now = LocalDateTime.now();
-        boolean update = true;
+//        boolean update = true;
 
-        if(checkMe != null)
-            switch (updateType) {
+        if(then == null)
+            return true;
+        else
+            switch (updateFreq) {
                 case 'd':
-//                    log.info("now.getDayOfMonth()="+now.getDayOfMonth());
-//                    log.info("then.getDayOfMonth()="+checkMe.getDayOfMonth());
-                    update = now.getDayOfMonth() != checkMe.getDayOfMonth();
-                    break;
+                    return Duration.between(then, now).toMinutes() > ( DAY_IN_MINUTES * delay - DAY_OFFSET_IN_MINUTES );
                 case 'w':
-//                    log.info("now.getWeek="+now.get(WeekFields.of(Locale.US).weekOfWeekBasedYear()));
-//                    log.info("then.getWeek="+checkMe.get(WeekFields.of(Locale.US).weekOfWeekBasedYear()));
-                    update = now.get(WeekFields.of(Locale.US).weekOfWeekBasedYear()) != checkMe.get(WeekFields.of(Locale.US).weekOfWeekBasedYear());
-                    break;
+                    return Duration.between(then, now).toHours() > ( WEEK_IN_HOURS * delay - WEEK_OFFSET_IN_HOURS );
                 case 'M':
-                    update = now.getMonthValue() != checkMe.getMonthValue();
-                    break;
+                    return Duration.between(then, now).toHours() > ( MONTH_IN_HOURS * delay - MONTH_OFFSET_IN_HOURS );
+                default:
+                    log.info("updateFreq doesn't match any switch option");
+                    return false;
             }
-
-//        log.info("public static boolean checkPortfolio(LocalDate checkMe, int delay)");
-//        log.info("epochs=" + delay);
-//        log.info("checkMe.plusMonths(1).getMonthValue()=" + checkMe.plusMonths(1).getMonthValue());
-
-        log.info("checkMe=" + update);
-        return update;
-        }
+    }
 
     public static void fmpHistoricalPrice(String symbol, String from, String to) {
         String baseUrl = "https://financialmodelingprep.com/api/v3/historical-price-full/";
