@@ -64,7 +64,7 @@ public class DashboardController {
             lot.setYc(lot.getCp());
             if (quote.getPrice() != 0) {
                 lot.setCp(quote.getPrice());
-                lot.setUstamp(LocalDateTime.now());
+//                lot.setUstamp(LocalDateTime.now());
             }
             lot.setCpt(lot.getUnits() * lot.getCp());
             lot.setIpt(lot.getUnits() * lot.getIp());

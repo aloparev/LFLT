@@ -17,13 +17,14 @@ import java.util.Set;
 public class Portfolio {
     public Portfolio(){};
 
-    public Portfolio(String name, String type, double balance, double funds, char cron, int delay) {
+    public Portfolio(String name, String type, double balance, double funds, char cron, int delay, int epochs) {
         this.name = name;
         this.type = type;
         this.balance = balance;
         this.funds = funds;
         this.cron = cron;
         this.delay = delay;
+        this.epochs = epochs;
         this.lots = new HashSet<>();
         this.tstamp = LocalDateTime.now();
     }
@@ -38,6 +39,7 @@ public class Portfolio {
     private double funds; //epochal investment sum
     private char cron;
     private int delay;
+    private int epochs;
     private LocalDateTime tstamp;
     private LocalDateTime ustamp;
 

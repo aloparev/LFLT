@@ -20,7 +20,7 @@ class PortfolioUpdaterTest {
 
     @Test
     void balancing() {
-        Portfolio pp = new Portfolio("dummy P", "RANDOM", 0, 1000, 'd', 1);
+        Portfolio pp = new Portfolio("dummy P", "RANDOM", 0, 1000, 'd', 1, 10);
 //        pp.setName("dummy pp");
 //        pp.setInfo("to test balance field");
 //        pp.setType("RANDOM");
@@ -31,7 +31,7 @@ class PortfolioUpdaterTest {
 
         Lot newLot = new Lot("foo", "s1", 4, 210);
         newLot.setPortfolio(pp);
-        pp.setBalance(pp.getBalance() + pp.getFunds() - newLot.getIpt());
+        pp.setBalance(pp.getBalance() + pp.getFunds() - (newLot.getIp() * newLot.getUnits()));
         pp.getLots().add(newLot);
         assertEquals(160, pp.getBalance());
 
@@ -40,21 +40,21 @@ class PortfolioUpdaterTest {
 //        log.info("IPT2=" + String.valueOf(anotherLot.getIpt()));
 //        log.info("balance2=" + String.valueOf(pp.getBalance()));
 //        log.info("funds2=" + String.valueOf(pp.getFunds()));
-        pp.setBalance(pp.getBalance() + pp.getFunds() - anotherLot.getIpt());
+        pp.setBalance(pp.getBalance() + pp.getFunds() - (anotherLot.getIp() * anotherLot.getUnits()));
         pp.getLots().add(anotherLot);
         // 1160 - 960
         assertEquals(200, pp.getBalance());
 
         for(Lot ll : pp.getLots())
-            pp.setBalance(pp.getBalance() + ll.getIpt());
+            pp.setBalance(pp.getBalance() + ll.getIp() * ll.getUnits());
 
 //        pp.setBalance(pp.getBalance() + newLot.getIpt() + anotherLot.getIpt());
         assertEquals(2000, pp.getBalance());
 //        log.info("pp end=" + pp);
     }
 
-    @Test
-    void addLot() {
+//    @Test
+//    void addLot() {
 //        Lot alreadyExists = lotRepo.getByPortfolioIdAndSymbol(pp.getId(), newLot.getSymbol());
 //        if(alreadyExists == null) {
 //            pp.getLots().add(newLot);
@@ -69,6 +69,5 @@ class PortfolioUpdaterTest {
 
 //        pp.getLots().add(new BuyingAlgorithm(stockRepo, pp.getFunds()).buyStockRandomly());
 //        log.info("pp updated=" + pp.toString());
-
-    }
+//    }
 }

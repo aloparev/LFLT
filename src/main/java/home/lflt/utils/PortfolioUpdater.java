@@ -41,7 +41,7 @@ public class PortfolioUpdater {
 //    @Scheduled(cron = "1 * * * * ?")
     public void update() {
         log.info("start updater");
-        Iterable<Portfolio> portfolios = portfolioRepo.getByTypeNot("USER");
+        Iterable<Portfolio> portfolios = portfolioRepo.getByType("RANDOM");
 
         for(Portfolio pp : portfolios) {
 //            log.info("pp found: " + pp);
@@ -57,7 +57,10 @@ public class PortfolioUpdater {
                         log.info("positive case");
                         break;
                     default:
-//                        log.info("random (default) case");
+                        pp.setEpochs(pp.getEpochs() - 1);
+                        if(pp.getEpochs() < 1)
+                            pp.setType("OVER");
+
                         Lot newLot = new BuyingAlgorithm(stockRepo, pp.getBalance() + pp.getFunds()).buyStockRandomly();
                         newLot.setPortfolio(pp);
                         pp.setBalance(pp.getBalance() + pp.getFunds() - newLot.getIpt());
@@ -66,12 +69,12 @@ public class PortfolioUpdater {
                         Lot alreadyExists = lotRepo.getByPortfolioIdAndSymbol(pp.getId(), newLot.getSymbol());
                         if(alreadyExists == null) {
                             pp.getLots().add(newLot);
-                            log.info("alreadyExists == null");
+//                            log.info("alreadyExists == null");
                         } else {
                             alreadyExists.setUnits(alreadyExists.getUnits() + newLot.getUnits());
                             alreadyExists.setIpt(alreadyExists.getIpt() + newLot.getIpt());
                             alreadyExists.setIp(alreadyExists.getIpt() / alreadyExists.getUnits());
-                            log.info("alreadyExists exists");
+//                            log.info("alreadyExists exists");
                         }
                         pp.setUstamp(LocalDateTime.now());
 //                        log.info("pp updated: " + pp);
