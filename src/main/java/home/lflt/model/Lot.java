@@ -43,7 +43,7 @@ public class Lot {
     @CreationTimestamp
     private Date tstamp;
 
-    private LocalDateTime ustamp;
+//    private LocalDateTime ustamp;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(nullable = false)
