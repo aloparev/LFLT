@@ -8,7 +8,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Period;
 
-import static home.lflt.utils.Constants.DAY_OFFSET_IN_MINUTES;
+import static home.lflt.utils.Constants.*;
 import static org.junit.jupiter.api.Assertions.*;
 import static home.lflt.utils.Utils.checkPortfolio;
 
@@ -17,9 +17,10 @@ class UtilsTest {
     private final LocalDateTime now = LocalDateTime.now();
     private final int one = 1;
     private final int two = 2;
+    private final int three = 3;
     private final int five = 5;
     private final int seven = 7;
-    private int month = 28;
+    private final int twelve = 12;
 
 //    @Before()
 //    public void setUp() {
@@ -27,59 +28,94 @@ class UtilsTest {
 //    }
 
     @Test
-    void updateYesterday() {
+    void dayUpdateYesterday() {
         assertTrue(checkPortfolio(now.minusDays(one), 'd', one));
     }
 
     @Test
-    void updateYesterdayLowerBound() {
-        assertFalse(checkPortfolio(now.minusMinutes(DAY_OFFSET_IN_MINUTES + five), 'd', one));
+    void dayUpdateYesterdayLowerBound() {
+        assertTrue(checkPortfolio(now.minusMinutes(DAY_IN_MINUTES - DAY_OFFSET_IN_MINUTES + one), 'd', one));
     }
 
     @Test
-    void noUpdateYesterday() {
-        assertFalse(checkPortfolio(now.minusMinutes(DAY_OFFSET_IN_MINUTES + five), 'd', one));
+    void dayNoUpdateAlmostYesterday() {
+        assertFalse(checkPortfolio(now.minusMinutes(DAY_IN_MINUTES - DAY_OFFSET_IN_MINUTES - one), 'd', one));
     }
 
     @Test
-    void updateTwoDaysAgo() {
+    void dayUpdateTwo() {
         assertTrue(checkPortfolio(now.minusDays(two), 'd', two));
-//        LocalDateTime then = now.minusDays(two);
-//        Duration d = Duration.between(then, now);
-//        long expected = DAY_IN_MINUTES * two - DAY_OFFSET_IN_MINUTES;
-//        System.out.println(d.toMinutes());
-//        System.out.println(expected);
-//        System.out.println(d.toMinutes() > expected);
     }
 
     @Test
-    void updateFiveDaysAgo() {
+    void dayUpdateFive() {
         assertTrue(checkPortfolio(now.minusDays(five), 'd', five));
     }
 
     @Test
-    void updateWeekAgo() {
-        assertTrue(checkPortfolio(now.minusDays(seven), 'w', seven));
+    void weekUpdateLast() {
+        assertTrue(checkPortfolio(now.minusDays(seven), 'w', one));
     }
 
     @Test
-    void noUpdateLessThatWeekAgo() {
-        assertFalse(checkPortfolio(now.minusDays(one), 'w', seven));
+    void weekUpdateLastWeekLowerBound() {
+        assertTrue(checkPortfolio(now.minusHours(WEEK_IN_HOURS - WEEK_OFFSET_IN_HOURS + one), 'w', one));
     }
 
     @Test
-    void lastMonthShouldBeUpdated() {
+    void weekNoUpdateLessThanLast() {
+        assertFalse(checkPortfolio(now.minusHours(WEEK_IN_HOURS - WEEK_OFFSET_IN_HOURS - one), 'w', one));
+    }
+
+    @Test
+    void weekUpdateThree() {
+        assertTrue(checkPortfolio(now.minusHours(WEEK_IN_HOURS * three), 'w', three));
+    }
+
+    @Test
+    void weekNoUpdateThree() {
+        assertFalse(checkPortfolio(now.minusHours(WEEK_IN_HOURS * three - WEEK_OFFSET_IN_HOURS - one), 'w', three));
+    }
+
+    @Test
+    void monthUpdateLast() {
         assertTrue(checkPortfolio(now.minusMonths(one), 'M', one));
     }
 
     @Test
-    void lastMonthShouldNotBeUpdated() {
-        assertFalse(checkPortfolio(now.minusDays(seven), 'M', month));
+    void monthUpdateFive() {
+        assertTrue(checkPortfolio(now.minusHours(MONTH_IN_HOURS * five), 'M', five));
     }
 
     @Test
-    void nullShouldBeUpdated() {
-        assertTrue(checkPortfolio(null, 'd', month));
+    void monthUpdateTwelve() {
+        assertTrue(checkPortfolio(now.minusHours(MONTH_IN_HOURS * twelve), 'M', twelve));
+    }
+
+    @Test
+    void monthNoUpdateLessThanOne() {
+        assertFalse(checkPortfolio(now.minusHours(MONTH_IN_HOURS - MONTH_OFFSET_IN_HOURS - one), 'M', one));
+//        LocalDateTime then = now.minusHours(MONTH_IN_HOURS - one);
+//        long duration = Duration.between(then, now).toHours();
+//        long expected = MONTH_IN_HOURS - MONTH_OFFSET_IN_HOURS;
+//        System.out.println(duration);
+//        System.out.println(expected);
+//        System.out.println(duration > expected);
+    }
+
+    @Test
+    void updateNullDaily() {
+        assertTrue(checkPortfolio(null, 'd', two));
+    }
+
+    @Test
+    void updateNullWeekly() {
+        assertTrue(checkPortfolio(null, 'w', three));
+    }
+
+    @Test
+    void updateNullMonthly() {
+        assertTrue(checkPortfolio(null, 'M', five));
     }
 
     @Test
