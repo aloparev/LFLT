@@ -1,6 +1,7 @@
 package home.lflt.utils;
 
 import home.lflt.model.Lot;
+import home.lflt.model.MarketsInsiderHead;
 import home.lflt.model.Stock;
 import home.lflt.model.fmpQuote;
 import home.lflt.repo.StockRepo;
@@ -9,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.Random;
 
 import static home.lflt.utils.Utils.fmpGetQuote;
+import static home.lflt.utils.Utils.miGetQuote;
 
 @Slf4j
 public class BuyingAlgorithm {
@@ -25,7 +27,7 @@ public class BuyingAlgorithm {
 
     public Lot buyStockRandomly() {
         Stock stock = null;
-        fmpQuote quote = null;
+        MarketsInsiderHead quote = null;
 
         String symbol = "UNDEFINED";
         int units = -1;
@@ -35,7 +37,7 @@ public class BuyingAlgorithm {
             while (!picked) {
                 int randomIndex = getRandomMargins(0, stockCounter);
                 stock = stockRepo.getByIndex(randomIndex);
-                quote = fmpGetQuote(stock.getSymbol());
+                quote = miGetQuote(stock.getSymbol());
                 if (quote.getPrice() <= funds) picked = true;
             }
 
