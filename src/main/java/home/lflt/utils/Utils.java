@@ -1,7 +1,6 @@
 package home.lflt.utils;
 
 import com.google.gson.Gson;
-import home.lflt.model.Lot;
 import home.lflt.model.MarketsInsiderHead;
 import home.lflt.model.fmpQuote;
 import lombok.extern.slf4j.Slf4j;
@@ -15,9 +14,6 @@ import java.net.URL;
 import java.text.NumberFormat;
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.time.Instant;
-import java.time.temporal.ChronoUnit;
-import java.time.temporal.WeekFields;
 import java.util.Locale;
 
 import static home.lflt.utils.Constants.*;
@@ -104,7 +100,7 @@ public class Utils {
         String miBaseUrlEnd = "-stock";
         String link = miBaseUrlStart.concat(symbol).concat(miBaseUrlEnd);
         double price = 0;
-        double changePct = -1;
+        double change = -111;
         double changeAbs = -1;
 
         Document doc = null;
@@ -115,25 +111,35 @@ public class Utils {
         }
 
         try {
+            String priceStr = doc.select("span.price-section__current-value").text();
+            String changeStr = doc.select("span.price-section__relative-value").text();
+//            System.out.println(priceStr + "; " + changeStr);
+//            String changeStr = doc.select("#pushBorder div.aktien-big-font.text-nowrap span").last().text();
             NumberFormat nf = NumberFormat.getInstance(Locale.US); // Looks like a US format
-            String changePctStr = doc.select("#pushBorder div.aktien-big-font.text-nowrap span").last().text();
-            price = nf.parse(doc.select("#pushBorder span.push-data.aktien-big-font.text-nowrap.no-padding-at-all").text()).doubleValue();
-            changeAbs = nf.parse(doc.select("#pushBorder div.aktien-big-font.text-nowrap span").first().text()).doubleValue();
-            changePct = nf.parse(changePctStr.substring(1, changePctStr.length()-2)).doubleValue();
+            price = nf.parse(priceStr).doubleValue();
+
+            if(changeStr.charAt(1) == '+') {
+                change = nf.parse(changeStr.substring(1, changeStr.length()-2)).doubleValue();
+            }
+            else {
+                change = nf.parse(changeStr.substring(0, changeStr.length()-2)).doubleValue();
+            }
+
+            changeAbs = price * change / 100;
 
 //            log.info("changeAbs " + doc.select("#pushBorder div.aktien-big-font.text-nowrap span.push-data.colorRed.aktien-big-font.text-nowrap.big-font-small.colorBlack").text());
 //            log.info("scraped title: " + doc.title());
 //            log.info("price " + price);
+//            log.info("change " + change);
 //            log.info("changeAbs " + changeAbs);
-//            log.info("changePct " + changePct);
         } catch (Exception ne) {
-            log.info("couldn't parse double");
+            log.info("couldn't scrape values from page");
         }
 
         return MarketsInsiderHead.builder()
                 .price(price)
                 .changeAbs(changeAbs)
-                .changePct(changePct)
+                .change(change)
                 .build();
     }
 }

@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.time.LocalDateTime;
 import java.util.Set;
 
 import static home.lflt.utils.Utils.fmpGetQuote;
@@ -68,7 +67,7 @@ public class DashboardController {
             }
             lot.setCpt(lot.getUnits() * lot.getCp());
             lot.setIpt(lot.getUnits() * lot.getIp());
-            lot.setChangePct(quote.getChangePct());
+            lot.setChangePct(quote.getChange());
             lot.setPlt(lot.getCpt() - lot.getIpt());
 
             pf.setCptSum(pf.getCptSum() + lot.getCpt());

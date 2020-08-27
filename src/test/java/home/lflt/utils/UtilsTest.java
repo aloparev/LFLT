@@ -1,5 +1,6 @@
 package home.lflt.utils;
 
+import home.lflt.model.MarketsInsiderHead;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 
@@ -9,6 +10,7 @@ import java.time.LocalDateTime;
 import java.time.Period;
 
 import static home.lflt.utils.Constants.*;
+import static home.lflt.utils.Utils.miGetQuote;
 import static org.junit.jupiter.api.Assertions.*;
 import static home.lflt.utils.Utils.checkPortfolio;
 
@@ -146,5 +148,13 @@ class UtilsTest {
         int diff = period.getMonths();
         System.out.println(diff);
 //        assertEquals(diff, 6);
+    }
+
+    @Test
+    void miQuoteShallDeliverValues() {
+        MarketsInsiderHead quote = miGetQuote("GOOG");
+        System.out.println(quote);
+        assertTrue(quote.getPrice() != 0);
+        assertTrue(quote.getChange() != -111);
     }
 }

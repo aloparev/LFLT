@@ -10,6 +10,6 @@ import javax.persistence.*;
 public class MarketsInsiderHead {
     private String symbol;
     private double price;
-    private double changePct;
+    private double change;
     private double changeAbs;
 }
