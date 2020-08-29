@@ -12,7 +12,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.crypto.password.StandardPasswordEncoder;
 
 /**
- * custom login page
+ * authorizes user with hash password
  */
 @Configuration
 @EnableWebSecurity
