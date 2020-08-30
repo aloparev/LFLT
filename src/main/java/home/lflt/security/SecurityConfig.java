@@ -9,8 +9,8 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.crypto.password.StandardPasswordEncoder;
 
 /**
  * authorizes user with hash password
@@ -40,30 +40,22 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //                custom login
                 .and()
                 .formLogin()
-                .loginPage("/login")
+//                .loginPage("/login")
 
                 .and()
                 .logout()
                 .logoutSuccessUrl("/")
 
                 // Make H2-Console non-secured; for debug purposes
-                // tag::csrfIgnore[]
                 .and()
-                .csrf()
-                .ignoringAntMatchers("/h2-console/**")
-                // end::csrfIgnore[]
+                .csrf();
+//                .ignoringAntMatchers("/h2-console/**")
 
                 // Allow pages to be loaded in frames from the same origin; needed for H2-Console
-                // tag::frameOptionsSameOrigin[]
-                .and()
-                .headers()
-                .frameOptions()
-                .sameOrigin()
-        // end::frameOptionsSameOrigin[]
-
-        //tag::authorizeRequests[]
-        //tag::customLoginPage[]
-        ;
+//                .and()
+//                .headers()
+//                .frameOptions()
+//                .sameOrigin();
     }
 //end::configureHttpSecurity[]
 //end::authorizeRequests[]
@@ -72,7 +64,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     //encodes password with SHA256
     @Bean
     public PasswordEncoder encoder() {
-        return new StandardPasswordEncoder("53cr3t");
+//        return new StandardPasswordEncoder("53cr3t");
+        return PasswordEncoderFactories.createDelegatingPasswordEncoder();
     }
 
     @Override
