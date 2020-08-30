@@ -42,7 +42,7 @@ public class FeedbackController {
         long counter = feedbackRepo.count();
         log.info("Feedback counter: " + counter);
 
-        if (counter >= 100) model.addAttribute("feedbackJam", true);
+        if (counter > 99) model.addAttribute("feedbackJam", true);
         else model.addAttribute("feedbackJam", false);
 
         model.addAttribute("feedbackPojo", new Feedback());

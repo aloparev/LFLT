@@ -1,9 +1,6 @@
 package home.lflt.model;
 
-import lombok.AccessLevel;
 import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -20,12 +17,13 @@ import java.util.Collection;
 @Table(name = "users")
 public class User implements UserDetails {
     public User() {}
-    public User(String username, String password, String city, String state, boolean status) {
+    public User(String username, String email, String password, String city, String state, boolean enabled) {
         this.username = username;
+        this.email = email;
         this.password = password;
         this.city = city;
         this.state = state;
-        this.status = status;
+        this.enabled = enabled;
     }
 //    private static final long serialVersionUID = 1L;
 
@@ -34,6 +32,7 @@ public class User implements UserDetails {
     private long id;
 
     private String username; //will be shown publicly
+    private String email;
     private String password; //stored and compared as hash
 //    private final String fullname;
 //    private final String street;
@@ -41,7 +40,7 @@ public class User implements UserDetails {
     private String state;
 //    private final String zip;
 //    private final String phoneNumber;
-    private boolean status;
+    private boolean enabled;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -65,7 +64,6 @@ public class User implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return status;
+        return enabled;
     }
-
 }
