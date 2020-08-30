@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      lang="en">
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" th:href="@{/bs441/css/bootstrap.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/initialStyle.css}"/>
+    <title>LFLT | TEMPLATE</title>
+</head>
+
+<body>
+<div class="container-fluid min-vh-100 p-0">
+    <div th:insert="fragments :: menu"></div>
+
+    <main class="container-fluid w-auto m-2 p-2 bg-light">
+
+    </main>
+
+    <div th:insert="fragments :: footer"></div>
+</div>
+
+<!--bootstrap js-->
+<script type="text/javascript" th:src="@{/bs441/js/jquery-3.4.1.js}"></script>
+<script type="text/javascript" th:src="@{/bs441/js/bootstrap.bundle.js}"></script>
+</body>
+</html>

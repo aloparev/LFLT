@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -21,45 +22,49 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private UserDetailsService userDetailsService;
 
-//    @Override
-//    protected void configure(HttpSecurity http) throws Exception {
-//        http
-//                .authorizeRequests()
-//                .antMatchers("/design", "/orders")
-//                .access("hasRole('ROLE_USER')")
-//                .antMatchers("/", "/**").access("permitAll")
-//                //end::authorizeRequests[]
-//
-//                .and()
-//                .formLogin()
-//                .loginPage("/login")
-//                //end::customLoginPage[]
-//
-//                // tag::enableLogout[]
-//                .and()
-//                .logout()
-//                .logoutSuccessUrl("/")
-//                // end::enableLogout[]
-//
-//                // Make H2-Console non-secured; for debug purposes
-//                // tag::csrfIgnore[]
-//                .and()
-//                .csrf()
-//                .ignoringAntMatchers("/h2-console/**")
-//                // end::csrfIgnore[]
-//
-//                // Allow pages to be loaded in frames from the same origin; needed for H2-Console
-//                // tag::frameOptionsSameOrigin[]
-//                .and()
-//                .headers()
-//                .frameOptions()
-//                .sameOrigin()
-//        // end::frameOptionsSameOrigin[]
-//
-//        //tag::authorizeRequests[]
-//        //tag::customLoginPage[]
-//        ;
-//    }
+    /**
+     * security rules, e.g.
+     * - special conditions and access rules (first rules overwrite the following)
+     * - custom login page
+     * - user's log out
+     * - cross-site request forgery protection
+     */
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http
+                .authorizeRequests()
+                .antMatchers("/game")
+                .access("hasRole('ROLE_USER')")
+                .antMatchers("/", "/**").access("permitAll")
+
+//                custom login
+                .and()
+                .formLogin()
+                .loginPage("/login")
+
+                .and()
+                .logout()
+                .logoutSuccessUrl("/")
+
+                // Make H2-Console non-secured; for debug purposes
+                // tag::csrfIgnore[]
+                .and()
+                .csrf()
+                .ignoringAntMatchers("/h2-console/**")
+                // end::csrfIgnore[]
+
+                // Allow pages to be loaded in frames from the same origin; needed for H2-Console
+                // tag::frameOptionsSameOrigin[]
+                .and()
+                .headers()
+                .frameOptions()
+                .sameOrigin()
+        // end::frameOptionsSameOrigin[]
+
+        //tag::authorizeRequests[]
+        //tag::customLoginPage[]
+        ;
+    }
 //end::configureHttpSecurity[]
 //end::authorizeRequests[]
 //end::customLoginPage[]
