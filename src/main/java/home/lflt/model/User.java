@@ -4,37 +4,41 @@ import lombok.AccessLevel;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.annotation.Id;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Arrays;
 import java.util.Collection;
 
-@Entity
 @Data
-@NoArgsConstructor(access= AccessLevel.PRIVATE, force=true)
-@RequiredArgsConstructor
+@Entity
+//@NoArgsConstructor(access=AccessLevel.PROTECTED, force=true)
+//@NoArgsConstructor(access=AccessLevel.PRIVATE, force=true)
+//@RequiredArgsConstructor
 @Table(name = "users")
 public class User implements UserDetails {
-//
+    public User() {}
+    public User(String username, String password, String city, String state, boolean status) {
+        this.username = username;
+        this.password = password;
+        this.city = city;
+        this.state = state;
+        this.status = status;
+    }
 //    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private long id;
 
-    private final String username; //will be shown publicly
-    private final String password; //stored and compared as hash
+    private String username; //will be shown publicly
+    private String password; //stored and compared as hash
 //    private final String fullname;
 //    private final String street;
-    private final String city;
-    private final String state;
+    private String city;
+    private String state;
 //    private final String zip;
 //    private final String phoneNumber;
     private boolean status;
