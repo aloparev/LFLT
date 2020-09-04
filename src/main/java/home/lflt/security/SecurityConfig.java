@@ -40,7 +40,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //                custom login
                 .and()
                 .formLogin()
-//                .loginPage("/login")
+                .loginPage("/")
 
                 .and()
                 .logout()

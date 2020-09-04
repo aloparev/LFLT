@@ -34,12 +34,12 @@ public class Portfolio {
     private long id;
     private String name;
     private String info;
-    private String type; //of management, man vs bot
-    private double balance; //current pf value
+    private String type; //user, random, over ...
+    private double balance; //left overs after purchase + PL
     private double funds; //epochal investment sum
-    private char cron;
-    private int delay;
-    private int epochs;
+    private char cron; //reoccurrence
+    private int delay; //cron units
+    private int epochs; //how much rounds left
     private LocalDateTime tstamp;
     private LocalDateTime ustamp;
 

@@ -13,7 +13,6 @@
 <body>
 <div class="container-fluid min-vh-100 p-0">
     <div th:insert="fragments :: menu"></div>
-
     <main class="container-fluid w-auto m-2 p-2 bg-light">
         <h1 class="text-center">Feedback</h1>
         <p class="text-center font-italic mb-4">Feel free to share your thoughts</p>
@@ -22,8 +21,8 @@
             <div class="col"></div>
 
             <div class="col-12 col-md-10 col-lg-8">
-                <form method="POST" th:object="${feedbackPojo}" th:action="@{/feedback}" id="feedbackForm">>
-
+                <form method="POST" th:object="${feedbackPojo}" th:action="@{/feedback}" id="feedbackForm">
+<!-- radio buttons -->
                     <fieldset class="form-group">
                         <div class="rowCustom">
                             <div class="col-sm-4">

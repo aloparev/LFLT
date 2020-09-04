@@ -18,22 +18,24 @@
         <h1 class="text-center">Sign Up</h1>
 
         <div class="row">
+            <!-- left placeholder -->
             <div class="col"></div>
-
-            <div class="col-12 col-md-10 col-lg-8"></div>
-                <form method="POST" th:action="@{/registration}" id="registrationForm">
-<!--                    user-->
+            <!-- middle content -->
+            <div class="col-12 col-md-10 col-lg-8">
+                <!--           to send response on the same endpoint, no action is required -->
+                <form method="POST" th:object="${pojo}" th:action="@{/register}" id="registerForm">
+                    <!--                    user-->
                     <div class="form-group rowCustom">
-                            <div class="col-sm-4">
-                                <label for="username" class="col-form-label">Username</label>
-                                <span class="validationError text-danger"
-                                      th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Input Error</span>
-                            </div>
-                            <div class="col-sm-8">
-                                <input type="text" class="form-control" placeholder="Username" th:field="*{username}"/>
-                            </div>
+                        <div class="col-sm-4">
+                            <label for="username" class="col-form-label">Username</label>
+                            <span class="validationError text-danger"
+                                  th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Input Error</span>
+                        </div>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" placeholder="Username" th:field="*{username}"/>
+                        </div>
                     </div>
-<!--                    email-->
+                    <!--                    email-->
                     <div class="form-group rowCustom">
                         <div class="col-sm-4">
                             <label for="email" class="col-form-label">Email</label>
@@ -44,7 +46,7 @@
                             <input type="text" class="form-control" placeholder="Email" th:field="*{email}"/>
                         </div>
                     </div>
-<!--                    pwd-->
+                    <!-- pwd -->
                     <div class="form-group rowCustom">
                         <div class="col-sm-4">
                             <label for="password" class="col-form-label">Password</label>
@@ -55,7 +57,18 @@
                             <input type="text" class="form-control" placeholder="Password" th:field="*{password}"/>
                         </div>
                     </div>
-<!--                    city-->
+                    <!-- age -->
+                    <div class="form-group rowCustom">
+                        <div class="col-sm-4">
+                            <label for="age" class="col-form-label">Age</label>
+                            <span class="validationError text-danger"
+                                  th:if="${#fields.hasErrors('age')}" th:errors="*{age}">Input Error</span>
+                        </div>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" placeholder="Age" th:field="*{age}"/>
+                        </div>
+                    </div>
+                    <!-- city-->
                     <div class="form-group rowCustom">
                         <div class="col-sm-4">
                             <label for="city" class="col-form-label">City</label>
@@ -65,21 +78,31 @@
                         <div class="col-sm-8">
                             <input type="text" class="form-control" placeholder="City" th:field="*{city}"/>
                         </div>
-<!--                        state-->
-                        <div class="form-group rowCustom">
-                            <div class="col-sm-4">
-                                <label for="state" class="col-form-label">State</label>
-                                <span class="validationError text-danger"
-                                      th:if="${#fields.hasErrors('state')}" th:errors="*{state}">Input Error</span>
-                            </div>
-                            <div class="col-sm-8">
-                                <input type="text" class="form-control" placeholder="State" th:field="*{state}"/>
-                            </div>
+                    </div>
+                    <!--                        state-->
+                    <div class="form-group rowCustom">
+                        <div class="col-sm-4">
+                            <label for="state" class="col-form-label">State</label>
+                            <span class="validationError text-danger"
+                                  th:if="${#fields.hasErrors('state')}" th:errors="*{state}">Input Error</span>
+                        </div>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" placeholder="State" th:field="*{state}"/>
+                        </div>
+                    </div>
+                    <!--                submit button-->
+                    <div class="rowCustom">
+                        <div class="col text-center">
+                            <button th:unless="${feedbackJam}" class="btn btn-secondary mt-4">Create new account</button>
+                            <span class="text-danger" th:if="${feedbackJam}">Server error</span>
+                        </div>
                     </div>
                 </form>
             </div>
-
+            <!-- right placeholder -->
             <div class="col"></div>
+        </div>
+
     </main>
 
     <div th:insert="fragments :: footer"></div>
