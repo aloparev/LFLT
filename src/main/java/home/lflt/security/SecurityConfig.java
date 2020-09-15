@@ -32,26 +32,26 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .authorizeRequests()
-                .antMatchers("/game")
-                .access("hasRole('ROLE_USER')")
-                .antMatchers("/", "/**").access("permitAll")
+            .authorizeRequests()
+            .antMatchers("/game")
+            .access("hasRole('ROLE_USER')")
+            .antMatchers("/", "/**").access("permitAll")
 
 //                custom login
-                .and()
-                .formLogin()
-                .loginPage("/")
+            .and()
+            .formLogin()
+//                .loginPage("/")
 
-                .and()
-                .logout()
-                .logoutSuccessUrl("/")
+            .and()
+            .logout()
+            .logoutSuccessUrl("/")
 
-                // Make H2-Console non-secured; for debug purposes
-                .and()
-                .csrf();
+            // Make H2-Console non-secured; for debug purposes
+            .and()
+            .csrf();
 //                .ignoringAntMatchers("/h2-console/**")
 
-                // Allow pages to be loaded in frames from the same origin; needed for H2-Console
+            // Allow pages to be loaded in frames from the same origin; needed for H2-Console
 //                .and()
 //                .headers()
 //                .frameOptions()

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
+<html xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
       lang="en">
 
 <head>
@@ -26,7 +27,7 @@
             <li th:classappend="${#httpServletRequest.getRequestURI() == '/' ? ' active' : ''}" class="nav-item">
                 <a class="nav-link" href="/">Home</a>
             </li>
-<!--            <li th:classappend="${#httpServletRequest.getRequestURI().matches('dashboard.*') ? ' active' : ''}"-->
+            <!--            <li th:classappend="${#httpServletRequest.getRequestURI().matches('dashboard.*') ? ' active' : ''}"-->
             <li th:classappend="${#strings.contains(#httpServletRequest.requestURI, 'dashboard') ? ' active' : ''}"
                 class="nav-item">
                 <a class="nav-link" href="/dashboard">Experiment</a>
@@ -35,17 +36,25 @@
                 class="nav-item">
                 <a class="nav-link" href="/feedback">Feedback</a>
             </li>
+            <li class="divider"></li>
+
+            <!-- login section -->
+
+            <li class="nav-item" sec:authorize="isAuthenticated()">
+                <span class="alert-primary"> USERX </span>
+            </li>
+<!--             user name -->
+            <li class="nav-item" sec:authorize="isAuthenticated()">
+                <a class="nav-link" href="#">
+                    <i class="fab fa-instagram"></i> Instagram</a>
+            </li>
+<!--             logout -->
+            <li class="nav-item" sec:authorize="isAuthenticated()">
+                <form method="POST" th:action="@{/logout}">
+                    <input type="submit" value="Logout"/>
+                </form>
+            </li>
         </ul>
-        <!--                <form class="form-inline my-2 my-lg-0">-->
-        <!--                    <input class="form-control mr-sm-2" type="text" placeholder="Search">-->
-        <!--                    <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>-->
-        <!--                </form>-->
-        <!--        <ul class="nav navbar-nav">-->
-        <!--            <li th:classappend="${#httpServletRequest.getRequestURI() == '/dashboard' ? 'active':''}"><a th:href="@{/dashboard}"><span>Dashboard</span></a></li>-->
-        <!--            <li th:classappend="${#httpServletRequest.getRequestURI() == '/orders' ? 'active':''}"><a th:href="@{/orders}"><span>Orders</span></a></li>-->
-        <!--            <li th:classappend="${#httpServletRequest.getRequestURI() == '/income' ? 'active':''}"><a th:href="@{/income}"><span>Income</span></a></li>-->
-        <!--            <li role="separator" ></li>-->
-        <!--        </ul>-->
     </div>
     <!--    <hr class="footerLine">-->
 </nav>
