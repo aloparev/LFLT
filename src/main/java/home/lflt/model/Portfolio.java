@@ -19,7 +19,7 @@ public class Portfolio {
 
     public Portfolio(String name, String type, double balance, double funds, char cron, int delay, int epochs) {
         this.name = name;
-        this.type = type;
+        this.type = type; //see utils.constants
         this.balance = balance;
         this.funds = funds;
         this.cron = cron;

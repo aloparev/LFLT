@@ -20,7 +20,7 @@ public final class Constants {
         RANDOM, DROP, POSITIVE, USER
     }
 
-    public enum portfolioState {
+    public enum portfolioType {
         USER, RANDOM, OVER
     }
 }
