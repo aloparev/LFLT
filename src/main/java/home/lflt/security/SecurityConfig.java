@@ -39,16 +39,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 //                custom login
             .and()
-            .formLogin()
+                .formLogin()
 //                .loginPage("/")
+//                .defaultSuccessUrl("/")
 
             .and()
-            .logout()
-            .logoutSuccessUrl("/")
+                .logout()
+                .logoutSuccessUrl("/")
 
             // Make H2-Console non-secured; for debug purposes
             .and()
-            .csrf();
+                .csrf();
 //                .ignoringAntMatchers("/h2-console/**")
 
             // Allow pages to be loaded in frames from the same origin; needed for H2-Console

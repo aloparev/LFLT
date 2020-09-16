@@ -36,22 +36,45 @@
                 class="nav-item">
                 <a class="nav-link" href="/feedback">Feedback</a>
             </li>
-            <li class="divider"></li>
 
-            <!-- login section -->
-
-            <li class="nav-item" sec:authorize="isAuthenticated()">
-                <span class="alert-primary"> USERX </span>
+            <!-- TODO: separator -->
+            <li class="nav-item">
+                <a class="nav-link" href="#">
+                    <span>+++</span>
+                </a>
             </li>
+
+            <!-- section for anonymous users -->
+
+<!--            <li class="nav-item" sec:authorize="isAnonymous()">-->
+<!--                <a class="nav-link" href="/game"><span class="glyphicon glyphicon-log-in"></span> Login</a>-->
+<!--            </li>-->
+
+            <li class="nav-item" sec:authorize="isAnonymous()">
+                <form class="form-inline" method="POST" th:action="@{/login}" id="loginForm">
+                    <input class="form-control mr-sm-2" type="text" placeholder="Username" aria-label="Username" name="username" id="username">
+                    <input class="form-control mr-sm-2" type="password" placeholder="Password" aria-label="Password" name="password" id="password">
+                    <button class="btn btn-outline-custom my-2 my-sm-0" type="submit">Login</button>
+                </form>
+            </li>
+
+            <!-- section for authenticated users -->
+
+<!--            <li class="nav-item" sec:authorize="isAuthenticated()">-->
+<!--                <span class="alert-primary"> USERX </span>-->
+<!--            </li>-->
 <!--             user name -->
             <li class="nav-item" sec:authorize="isAuthenticated()">
                 <a class="nav-link" href="#">
-                    <i class="fab fa-instagram"></i> Instagram</a>
+                    <span class="glyphicon glyphicon-user"></span>
+                    <span sec:authentication="name"></span>
+                </a>
             </li>
 <!--             logout -->
             <li class="nav-item" sec:authorize="isAuthenticated()">
                 <form method="POST" th:action="@{/logout}">
-                    <input type="submit" value="Logout"/>
+                    <button class="btn btn-outline-custom my-2 my-sm-0" type="submit">Logout</button>
+<!--                    <input type="submit" value="Logout"/>-->
                 </form>
             </li>
         </ul>
