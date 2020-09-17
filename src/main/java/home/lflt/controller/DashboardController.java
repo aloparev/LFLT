@@ -46,33 +46,36 @@ public class DashboardController {
     @Transactional(readOnly = true)
     @GetMapping("/{id}")
     public String showPortfolioById(@PathVariable("id") Long id, Model model) {
-        log.info("showPortfolioById");
+        log.info("showPortfolioById=" + id);
 
         Portfolio pf = portfolioRepo.getById(id);
-//        log.info(">> portfolioRepo.getById: " + id);
         pf.setCptSum(pf.getBalance());
         pf.setChangePct(0);
         pf.setPlTotalSum(0);
 //        log.info(">> pf after set = " + pf.toString());
 
         Set<Lot> lots = pf.getLots();
-//        log.info(">> pf.getLots();");
+        log.info(">> pf.getLots();");
         for(Lot lot : lots) {
             MarketsInsiderHead quote = miGetQuote(lot.getSymbol());
+            log.info("got quote for: " + quote);
 
-            lot.setYc(lot.getCp());
+            lot.setYesterdayClose(lot.getCp());
             if (quote.getPrice() != 0) {
                 lot.setCp(quote.getPrice());
 //                lot.setUstamp(LocalDateTime.now());
             }
             lot.setCpt(lot.getUnits() * lot.getCp());
             lot.setIpt(lot.getUnits() * lot.getIp());
-            lot.setChangePct(quote.getChange());
+            lot.setChange(quote.getChange());
             lot.setPlt(lot.getCpt() - lot.getIpt());
 
             pf.setCptSum(pf.getCptSum() + lot.getCpt());
-            pf.setChangePct(pf.getChangePct() + lot.getChangePct());
+            pf.setChangePct(pf.getChangePct() + lot.getChange());
             pf.setPlTotalSum(pf.getPlTotalSum() + lot.getPlt());
+
+            if(lot.getYesterdayClose() == lot.getCp())
+                lot.setError(true);
         }
 //        log.info("pf after transient update=" + pf.toString());
 
@@ -104,13 +107,13 @@ public class DashboardController {
 
             lot.setCp(quote.getPrice());
             lot.setCpt(lot.getUnits() * lot.getCp());
-            lot.setChangePct(quote.getChangesPercentage());
-            lot.setYc(quote.getPreviousClose());
-            lot.setPld(lot.getCpt() - (lot.getUnits() * lot.getYc()));
+            lot.setChange(quote.getChangesPercentage());
+            lot.setYesterdayClose(quote.getPreviousClose());
+            lot.setPld(lot.getCpt() - (lot.getUnits() * lot.getYesterdayClose()));
             lot.setPlt(lot.getCpt() - lot.getIpt());
 
             pf.setCptSum(pf.getCptSum() + lot.getCpt());
-            pf.setChangePct(pf.getChangePct() + lot.getChangePct());
+            pf.setChangePct(pf.getChangePct() + lot.getChange());
             pf.setPlDailySum(pf.getPlDailySum() + lot.getPld());
             pf.setPlTotalSum(pf.getPlTotalSum() + lot.getPlt());
         }

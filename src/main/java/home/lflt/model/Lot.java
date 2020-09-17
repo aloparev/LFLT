@@ -38,7 +38,7 @@ public class Lot {
 
     private int units;
     private double ip; //initial buy price
-    private double cp;
+    private double cp; //current price
 
     @CreationTimestamp
     private Date tstamp;
@@ -56,13 +56,19 @@ public class Lot {
     @Transient
     private double cpt;
     @Transient
-    private double changePct;
+    private double change;
     @Transient
-    private double yc; //yesterday close price
+    private double yesterdayClose; //yesterday close price
     @Transient
     private double pld; //profit loss daily
     @Transient
     private double plt;
+    @Transient
+    private boolean error;
+
+    public boolean getError() {
+        return error;
+    }
 
     @Override
     public String toString() {

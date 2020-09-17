@@ -68,7 +68,7 @@
 
 <!--                            data rows from here on-->
                             <tbody>
-                            <tr th:each="ii : ${pf.getLots()}" th:classappend="${ii.getYc() == ii.getCp() ? 'bg-warning' : ''}">
+                            <tr th:each="ii : ${pf.getLots()}" th:classappend="${ii.getError() ? 'bg-warning' : ''}">
                                 <td class="px-4">
                                     <div class="row">
                                         <span th:text="${ii.getSymbol()}"></span>

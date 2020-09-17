@@ -125,8 +125,6 @@ public class Utils {
                 change = nf.parse(changeStr.substring(0, changeStr.length()-2)).doubleValue();
             }
 
-            changeAbs = price * change / 100;
-
 //            log.info("changeAbs " + doc.select("#pushBorder div.aktien-big-font.text-nowrap span.push-data.colorRed.aktien-big-font.text-nowrap.big-font-small.colorBlack").text());
 //            log.info("scraped title: " + doc.title());
 //            log.info("price " + price);
@@ -136,7 +134,14 @@ public class Utils {
             log.info("couldn't scrape values from page");
         }
 
+        if(change == -111) {
+            change = 0;
+            changeAbs = 0;
+        } else
+            changeAbs = price * change / 100;
+
         return MarketsInsiderHead.builder()
+                .symbol(symbol)
                 .price(price)
                 .changeAbs(changeAbs)
                 .change(change)
