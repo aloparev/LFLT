@@ -1,7 +1,6 @@
 package home.lflt.model;
 
 import lombok.Data;
-import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -10,7 +9,8 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Data
 @Entity
@@ -29,6 +29,8 @@ public class User implements UserDetails {
         this.state = state;
         this.enabled = enabled;
         this.tstamp = LocalDateTime.now();
+        games = new HashSet<>();
+        portfolios = new HashSet<>();
     }
 //    private static final long serialVersionUID = 1L;
 
@@ -48,6 +50,15 @@ public class User implements UserDetails {
 //    private final String phoneNumber;
     private boolean enabled;
     private LocalDateTime tstamp;
+
+    @ManyToMany
+    @JoinTable(name = "user_game",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "game_id"))
+    private Set<Game> games;
+
+    @OneToMany(mappedBy = "game", cascade = CascadeType.ALL)
+    private Set<Portfolio> portfolios;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

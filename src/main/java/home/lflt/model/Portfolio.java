@@ -32,6 +32,7 @@ public class Portfolio {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
+
     private String name;
     private String info;
     private String type; //user, random, over ...
@@ -45,6 +46,13 @@ public class Portfolio {
 
     @OneToMany(mappedBy = "portfolio", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Lot> lots;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Game game;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private User user;
+
     @Transient
     private double cptSum; //current lot price total
     @Transient
