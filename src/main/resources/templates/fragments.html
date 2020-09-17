@@ -37,7 +37,7 @@
 
             <!-- TODO: separator -->
             <li class="nav-item">
-                <a id="separator" class="nav-link">
+                <a class="nav-link">
                     <span>~</span>
                 </a>
             </li>
@@ -50,7 +50,7 @@
 
             <li class="nav-item" sec:authorize="isAnonymous()">
                 <form class="form-inline" method="POST" th:action="@{/login}" id="loginForm">
-                    <input class="form-control mr-sm-2" type="text" placeholder="Username" aria-label="Username" name="username" id="username">
+                    <input class="form-control mr-sm-2 ml-3" type="text" placeholder="Username" aria-label="Username" name="username" id="username">
                     <input class="form-control mr-sm-2" type="password" placeholder="Password" aria-label="Password" name="password" id="password">
                     <button class="btn btn-outline-custom my-2 my-sm-0" type="submit">Login</button>
                 </form>

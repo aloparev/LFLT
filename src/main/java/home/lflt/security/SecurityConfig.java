@@ -33,9 +33,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
             .authorizeRequests()
-            .antMatchers("/game")
-            .access("hasRole('ROLE_USER')")
-            .antMatchers("/", "/**").access("permitAll")
+            .antMatchers("/game").hasRole("USER")
+            .antMatchers("/register").anonymous()
+            .antMatchers("/", "/**").permitAll()
 
 //                custom login
             .and()
