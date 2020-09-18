@@ -22,33 +22,35 @@
             <div class="col"></div>
 
             <div class="col-12 col-md-10 col-lg-8">
-                <div class="card-columns">
-                <div class="card border-secondary" th:each="pp : ${portfolios}">
-                    <div class="card-body">
-<!--                        <h5 class="card-title" th:text="${pp.getName()}"-->
-<!--                            th:text="${pp.getType() != 'OVER' ? pp.getName() + 'o': pp.getName() + 'x'}"/>-->
-                        <h5 class="card-title" th:text="${pp.getType() != 'OVER' ? pp.getName() + ' [a]': pp.getName() + ' [c]'}"/>
-<!--                        <img th:src="${pp.getType() != 'OVER' ? 'circle-check.svg': 'circle-x.svg'}"/>-->
-                        <p class="card-text" th:text="${pp.getInfo()}"/>
-                        <a th:href="@{/dashboard/{path}(path=${pp.getId()})}" class="btn btn-secondary btn-sm mt-1">See more</a>
-<!--                        <a th:href="@{/dashboard/{path}/details(path=${pp.getId()})}" class="btn btn-secondary btn-sm mt-1 ml-1">See all</a>-->
-                    </div>
-                    <div class="card-footer bg-white">
-                        <small class="text-muted">Last updated
-                            <span th:text="${#temporals.format(pp.getUstamp(), 'dd-MM-yyyy HH:mm')}"></span>
-                        </small>
+                <div class="card-columns" th:fragment="portfolio_overview">
+                    <div class="card border-secondary" th:each="pp : ${portfolios}">
+                        <div class="card-body">
+                            <!--                        <h5 class="card-title" th:text="${pp.getName()}"-->
+                            <!--                            th:text="${pp.getType() != 'OVER' ? pp.getName() + 'o': pp.getName() + 'x'}"/>-->
+                            <h5 class="card-title"
+                                th:text="${pp.getType() != 'OVER' ? pp.getName() + ' [a]': pp.getName() + ' [c]'}"/>
+                            <!--                        <img th:src="${pp.getType() != 'OVER' ? 'circle-check.svg': 'circle-x.svg'}"/>-->
+                            <p class="card-text" th:text="${pp.getInfo()}"/>
+                            <a th:href="@{/dashboard/{path}(path=${pp.getId()})}" class="btn btn-secondary btn-sm mt-1">See
+                                more</a>
+                            <!--                        <a th:href="@{/dashboard/{path}/details(path=${pp.getId()})}" class="btn btn-secondary btn-sm mt-1 ml-1">See all</a>-->
+                        </div>
+                        <div class="card-footer bg-white">
+                            <small class="text-muted">Last updated
+                                <span th:text="${#temporals.format(pp.getUstamp(), 'dd-MM-yyyy HH:mm')}"></span>
+                            </small>
+                        </div>
                     </div>
                 </div>
-                </div>
-<!--                <div class="row">-->
-<!--                    <div class="col" th:each="pp : ${portfolios}">-->
-<!--                        <td th:text="${pp.name}"/>-->
-<!--                        </divtr>-->
-<!--                    </div>-->
-<!--                </div>-->
+                <!--                <div class="row">-->
+                <!--                    <div class="col" th:each="pp : ${portfolios}">-->
+                <!--                        <td th:text="${pp.name}"/>-->
+                <!--                        </divtr>-->
+                <!--                    </div>-->
+                <!--                </div>-->
 
             </div>
-                <div class="col"></div>
+            <div class="col"></div>
         </div>
     </main>
     <div th:insert="fragments :: footer"></div>

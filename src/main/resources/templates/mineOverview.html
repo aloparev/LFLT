@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" th:href="@{/bs441/css/bootstrap.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{/initialStyle.css}"/>
-    <title>LFLT | TEMPLATE</title>
+    <title>LFLT | Mine</title>
 </head>
 
 <body>
@@ -16,13 +16,15 @@
     <div th:insert="fragments :: menu"></div>
 
     <main class="container-fluid w-auto m-2 p-2 bg-light">
-        <h1 class="text-center">Portfolios</h1>
-        <p class="text-center font-italic mb-4">Currently existing</p>
+        <h1 class="text-center">Mine</h1>
+        <p class="text-center font-italic mb-4">My games & portfolios</p>
 
         <div class="row mb-4">
             <div class="col"></div>
 
             <div class="col-12 col-md-10 col-lg-8">
+                <div th:insert="portfolioOverview :: portfolio_overview"></div>
+
 
             </div>
             <div class="col"></div>

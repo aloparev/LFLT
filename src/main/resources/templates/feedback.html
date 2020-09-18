@@ -21,7 +21,7 @@
             <div class="col"></div>
 
             <div class="col-12 col-md-10 col-lg-8">
-                <form method="POST" th:object="${feedbackPojo}" th:action="@{/feedback}" id="feedbackForm">
+                <form method="POST" th:object="${feedbackPojo}" th:action="@{/fFeedback}" id="feedbackForm">
 <!-- radio buttons -->
                     <fieldset class="form-group">
                         <div class="rowCustom">
@@ -101,14 +101,14 @@
                     <div class="rowCustom">
                         <!--                        <div class="col-sm" th:switch="${feedbackJam}">-->
                         <!--                            <button th:case="true" class="btn btn-secondary marginTop40" disabled>Submit your-->
-                        <!--                                feedback-->
+                        <!--                                fFeedback-->
                         <!--                            </button>-->
-                        <!--                            <button th:case="*" class="btn btn-secondary marginTop40">Submit your feedback-->
+                        <!--                            <button th:case="*" class="btn btn-secondary marginTop40">Submit your fFeedback-->
                         <!--                            </button>-->
                         <!--                        </div>-->
                         <div class="col text-center">
                             <button th:unless="${feedbackJam}" class="btn btn-secondary mt-4">
-                                Submit your feedback
+                                Submit your fFeedback
                             </button>
                             <span class="text-danger" th:if="${feedbackJam}">Server error</span>
                         </div>

@@ -1,15 +1,15 @@
 package home.lflt.model;
 
+import home.lflt.model.User;
 import lombok.Data;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.validation.constraints.*;
-import java.time.LocalDateTime;
 
 import static home.lflt.utils.Constants.*;
 
 @Data
-public class RegistrationForm {
+public class fRegistration {
 
     @NotNull(message = INPUT_REQUIRED)
     @NotBlank(message = INPUT_REQUIRED)

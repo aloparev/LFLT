@@ -22,7 +22,7 @@ import static home.lflt.utils.Utils.miGetQuote;
 @Controller
 @RequestMapping("/dashboard")
 public class DashboardController {
-    private PortfolioRepo portfolioRepo;
+    private final PortfolioRepo portfolioRepo;
 
     public DashboardController(PortfolioRepo portfolioRepo) {
         this.portfolioRepo = portfolioRepo;
@@ -31,9 +31,10 @@ public class DashboardController {
     @Transactional(readOnly = true)
     @GetMapping
     public String showPortfolios(Model model) {
-        log.info("showPortfolios");
+//        log.info("showPortfolios");
 
-        Iterable<Portfolio> portfolios = portfolioRepo.findAll();
+        Iterable<Portfolio> portfolios = portfolioRepo.getByUserIsNull();
+//        Iterable<Portfolio> portfolios = portfolioRepo.findAll();
         model.addAttribute("portfolios", portfolios);
 
         return "portfolioOverview";
@@ -46,7 +47,7 @@ public class DashboardController {
     @Transactional(readOnly = true)
     @GetMapping("/{id}")
     public String showPortfolioById(@PathVariable("id") Long id, Model model) {
-        log.info("showPortfolioById=" + id);
+//        log.info("showPortfolioById=" + id);
 
         Portfolio pf = portfolioRepo.getById(id);
         pf.setCptSum(pf.getBalance());
@@ -55,15 +56,17 @@ public class DashboardController {
 //        log.info(">> pf after set = " + pf.toString());
 
         Set<Lot> lots = pf.getLots();
-        log.info(">> pf.getLots();");
+//        log.info(">> pf.getLots();");
         for(Lot lot : lots) {
             MarketsInsiderHead quote = miGetQuote(lot.getSymbol());
-            log.info("got quote for: " + quote);
+//            log.info("got quote for: " + quote);
 
             lot.setYesterdayClose(lot.getCp());
             if (quote.getPrice() != 0) {
                 lot.setCp(quote.getPrice());
 //                lot.setUstamp(LocalDateTime.now());
+            } else {
+                lot.setError(true);
             }
             lot.setCpt(lot.getUnits() * lot.getCp());
             lot.setIpt(lot.getUnits() * lot.getIp());
@@ -74,13 +77,12 @@ public class DashboardController {
             pf.setChangePct(pf.getChangePct() + lot.getChange());
             pf.setPlTotalSum(pf.getPlTotalSum() + lot.getPlt());
 
-            if(lot.getYesterdayClose() == lot.getCp())
-                lot.setError(true);
+//            if(lot.getYesterdayClose() == lot.getCp())
         }
 //        log.info("pf after transient update=" + pf.toString());
 
         model.addAttribute("pf", pf);
-        return "dashboard";
+        return "portfolioDashboard";
     }
 
     /**
@@ -120,6 +122,6 @@ public class DashboardController {
 //        log.info("pf after transient update=" + pf.toString());
 
         model.addAttribute("pf", pf);
-        return "dashboardDetails";
+        return "portfolioDashboardDetailed";
     }
 }

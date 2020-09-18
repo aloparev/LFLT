@@ -21,7 +21,7 @@ import java.util.Set;
 public class Game {
     public Game(){};
 
-    public Game(String name, String description, double funds) {
+    public Game(String name, String description) {
         this.name = name;
         this.description = description;
 //        this.balance_user = funds;

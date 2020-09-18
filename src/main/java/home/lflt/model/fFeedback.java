@@ -4,21 +4,17 @@ import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
-import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import java.util.Date;
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import static home.lflt.utils.Constants.INPUT_REQUIRED;
 
 @Data
 @Entity
 @Table(name = "feedbacks")
-public class Feedback {
+public class fFeedback {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

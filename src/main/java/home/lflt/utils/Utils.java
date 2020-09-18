@@ -135,6 +135,7 @@ public class Utils {
         }
 
         if(change == -111) {
+            price = 0;
             change = 0;
             changeAbs = 0;
         } else

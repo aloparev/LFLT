@@ -1,9 +1,8 @@
 package home.lflt.controller;
 
-import home.lflt.model.Feedback;
+import home.lflt.model.fFeedback;
 import home.lflt.repo.FeedbackRepo;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -11,12 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import javax.validation.Valid;
-import java.util.Arrays;
-import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -47,17 +42,17 @@ public class FeedbackController {
         if (counter > LIMIT_99) model.addAttribute("feedbackJam", true);
         else model.addAttribute("feedbackJam", false);
 
-        model.addAttribute("feedbackPojo", new Feedback());
+        model.addAttribute("feedbackPojo", new fFeedback());
         return "feedback";
     }
 
     @PostMapping
-    public String processFeedback(@Valid @ModelAttribute("feedbackPojo") Feedback feedback, Errors errors) {
+    public String processFeedback(@Valid @ModelAttribute("feedbackPojo") fFeedback fFeedback, Errors errors) {
         if (errors.hasErrors()) {
             return "feedback";
         }
-        log.info("Feedback submitted: " + feedback);
-        feedbackRepo.save(feedback);
+        log.info("Feedback submitted: " + fFeedback);
+        feedbackRepo.save(fFeedback);
         return "redirect:/";
     }
 }

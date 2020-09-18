@@ -1,6 +1,6 @@
 package home.lflt.controller;
 
-import home.lflt.model.RegistrationForm;
+import home.lflt.model.fRegistration;
 import home.lflt.repo.UserRepo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -36,12 +36,12 @@ public class RegistrationController {
         if (counter > LIMIT_99) model.addAttribute("feedbackJam", true);
         else model.addAttribute("feedbackJam", false);
 
-        model.addAttribute("pojo", new RegistrationForm());
+        model.addAttribute("pojo", new fRegistration());
         return "register";
     }
 
     @PostMapping
-    public String processRegistration(@Valid @ModelAttribute("pojo") RegistrationForm form, Errors errors) {
+    public String processRegistration(@Valid @ModelAttribute("pojo") fRegistration form, Errors errors) {
         //necessary for error messages in view
         if (errors.hasErrors()) {
             return "register";

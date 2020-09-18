@@ -35,7 +35,7 @@ public class Portfolio {
 
     private String name;
     private String info;
-    private String type; //user, random, over ...
+    private String type; //user, random, over ... >> see constants
     private double balance; //left overs after purchase + PL
     private double funds; //epochal investment sum
     private char cron; //reoccurrence

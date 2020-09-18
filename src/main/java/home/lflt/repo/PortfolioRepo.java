@@ -7,7 +7,12 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.Set;
 
 public interface PortfolioRepo extends CrudRepository<Portfolio, Long> {
-    Set<Portfolio> getByTypeNot(String type);
+
+    //public
+    Set<Portfolio> getByUserIsNull();
+
+    //private
+    Set<Portfolio> getByUserIsNotNull();
     Set<Portfolio> getByType(String type);
     Portfolio getById(long id);
 }
