@@ -13,6 +13,7 @@ public interface PortfolioRepo extends CrudRepository<Portfolio, Long> {
 
     //private
     Set<Portfolio> getByUserIsNotNull();
+    Set<Portfolio> getByUserId(long id);
     Set<Portfolio> getByType(String type);
     Portfolio getById(long id);
 }

@@ -17,7 +17,7 @@ import java.util.Set;
 @Slf4j
 @Entity
 @EqualsAndHashCode(exclude = "portfolios")
-@Table(name = "games_pvc")
+@Table(name = "games")
 public class Game {
     public Game(){};
 

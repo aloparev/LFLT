@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+      lang="en">
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" th:href="@{/bs441/css/bootstrap.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/initialStyle.css}"/>
+    <title>LFLT | Portfolio Creation</title>
+</head>
+
+<body>
+<div class="container-fluid min-vh-100 p-0">
+    <div th:insert="fragments :: menu"></div>
+
+    <main class="container-fluid w-auto m-2 p-2 bg-light">
+        <h1 class="text-center mb-4">New Portfolio</h1>
+
+        <div class="row mb-4">
+            <div class="col"></div>
+
+            <div class="col-12 col-md-10 col-lg-8">
+                <form method="POST" th:object="${pojo}" th:action="@{/mine/new_portfolio_submit}" id="newPortfolioForm">
+
+                    <!-- name -->
+                    <div class="form-group rowCustom">
+                        <div class="col-sm-4">
+                            <label for="name" class="col-form-label">Portfolio Name</label>
+                            <span class="validationError text-danger"
+                                  th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Input Error</span>
+                        </div>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" placeholder="Best portfolio in the world"
+                                   th:field="*{name}"/>
+                        </div>
+                    </div>
+
+                    <!-- funds -->
+                    <div class="form-group rowCustom">
+                        <div class="col-sm-4">
+                            <label for="funds" class="col-form-label">Funds</label>
+                            <span class="validationError text-danger"
+                                  th:if="${#fields.hasErrors('funds')}" th:errors="*{funds}">Input Error</span>
+                        </div>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" placeholder="500-10,000" th:field="*{funds}"/>
+                        </div>
+                    </div>
+
+                    <!-- delay -->
+                    <div class="form-group rowCustom">
+                        <div class="col-sm-4">
+                            <label for="delay" class="col-form-label">delay</label>
+                            <span class="validationError text-danger"
+                                  th:if="${#fields.hasErrors('delay')}" th:errors="*{delay}">Input Error</span>
+                        </div>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" placeholder="refund interval in days (1-2)" th:field="*{delay}"/>
+                        </div>
+                    </div>
+
+                    <!-- epochs -->
+                    <div class="form-group rowCustom">
+                        <div class="col-sm-4">
+                            <label for="epochs" class="col-form-label">epochs</label>
+                            <span class="validationError text-danger"
+                                  th:if="${#fields.hasErrors('epochs')}" th:errors="*{epochs}">Input Error</span>
+                        </div>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" placeholder="buy rounds (5-10)" th:field="*{epochs}"/>
+                        </div>
+                    </div>
+
+                    <!-- submit button-->
+                    <div class="rowCustom">
+                        <div class="col text-center">
+                            <button class="btn btn-secondary mt-4">Create new portfolio</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="col"></div>
+        </div>
+    </main>
+
+    <div th:insert="fragments :: footer"></div>
+</div>
+
+<!--bootstrap js-->
+<script th:src="@{/bs441/js/jquery-3.4.1.js}"></script>
+<script th:src="@{/bs441/js/bootstrap.bundle.js}"></script>
+</body>
+</html>

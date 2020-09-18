@@ -24,7 +24,14 @@
 
             <div class="col-12 col-md-10 col-lg-8">
                 <div th:insert="portfolioOverview :: portfolio_overview"></div>
+                <div class="col text-center">
+                    <a th:unless="${limitReached}" class="btn btn-secondary mt-4"
+                       href="/mine/new_portfolio" role="button">Create New Portfolio</a>
+                    <span class="text-danger" th:if="${limitReached}">Portfolio Limit Reached</span>
+                </div>
 
+                <!-- separator between portfolios & games -->
+                <hr>
 
             </div>
             <div class="col"></div>
