@@ -1,18 +1,15 @@
 package home.lflt.controller;
 
-import home.lflt.model.Lot;
-import home.lflt.model.MarketsInsiderHead;
-import home.lflt.model.Portfolio;
-import home.lflt.model.fmpQuote;
+import home.lflt.model.*;
 import home.lflt.repo.PortfolioRepo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.validation.Errors;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.Set;
 
 import static home.lflt.utils.Utils.fmpGetQuote;
@@ -36,6 +33,7 @@ public class DashboardController {
         Iterable<Portfolio> portfolios = portfolioRepo.getByUserIsNull();
 //        Iterable<Portfolio> portfolios = portfolioRepo.findAll();
         model.addAttribute("portfolios", portfolios);
+        model.addAttribute("mine", false);
 
         return "portfolioOverview";
     }
@@ -123,5 +121,12 @@ public class DashboardController {
 
         model.addAttribute("pf", pf);
         return "portfolioDashboardDetailed";
+    }
+
+    @PostMapping(path = "/rm_pf/{id}")
+    public String removePortfolioById(@PathVariable(name = "id") long id) {
+        log.info("removePortfolioById=" + id);
+        portfolioRepo.deleteById(id);
+        return "redirect:/mine";
     }
 }

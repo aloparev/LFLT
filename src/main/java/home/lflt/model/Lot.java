@@ -66,9 +66,9 @@ public class Lot {
     @Transient
     private boolean error;
 
-    public boolean getError() {
-        return error;
-    }
+//    public boolean getError() {
+//        return error;
+//    }
 
     @Override
     public String toString() {

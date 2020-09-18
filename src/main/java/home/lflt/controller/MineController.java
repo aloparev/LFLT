@@ -49,6 +49,8 @@ public class MineController {
 //        System.out.println(userId);
         int limit = 0;
 
+        model.addAttribute("mine", true);
+
         Set<Portfolio> portfolios = portfolioRepo.getByUserId(user.getId());
         model.addAttribute("portfolios", portfolios);
         limit += portfolios.size() * 2;
@@ -82,7 +84,8 @@ public class MineController {
             return "mineOverview";
         }
 
-        form.setUser(userRepo.findByUsername(getUser.currentUserNameSimple()));
+        form.setUser(getUser.currentUser());
+//        form.setUser(userRepo.findByUsername(getUser.currentUserNameSimple()));
         log.info("received form: " + form);
         portfolioRepo.save(form.toPortfolio());
         return "redirect:/mine";

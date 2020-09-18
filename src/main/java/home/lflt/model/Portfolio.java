@@ -77,4 +77,12 @@ public class Portfolio {
     private double plDailySum; //profit loss
     @Transient
     private double plTotalSum;
+
+    public long getOwnerId() {
+        return user.getId();
+    }
+
+    public String getOwnerName() {
+        return user.getUsername();
+    }
 }

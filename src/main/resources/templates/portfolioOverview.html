@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
+<html xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
       lang="en">
 
 <head>
@@ -31,9 +32,15 @@
                                 th:text="${pp.getType() != 'OVER' ? pp.getName() + ' [a]': pp.getName() + ' [c]'}"/>
                             <!--                        <img th:src="${pp.getType() != 'OVER' ? 'circle-check.svg': 'circle-x.svg'}"/>-->
                             <p class="card-text" th:text="${pp.getInfo()}"/>
-                            <a th:href="@{/dashboard/{path}(path=${pp.getId()})}" class="btn btn-secondary btn-sm mt-1">See
-                                more</a>
-                            <!--                        <a th:href="@{/dashboard/{path}/details(path=${pp.getId()})}" class="btn btn-secondary btn-sm mt-1 ml-1">See all</a>-->
+                            <a th:href="@{/dashboard/{path}(path=${pp.getId()})}"
+                               class="btn btn-secondary btn-sm mt-1">See more</a>
+<!--                            <a th:href="@{/dashboard/{path}/details(path=${pp.getId()})}" -->
+<!--                               class="btn btn-secondary btn-sm mt-1 ml-1">See all</a>-->
+                            <form th:if="${mine}" method="POST" th:action="@{/dashboard/rm_pf/{id}(id=${pp.getId()})}">
+                                <button class="btn btn-danger btn-sm mt-1 ml-1 float-right" type="submit">Delete</button>
+                            </form>
+<!--                            <a th:if="${mine}" th:action="@{/dashboard/rm_pf/${pp.getId()}}"-->
+<!--                               class="btn btn-danger btn-sm mt-1 ml-1">Delete</a>-->
                         </div>
                         <div class="card-footer bg-white">
                             <small class="text-muted">Last updated
