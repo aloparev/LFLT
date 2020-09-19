@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.List;
 
 import static home.lflt.utils.Utils.*;
 
@@ -21,7 +23,7 @@ import static home.lflt.utils.Utils.*;
 @RequestMapping("/lot")
 public class LotController {
     private LotRepo lotRepo;
-    private StockRepo stockRepo;
+    private final StockRepo stockRepo;
     private QuoteRepo quoteRepo;
     private PortfolioRepo portfolioRepo;
 
@@ -31,6 +33,8 @@ public class LotController {
         this.quoteRepo = quoteRepo;
         this.portfolioRepo = portfolioRepo;
     }
+
+
 
     @GetMapping("/test")
     public String test(Model model) {

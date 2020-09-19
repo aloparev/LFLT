@@ -8,21 +8,26 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.time.LocalDateTime;
+
 @Slf4j
 @Controller
 @RequestMapping("/stock")
 public class StockController {
-    private StockRepo stockRepo;
+    private final StockRepo stockRepo;
 
     public StockController(StockRepo stockRepo){
         this.stockRepo=stockRepo;
     }
 
     @GetMapping
-    public String listStocks(Model model) {
-        Iterable<Stock> stocks = stockRepo.findAll();
+    public String showStocks(Model model) {
+        LocalDateTime minTstamp = stockRepo.getMinDate();
+        model.addAttribute("tstamp", minTstamp);
 
+        Iterable<Stock> stocks = stockRepo.findAll();
         model.addAttribute("stocks", stocks);
+
         return "stock";
     }
 }

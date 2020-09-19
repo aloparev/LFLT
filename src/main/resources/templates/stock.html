@@ -1,63 +1,58 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
+<html xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
       lang="en">
 
 <head>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" th:href="@{/bs441/css/bootstrap.css}"/>
-    <link rel="stylesheet" type="text/css" th:href="@{initialStyle.css}"/>
-    <title>Stocks</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/initialStyle.css}"/>
+    <title>LFLT | Stock</title>
 </head>
 
 <body>
-<div class="pageContent">
+<div class="container-fluid min-vh-100 p-0">
     <div th:insert="fragments :: menu"></div>
 
-    <div class="contentWrap">
-        <!--        <img src="cube-2031511_1920x655.jpg" alt="Game of Luck" class="responsive">-->
-        <main class="m-2 p-2 bg-light">
-<!--        <main class="blockWrapper">-->
-            <h1>
-                S&P 500
-            </h1>
+    <main class="container-fluid w-auto m-2 p-2 bg-light">
+        <h1 class="text-center">S&P 500</h1>
+        <p class="text-center font-italic mb-4">Overview of all available stocks (on
+            <span th:text="${#temporals.format(tstamp, 'dd-MM-yyyy HH:mm')}"/>).
+        </p>
 
-            <table>
-                <tr>
-                    <th>Symbol</th>
-                    <th>Name</th>
-                    <th>Market</th>
-                    <th>Land</th>
-                    <th>Sector</th>
-                    <th>Industry</th>
-                </tr>
-                <tr th:each="ss : ${stocks}">
-                    <td th:text="${ss.symbol}"/>
-                    <td th:text="${ss.name}"/>
-                    <td th:text="${ss.market}"/>
-                    <td th:text="${ss.land}"/>
-                    <td th:text="${ss.sector}"/>
-                    <td th:text="${ss.industry}"/>
-                </tr>
+        <div class="row mb-4">
+            <div class="col"></div>
 
-                <!--                        <div th:each="ingredient : ${wrap}">-->
-                <!--                            <input name="ingredients" type="checkbox" th:value="${ingredient.id}" />-->
-                <!--                            <span th:text="${ingredient.name}">INGREDIENT</span><br/>-->
-                <!--                        </div>-->
+            <div class="col-12 col-md-10 col-lg-8">
+                <div class="table-responsive m-3">
+                    <table class="table table-hover table-striped">
+                        <thead style="background-color: var(--tableJumbotronColor)">
+                        <tr>
+                            <th>Symbol</th>
+                            <th>Name</th>
+                            <th>Sector</th>
+                            <th>Industry</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="s : ${stocks}">
+                            <td th:text="${s.symbol}"/>
+                            <td th:text="${s.name}"/>
+                            <td th:text="${s.sector}"/>
+                            <td th:text="${s.industry}"/>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
 
-                <!--                        <tr th:each="smokeTest : ${smokeTests}">-->
-                <!--                            <td th:text="${smokeTest.name}">A Smoke Test'</td>-->
-                <!--                        </tr>-->
-
-
-            </table>
-        </main>
-    </div>
-
+            <div class="col"></div>
+        </div>
+    </main>
     <div th:insert="fragments :: footer"></div>
 </div>
-<!--bootstrap js-->
-<script type="text/javascript" th:src="@{/bs441/js/jquery-3.4.1.js}"></script>
-<script type="text/javascript" th:src="@{/bs441/js/bootstrap.bundle.js}"></script>
+
+<div th:insert="fragments :: bootstrap"></div>
 </body>
 </html>

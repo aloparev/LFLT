@@ -25,11 +25,17 @@
             <li th:classappend="${#httpServletRequest.getRequestURI() == '/' ? ' active' : ''}" class="nav-item">
                 <a class="nav-link" href="/">Home</a>
             </li>
-            <!--            <li th:classappend="${#httpServletRequest.getRequestURI().matches('dashboard.*') ? ' active' : ''}"-->
+
             <li th:classappend="${#strings.contains(#httpServletRequest.requestURI, 'dashboard') ? ' active' : ''}"
                 class="nav-item">
                 <a class="nav-link" href="/dashboard">Experiment</a>
             </li>
+
+            <li th:classappend="${#strings.contains(#httpServletRequest.requestURI, 'stock') ? ' active' : ''}"
+                class="nav-item">
+                <a class="nav-link" href="/stock">Stock</a>
+            </li>
+
             <li th:classappend="${#httpServletRequest.getRequestURI() == '/mine' ? ' active' : ''}"
                 class="nav-item" sec:authorize="isAuthenticated()">
                 <a class="nav-link" href="/mine">Mine</a>
@@ -89,16 +95,18 @@
     <hr style="margin: 0;">
     <footer class="footer-custom">
         <p style="margin: 0;">
-            Copyright &copy; LFLT 2020
+            Copyright &copy; LFLT 2019-2020. All rights reserved.
             <br>
-            Version: 0.5.3
+            Prototype version: 0.6.0
         </p>
     </footer>
 </div>
 
-<!--bootstrap with dependencies 3.4.1-->
-<script th:src="@{/static/bs441/js/jquery-3.4.1.js}"></script>
-<script th:src="@{/static/bs441/js/bootstrapBundle.js}"></script>
+<!-- import bootstrap with dependencies 3.4.1 -->
+<div th:fragment="bootstrap">
+    <script th:src="@{/static/bs441/js/jquery-3.4.1.js}"></script>
+    <script th:src="@{/static/bs441/js/bootstrapBundle.js}"></script>
+</div>
 </body>
 </html>
 

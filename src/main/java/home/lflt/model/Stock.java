@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Data
@@ -27,7 +28,7 @@ public class Stock {
     private String land;
     private String sector;
     private String industry;
-    private Date tstamp;
+    private LocalDateTime tstamp;
 
 //    @Transient
 //    @OneToOne(mappedBy = "stock")
