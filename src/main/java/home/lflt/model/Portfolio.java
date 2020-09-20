@@ -76,6 +76,9 @@ public class Portfolio {
     }
 
     public String getOwnerName() {
-        return user.getUsername();
+        if(user == null)
+            return "";
+        else
+            return user.getUsername();
     }
 }

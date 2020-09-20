@@ -50,7 +50,7 @@ public class DashboardController {
 //        log.info("showPortfolioById=" + id);
 
         Portfolio pf = portfolioRepo.getById(id);
-        if(Objects.equals(pf.getUser().getUsername(), getUser.currentUsername()))
+        if(Objects.equals(pf.getOwnerName(), getUser.currentUsername()))
             model.addAttribute("mine", true);
 
         if(pf.getEpochs() < 1)
