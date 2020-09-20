@@ -33,15 +33,7 @@ public class Portfolio {
     }
 
     public Portfolio(String name, String type, double funds, char cron, int delay, int epochs, User user) {
-        this.name = name;
-        this.type = type; //see utils.constants
-        this.funds = funds;
-        this.balance = funds;
-        this.cron = cron;
-        this.delay = delay;
-        this.epochs = epochs;
-        this.lots = new HashSet<>();
-        this.tstamp = LocalDateTime.now();
+        this(name, type, 0, funds, cron, delay, epochs);
         this.user = user;
     }
 
@@ -52,11 +44,11 @@ public class Portfolio {
     private String name;
     private String info;
     private String type; //user, random, over ... >> see constants
-    private double balance; //left overs after purchase + PL
-    private double funds; //epochal investment sum
+    private double balance; // available funds for investment
+    private double funds; // epochal investment sum, shall be null after buy
     private char cron; //reoccurrence
     private int delay; //cron units
-    private int epochs; //how much rounds left
+    private int epochs; //rounds to go
     private LocalDateTime tstamp;
     private LocalDateTime ustamp;
 
@@ -70,9 +62,10 @@ public class Portfolio {
     private User user;
 
     @Transient
-    private double cptSum; //current lot price total
+    private double cptSum; // current stock price total + balance
+
     @Transient
-    private double changePct;
+    private double change;
     @Transient
     private double plDailySum; //profit loss
     @Transient

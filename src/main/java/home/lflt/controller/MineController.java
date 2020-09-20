@@ -2,24 +2,18 @@ package home.lflt.controller;
 
 import home.lflt.model.*;
 import home.lflt.repo.*;
-import home.lflt.security.AuthenticationFacade;
 import home.lflt.security.GetUser;
+import home.lflt.utils.BuyingAlgorithm;
+import home.lflt.utils.PortfolioUpdater;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.Set;
-
-import static home.lflt.utils.Constants.LIMIT_99;
 
 @Slf4j
 @Controller
@@ -29,19 +23,21 @@ public class MineController {
     private final GameRepo gameRepo;
     private final UserRepo userRepo;
     private final GetUser getUser;
+    private final PortfolioUpdater portfolioUpdater;
 
-    public MineController(PortfolioRepo pr, GameRepo gr, GetUser gu, UserRepo ur) {
+    public MineController(PortfolioRepo pr, GameRepo gr, GetUser gu, UserRepo ur, PortfolioUpdater pfu) {
         portfolioRepo = pr;
         gameRepo = gr;
         userRepo = ur;
         getUser = gu;
+        portfolioUpdater = pfu;
     }
 
     @Transactional(readOnly = true)
     @GetMapping
     public String showMineObjects(Model model) {
         log.info("showMineObjects");
-        String username = getUser.currentUserNameSimple();
+        String username = getUser.currentUsername();
 //        log.info(username);
         User user = userRepo.findByUsername(username);
 //        System.out.println(user);
@@ -89,6 +85,16 @@ public class MineController {
         log.info("received form: " + form);
         portfolioRepo.save(form.toPortfolio());
         return "redirect:/mine";
+    }
+
+    @PostMapping(path = "/buy_ticker/{pf}")
+    public String processBuyTickerForPortfolio(@PathVariable(name = "pf") long portfolioId, @RequestParam(name = "symb") String symbol) {
+//        log.info("processBuyTicker: pf=" + portfolioId + " symbol=" + symbol);
+        if(symbol != null && !symbol.trim().isEmpty())
+            portfolioUpdater.updatePortfolioBuyStock(portfolioId, symbol);
+
+        // here we address the same pf_id as on top
+        return "redirect:/dashboard/{pf}";
     }
 
 }

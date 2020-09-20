@@ -18,20 +18,20 @@ public class GetUser {
 
     @RequestMapping(value = "/username", method = RequestMethod.GET)
     @ResponseBody
-    public String currentUserNameSimple() {
+    public String currentUsername() {
         Authentication authentication = authenticationFacade.getAuthentication();
         return authentication.getName();
-    }
-
-    @RequestMapping(value = "/userid", method = RequestMethod.GET)
-    @ResponseBody
-    public long currentUserId() {
-        return userRepo.findByUsername(currentUserNameSimple()).getId();
     }
 
     @RequestMapping(value = "/user", method = RequestMethod.GET)
     @ResponseBody
     public User currentUser() {
-        return userRepo.findByUsername(currentUserNameSimple());
+        return userRepo.findByUsername(currentUsername());
+    }
+
+    @RequestMapping(value = "/userid", method = RequestMethod.GET)
+    @ResponseBody
+    public long currentUserId() {
+        return currentUser().getId();
     }
 }

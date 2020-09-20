@@ -1,12 +1,11 @@
 package home.lflt.utils;
 
-import home.lflt.model.Lot;
-import home.lflt.model.MarketsInsiderHead;
-import home.lflt.model.Stock;
-import home.lflt.model.fmpQuote;
+import home.lflt.model.*;
 import home.lflt.repo.StockRepo;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 
+import java.time.LocalDateTime;
 import java.util.Random;
 
 import static home.lflt.utils.Utils.fmpGetQuote;
@@ -14,15 +13,37 @@ import static home.lflt.utils.Utils.miGetQuote;
 
 @Slf4j
 public class BuyingAlgorithm {
-    private StockRepo stockRepo;
+//    @Autowired
+    private final StockRepo stockRepo;
     private double funds = -1;
     private int stockCounter = -1;
-    boolean picked = false;
+    private boolean picked = false;
+    private Portfolio portfolio;
+
 
     public BuyingAlgorithm(StockRepo stockRepo, double funds){
         this.stockRepo = stockRepo;
         this.funds = funds;
-        this.stockCounter = (int) stockRepo.count();
+        this.stockCounter = stockRepo.getCount();
+//        this.stockCounter = (int) stockRepo.count();
+    }
+
+    public BuyingAlgorithm(Portfolio pp, StockRepo stockRepo, double funds){
+        this(stockRepo, funds);
+        this.portfolio = pp;
+    }
+
+    /**
+     * buy new stock for portfolio and update balance/funds
+     * @param symbol stock ticker for purchase
+     * @return new lot
+     */
+    public Lot buyStock(String symbol) {
+        MarketsInsiderHead quote = miGetQuote(symbol);
+        Stock stock = stockRepo.getBySymbol(symbol);
+        int units = (int) (funds / quote.getPrice());
+        portfolio.setBalance(portfolio.getBalance() - units * quote.getPrice());
+        return new Lot(portfolio, symbol, stock.getName(), units, quote.getPrice());
     }
 
     public Lot buyStockRandomly() {

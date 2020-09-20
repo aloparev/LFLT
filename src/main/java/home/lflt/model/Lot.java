@@ -26,6 +26,11 @@ public class Lot {
 //        this.ipt = units * price;
     }
 
+    public Lot(Portfolio pp, String symbol, String name, int units, double price) {
+        this(symbol, name, units, price);
+        this.portfolio = pp;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
@@ -66,9 +71,9 @@ public class Lot {
     @Transient
     private boolean error;
 
-//    public boolean getError() {
-//        return error;
-//    }
+    public boolean getError() {
+        return error;
+    }
 
     @Override
     public String toString() {

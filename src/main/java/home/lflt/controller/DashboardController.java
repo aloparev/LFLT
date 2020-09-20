@@ -2,14 +2,14 @@ package home.lflt.controller;
 
 import home.lflt.model.*;
 import home.lflt.repo.PortfolioRepo;
+import home.lflt.security.GetUser;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
-import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
+import java.util.Objects;
 import java.util.Set;
 
 import static home.lflt.utils.Utils.fmpGetQuote;
@@ -20,9 +20,11 @@ import static home.lflt.utils.Utils.miGetQuote;
 @RequestMapping("/dashboard")
 public class DashboardController {
     private final PortfolioRepo portfolioRepo;
+    private final GetUser getUser;
 
-    public DashboardController(PortfolioRepo portfolioRepo) {
+    public DashboardController(PortfolioRepo portfolioRepo, GetUser getUser) {
         this.portfolioRepo = portfolioRepo;
+        this.getUser = getUser;
     }
 
     @Transactional(readOnly = true)
@@ -48,8 +50,17 @@ public class DashboardController {
 //        log.info("showPortfolioById=" + id);
 
         Portfolio pf = portfolioRepo.getById(id);
+        if(Objects.equals(pf.getUser().getUsername(), getUser.currentUsername()))
+            model.addAttribute("mine", true);
+
+        if(pf.getEpochs() < 1)
+            model.addAttribute("limit", true);
+
+//        if(pf.getUser() != null && pf.getUser().getUsername().equals(getUser.currentUserNameSimple()))
+//            model.addAttribute("mine", true);
+//
         pf.setCptSum(pf.getBalance());
-        pf.setChangePct(0);
+        pf.setChange(0);
         pf.setPlTotalSum(0);
 //        log.info(">> pf after set = " + pf.toString());
 
@@ -72,7 +83,7 @@ public class DashboardController {
             lot.setPlt(lot.getCpt() - lot.getIpt());
 
             pf.setCptSum(pf.getCptSum() + lot.getCpt());
-            pf.setChangePct(pf.getChangePct() + lot.getChange());
+            pf.setChange(pf.getChange() + lot.getChange());
             pf.setPlTotalSum(pf.getPlTotalSum() + lot.getPlt());
 
 //            if(lot.getYesterdayClose() == lot.getCp())
@@ -95,7 +106,7 @@ public class DashboardController {
         Portfolio pf = portfolioRepo.getById(id);
 //        log.info(">> portfolioRepo.getById: " + id);
         pf.setCptSum(pf.getBalance());
-        pf.setChangePct(0);
+        pf.setChange(0);
         pf.setPlDailySum(0);
         pf.setPlTotalSum(0);
 //        log.info(">> pf after set = " + pf.toString());
@@ -113,7 +124,7 @@ public class DashboardController {
             lot.setPlt(lot.getCpt() - lot.getIpt());
 
             pf.setCptSum(pf.getCptSum() + lot.getCpt());
-            pf.setChangePct(pf.getChangePct() + lot.getChange());
+            pf.setChange(pf.getChange() + lot.getChange());
             pf.setPlDailySum(pf.getPlDailySum() + lot.getPld());
             pf.setPlTotalSum(pf.getPlTotalSum() + lot.getPlt());
         }

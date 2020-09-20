@@ -12,4 +12,7 @@ public interface StockRepo extends CrudRepository<Stock, String> {
 
     @Query(nativeQuery = true, value = "SELECT min(tstamp) FROM stocks")
     LocalDateTime getMinDate();
+
+    @Query(nativeQuery = true, value = "SELECT count(*) FROM stocks")
+    int getCount();
 }

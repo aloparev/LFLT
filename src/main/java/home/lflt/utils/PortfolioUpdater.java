@@ -21,12 +21,13 @@ import java.util.Set;
 
 import static home.lflt.utils.Utils.checkPortfolio;
 
+@Transactional
 @Slf4j
 @Service
 public class PortfolioUpdater {
-    private PortfolioRepo portfolioRepo;
-    private StockRepo stockRepo;
-    private LotRepo lotRepo;
+    private final PortfolioRepo portfolioRepo;
+    private final StockRepo stockRepo;
+    private final LotRepo lotRepo;
 
     public PortfolioUpdater(PortfolioRepo portfolioRepo, StockRepo stockRepo, LotRepo lotRepo) {
         this.portfolioRepo = portfolioRepo;
@@ -36,11 +37,19 @@ public class PortfolioUpdater {
 
 //    sec, min, hour, day of month, month, weekday
 //    here: 13h 2min 1sec
-    @Transactional
+//    @Transactional
     @Scheduled(cron = "1 2 13 * * MON-FRI", zone = "GMT")
 //    @Scheduled(cron = "1 * * * * ?")
     public void update() {
-        log.info("start updater");
+        log.info("start updater 1+2");
+        updateRandomPortfolios();
+        fundUserPortfolios();
+    }
+
+    /**
+     * balance here is just left overs
+     */
+    public void updateRandomPortfolios() {
         Iterable<Portfolio> portfolios = portfolioRepo.getByType("RANDOM");
 
         for(Portfolio pp : portfolios) {
@@ -57,9 +66,7 @@ public class PortfolioUpdater {
                         log.info("positive case");
                         break;
                     default:
-                        pp.setEpochs(pp.getEpochs() - 1);
-                        if(pp.getEpochs() < 1)
-                            pp.setType("OVER");
+                        decrementEpochs(pp);
 
                         Lot newLot = new BuyingAlgorithm(stockRepo, pp.getBalance() + pp.getFunds()).buyStockRandomly();
                         newLot.setPortfolio(pp);
@@ -81,5 +88,50 @@ public class PortfolioUpdater {
                         break;
                 }
         }
+    }
+
+    /**
+     * user balance gets funded
+     */
+    public void fundUserPortfolios() {
+        Iterable<Portfolio> portfolios = portfolioRepo.getByType("USER");
+
+        for(Portfolio pp : portfolios) {
+//            log.info("pp found: " + pp);
+            boolean update = checkPortfolio(pp.getUstamp(), pp.getCron(), pp.getDelay());
+            log.info("update = " + update);
+
+            if(update) {
+                decrementEpochs(pp);
+                pp.setBalance(pp.getBalance() + pp.getFunds());
+            }
+        }
+    }
+
+    public void decrementEpochs(Portfolio pf) {
+        if(pf.getEpochs() > 0)
+            pf.setEpochs(pf.getEpochs() - 1);
+
+        if(pf.getEpochs() < 1)
+            pf.setType("OVER");
+    }
+
+    public void updatePortfolioBuyStock(long pid, String symbol) {
+        Portfolio pp = portfolioRepo.getById(pid);
+
+        Lot newLot = new BuyingAlgorithm(pp, stockRepo, pp.getBalance()).buyStock(symbol);
+        log.info("balance=" + pp.getBalance() + "; bought lot=" + newLot);
+
+        Lot alreadyExists = lotRepo.getByPortfolioIdAndSymbol(pp.getId(), newLot.getSymbol());
+        if(alreadyExists == null) {
+            pp.getLots().add(newLot);
+//                            log.info("alreadyExists == null");
+        } else {
+            alreadyExists.setUnits(alreadyExists.getUnits() + newLot.getUnits());
+            alreadyExists.setIpt(alreadyExists.getIpt() + newLot.getIpt());
+            alreadyExists.setIp(alreadyExists.getIpt() / alreadyExists.getUnits());
+//                            log.info("alreadyExists exists");
+        }
+        pp.setUstamp(LocalDateTime.now());
     }
 }
