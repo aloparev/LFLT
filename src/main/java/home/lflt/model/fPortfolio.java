@@ -41,8 +41,12 @@ public class fPortfolio {
 
     private User user;
 
-    public Portfolio toPortfolio() {
+    public Portfolio toUserManagedPortfolio() {
         return new Portfolio(name, "USER", funds, 'd', delay, epochs, user);
+    }
+
+    public Portfolio toRandomPortfolio() {
+        return new Portfolio(name + " (opponent)", "RANDOM", funds, 'd', delay, epochs, user);
     }
 
     @Override

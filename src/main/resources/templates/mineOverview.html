@@ -17,7 +17,7 @@
 
     <main class="container-fluid w-auto m-2 p-2 bg-light">
         <h1 class="text-center">Mine</h1>
-        <p class="text-center font-italic mb-4">My games & portfolios</p>
+        <p class="text-center font-italic mb-4">my portfolios & games</p>
 
         <div class="row mb-4">
             <div class="col"></div>
@@ -33,6 +33,13 @@
                 <!-- separator between portfolios & games -->
                 <hr>
 
+                <!-- cards with summary, more details inside -->
+
+                <div class="col text-center">
+                    <a th:unless="${limitReached}" class="btn btn-secondary mt-4"
+                       href="/mine/new_game" role="button">Start New Game</a>
+                    <span class="text-danger" th:if="${limitReached}">Game Limit Reached</span>
+                </div>
             </div>
             <div class="col"></div>
         </div>

@@ -38,8 +38,8 @@ public class PortfolioUpdater {
 //    sec, min, hour, day of month, month, weekday
 //    here: 13h 2min 1sec
 //    @Transactional
-//    @Scheduled(cron = "1 2 13 * * MON-FRI", zone = "GMT")
-    @Scheduled(cron = "1 * * * * ?")
+    @Scheduled(cron = "1 2 13 * * MON-FRI", zone = "GMT")
+//    @Scheduled(cron = "1 * * * * ?")
     public void update() {
         log.info("start updater 1+2");
         updateRandomPortfolios();

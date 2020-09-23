@@ -3,7 +3,6 @@ package home.lflt.controller;
 import home.lflt.model.*;
 import home.lflt.repo.*;
 import home.lflt.security.GetUser;
-import home.lflt.utils.BuyingAlgorithm;
 import home.lflt.utils.PortfolioUpdater;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -67,7 +66,11 @@ public class MineController {
     @GetMapping("/new_portfolio")
     public String showNewPortfolioForm(Model model) {
 //        log.info("showMineObjects");
+        String header = "New Portfolio";
         model.addAttribute("pojo", new fPortfolio());
+        model.addAttribute("header", header);
+        model.addAttribute("button", "Create " + header);
+        model.addAttribute("action_link", "/mine/new_portfolio_submit");
 //        model.addAttribute("user", userRepo.findByUsername(getUser.currentUserNameSimple()));
         return "newPortfolio";
     }
@@ -83,7 +86,7 @@ public class MineController {
         form.setUser(getUser.currentUser());
 //        form.setUser(userRepo.findByUsername(getUser.currentUserNameSimple()));
         log.info("received form: " + form);
-        portfolioRepo.save(form.toPortfolio());
+        portfolioRepo.save(form.toUserManagedPortfolio());
         return "redirect:/mine";
     }
 
@@ -97,4 +100,31 @@ public class MineController {
         return "redirect:/dashboard/{pf}";
     }
 
+    @GetMapping("/new_game")
+    public String showNewGameForm(Model model) {
+//        log.info("showMineObjects");
+        String header = "New Game";
+        model.addAttribute("pojo", new fPortfolio());
+        model.addAttribute("header", header);
+        model.addAttribute("button", "Create " + header);
+        model.addAttribute("action_link", "/mine/new_game_submit");
+//        model.addAttribute("user", userRepo.findByUsername(getUser.currentUserNameSimple()));
+        return "newPortfolio";
+    }
+
+    @PostMapping(path = "/new_portfolio_submit")
+    public String processNewUserGame(@Valid @ModelAttribute("pojo") fPortfolio form, Errors errors) {
+        log.info("processNewUserGame");
+        //necessary for error messages in view
+        if (errors.hasErrors()) {
+            return "mineOverview";
+        }
+
+        form.setUser(getUser.currentUser());
+//        form.setUser(userRepo.findByUsername(getUser.currentUserNameSimple()));
+        log.info("received form: " + form);
+        portfolioRepo.save(form.toUserManagedPortfolio());
+        portfolioRepo.save(form.toRandomPortfolio());
+        return "redirect:/mine";
+    }
 }

@@ -16,23 +16,23 @@
     <div th:insert="fragments :: menu"></div>
 
     <main class="container-fluid w-auto m-2 p-2 bg-light">
-        <h1 class="text-center mb-4">New Portfolio</h1>
+        <h1 class="text-center mb-4" th:text="${header}"/>
 
         <div class="row mb-4">
             <div class="col"></div>
 
             <div class="col-12 col-md-10 col-lg-8">
-                <form method="POST" th:object="${pojo}" th:action="@{/mine/new_portfolio_submit}" id="newPortfolioForm">
+                <form method="POST" th:object="${pojo}" th:action="@{${action_link}}" id="newPortfolioForm">
 
                     <!-- name -->
                     <div class="form-group rowCustom">
                         <div class="col-sm-4">
-                            <label for="name" class="col-form-label">Portfolio Name</label>
+                            <label for="name" class="col-form-label">Name</label>
                             <span class="validationError text-danger"
                                   th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Input Error</span>
                         </div>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" placeholder="Best portfolio in the world"
+                            <input type="text" class="form-control" placeholder="James Bond"
                                    th:field="*{name}"/>
                         </div>
                     </div>
@@ -76,7 +76,9 @@
                     <!-- submit button-->
                     <div class="rowCustom">
                         <div class="col text-center">
-                            <button class="btn btn-secondary mt-4">Create new portfolio</button>
+                            <button class="btn btn-secondary mt-4">
+                                <span th:text="${button}"/>
+                            </button>
                         </div>
                     </div>
                 </form>

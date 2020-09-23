@@ -51,6 +51,9 @@ public class User implements UserDetails {
     private boolean enabled;
     private LocalDateTime tstamp;
 
+    @Column(name="premium_expires")
+    private LocalDateTime premiumExpires;
+
     @ManyToMany
     @JoinTable(name = "user_game",
             joinColumns = @JoinColumn(name = "user_id"),
@@ -83,5 +86,9 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return enabled;
+    }
+
+    public boolean isPremiumUser() {
+        return premiumExpires != null && premiumExpires.isAfter(LocalDateTime.now());
     }
 }
