@@ -38,22 +38,15 @@ public class MineController {
     @GetMapping
     public String showMineObjects(Model model) {
         log.info("showMineObjects");
-        String username = getUser.currentUsername();
-//        log.info(username);
-        User user = userRepo.findByUsername(username);
-//        System.out.println(user);
-//        long userId = user.getId();
-//        System.out.println(userId);
         int limit = 0;
 
         model.addAttribute("mine", true);
 
-        Set<Portfolio> portfolios = portfolioRepo.getByUserId(user.getId());
+        Set<Portfolio> portfolios = portfolioRepo.getByUserId(getUser.currentUserId());
         model.addAttribute("portfolios", portfolios);
         limit += portfolios.size();
 
-//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        Set<Game> games = gameRepo.getByUserId(user.getId());
+        Set<Game> games = gameRepo.getByUserId(getUser.currentUserId());
         model.addAttribute("games", games);
         limit += games.size();
 
@@ -84,16 +77,16 @@ public class MineController {
     @PostMapping(path = "/new_preconfigured_portfolio_submit")
     public String processNewUserPortfolio() {
         Portfolio portfolio = new Portfolio("USER_SM", MAX_FUNDS, getUser.currentUser());
-        System.out.println(portfolio);
+//        System.out.println(portfolio);
         portfolioRepo.save(portfolio);
         return "redirect:/mine";
     }
 
     @PostMapping(path = "/buy_ticker/{pf}")
-    public String processBuyTickerForPortfolio(@PathVariable(name = "pf") long portfolioId, @RequestParam(name = "symb") String symbol) {
+    public String processBuyTickerForPortfolio(@PathVariable(name = "pf") long portfolioId, @RequestParam(name = "symb") String symbol, @RequestParam(name = "sum") int sum) {
 //        log.info("processBuyTicker: pf=" + portfolioId + " symbol=" + symbol);
         if(symbol != null && !symbol.trim().isEmpty())
-            portfolioUpdater.updatePortfolioBuyStock(portfolioId, symbol);
+            portfolioUpdater.updatePortfolioBuyLot(portfolioId, symbol, sum);
 
         // here we address the same pf_id as on top
         return "redirect:/dashboard/{pf}";

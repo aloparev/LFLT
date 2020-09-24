@@ -116,10 +116,30 @@ public class PortfolioUpdater {
             pf.setType("OVER");
     }
 
-    public void updatePortfolioBuyStock(long pid, String symbol) {
+    public void updatePortfolioBuyLot(long pid, String symbol) {
         Portfolio pp = portfolioRepo.getById(pid);
 
         Lot newLot = new BuyingAlgorithm(pp, stockRepo, pp.getBalance()).buyStock(symbol);
+        log.info("balance=" + pp.getBalance() + "; bought lot=" + newLot);
+
+        Lot alreadyExists = lotRepo.getByPortfolioIdAndSymbol(pp.getId(), newLot.getSymbol());
+        if(alreadyExists == null) {
+            pp.getLots().add(newLot);
+//                            log.info("alreadyExists == null");
+        } else {
+            alreadyExists.setUnits(alreadyExists.getUnits() + newLot.getUnits());
+            alreadyExists.setIpt(alreadyExists.getIpt() + newLot.getIpt());
+            alreadyExists.setIp(alreadyExists.getIpt() / alreadyExists.getUnits());
+//                            log.info("alreadyExists exists");
+        }
+        pp.setUstamp(LocalDateTime.now());
+    }
+
+    public void updatePortfolioBuyLot(long pid, String symb, int sum) {
+        Portfolio pp = portfolioRepo.getById(pid);
+
+        Lot newLot = new BuyingAlgorithm(pp, stockRepo, sum).buyStock(symb);
+        pp.setBalance(pp.getBalance() - newLot.getCpt());
         log.info("balance=" + pp.getBalance() + "; bought lot=" + newLot);
 
         Lot alreadyExists = lotRepo.getByPortfolioIdAndSymbol(pp.getId(), newLot.getSymbol());

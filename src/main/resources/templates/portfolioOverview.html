@@ -34,12 +34,11 @@
                                class="btn btn-secondary btn-sm mt-1">See more</a>
 <!--                            <a th:href="@{/dashboard/{path}/details(path=${pp.getId()})}" -->
 <!--                               class="btn btn-secondary btn-sm mt-1 ml-1">See all</a>-->
+
                             <form th:if="${mine}" method="POST" th:action="@{/dashboard/rm_pf/{id}(id=${pp.getId()})}"
                                 class="form-inline float-right">
                                 <button class="btn btn-danger btn-sm mt-1 ml-1" type="submit">Delete</button>
                             </form>
-<!--                            <a th:if="${mine}" th:action="@{/dashboard/rm_pf/${pp.getId()}}"-->
-<!--                               class="btn btn-danger btn-sm mt-1 ml-1">Delete</a>-->
                         </div>
                         <div class="card-footer bg-white">
                             <small class="text-muted">Last updated

@@ -28,6 +28,7 @@ public class Portfolio {
         this.lots = new HashSet<>();
         this.tstamp = LocalDateTime.now();
         this.cron = 'd';
+        this.epochs = 111;
     }
 
     public Portfolio(String name, String type, int balance, double funds, char cron, int delay, int epochs) {
