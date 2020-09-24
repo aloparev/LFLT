@@ -1,6 +1,9 @@
 package home.lflt.model;
 
+import home.lflt.security.SecurityConfig;
+import home.lflt.utils.Utils;
 import lombok.Data;
+import org.jasypt.util.text.BasicTextEncryptor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -38,6 +41,7 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
+    @Column(unique = true)
     private String username; //will be shown publicly
     private String email;
     private String password; //stored and compared as hash
@@ -90,5 +94,15 @@ public class User implements UserDetails {
 
     public boolean isPremiumUser() {
         return premiumExpires != null && premiumExpires.isAfter(LocalDateTime.now());
+    }
+
+    public String getEmail() {
+        BasicTextEncryptor encryptor = Utils.encryptor();
+        return encryptor.decrypt(email);
+    }
+
+    public void setEmail(String newEmail) {
+        BasicTextEncryptor encryptor = Utils.encryptor();
+        email = encryptor.encrypt(newEmail);
     }
 }

@@ -112,7 +112,7 @@ public class MineController {
         return "newPortfolio";
     }
 
-    @PostMapping(path = "/new_portfolio_submit")
+    @PostMapping(path = "/new_game_submit")
     public String processNewUserGame(@Valid @ModelAttribute("pojo") fPortfolio form, Errors errors) {
         log.info("processNewUserGame");
         //necessary for error messages in view

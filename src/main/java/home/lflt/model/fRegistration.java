@@ -1,7 +1,9 @@
 package home.lflt.model;
 
 import home.lflt.model.User;
+import home.lflt.utils.Utils;
 import lombok.Data;
+import org.jasypt.util.text.BasicTextEncryptor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.validation.constraints.*;
@@ -37,9 +39,13 @@ public class fRegistration {
     @NotBlank(message = INPUT_REQUIRED)
     private String state;
 
-    private boolean enabled;
+//    private boolean enabled;
 
     public User toUser(PasswordEncoder passwordEncoder) {
-        return new User(username, email, passwordEncoder.encode(password), age, city, state, true);
+        return new User(username, Utils.encryptor().encrypt(email), passwordEncoder.encode(password), age, city, state, true);
     }
+
+//    public User toUser(PasswordEncoder passwordEncoder, BasicTextEncryptor encryptor) {
+//        return new User(username, encryptor.encrypt(email), passwordEncoder.encode(password), age, city, state, true);
+//    }
 }

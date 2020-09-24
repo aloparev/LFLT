@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import home.lflt.model.MarketsInsiderHead;
 import home.lflt.model.fmpQuote;
 import lombok.extern.slf4j.Slf4j;
+import org.jasypt.util.text.BasicTextEncryptor;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
@@ -147,5 +148,12 @@ public class Utils {
                 .changeAbs(changeAbs)
                 .change(change)
                 .build();
+    }
+
+    public static BasicTextEncryptor encryptor() {
+        BasicTextEncryptor encryptor = new BasicTextEncryptor();
+        System.out.println("System.getenv(\"salt\")=" + System.getenv("salt"));
+        encryptor.setPassword(System.getenv("salt"));
+        return encryptor;
     }
 }

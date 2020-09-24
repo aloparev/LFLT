@@ -2,7 +2,9 @@ package home.lflt.controller;
 
 import home.lflt.model.fRegistration;
 import home.lflt.repo.UserRepo;
+import home.lflt.utils.Utils;
 import lombok.extern.slf4j.Slf4j;
+import org.jasypt.util.text.BasicTextEncryptor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,11 +24,18 @@ import static home.lflt.utils.Constants.LIMIT_99;
 public class RegistrationController {
     private final UserRepo userRepo;
     private final PasswordEncoder passwordEncoder;
+//    private final BasicTextEncryptor textEncryptor;
 
     public RegistrationController(UserRepo userRepo, PasswordEncoder passwordEncoder) {
         this.userRepo = userRepo;
         this.passwordEncoder = passwordEncoder;
     }
+//
+//    public RegistrationController(UserRepo userRepo, PasswordEncoder passwordEncoder, BasicTextEncryptor textEncryptor) {
+//        this.userRepo = userRepo;
+//        this.passwordEncoder = passwordEncoder;
+//        this.textEncryptor = textEncryptor;
+//    }
 
     @GetMapping
     public String registrationForm(Model model) {
