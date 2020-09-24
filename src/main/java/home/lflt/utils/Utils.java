@@ -152,7 +152,7 @@ public class Utils {
 
     public static BasicTextEncryptor encryptor() {
         BasicTextEncryptor encryptor = new BasicTextEncryptor();
-        System.out.println("System.getenv(\"salt\")=" + System.getenv("salt"));
+//        System.out.println("System.getenv(\"salt\")=" + System.getenv("salt"));
         encryptor.setPassword(System.getenv("salt"));
         return encryptor;
     }

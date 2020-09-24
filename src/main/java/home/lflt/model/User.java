@@ -3,6 +3,7 @@ package home.lflt.model;
 import home.lflt.security.SecurityConfig;
 import home.lflt.utils.Utils;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.jasypt.util.text.BasicTextEncryptor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -15,6 +16,7 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
+@EqualsAndHashCode(exclude = {"games", "portfolios", "feedbacks"})
 @Data
 @Entity
 //@NoArgsConstructor(access=AccessLevel.PROTECTED, force=true)
@@ -66,6 +68,9 @@ public class User implements UserDetails {
 
     @OneToMany(mappedBy = "game", cascade = CascadeType.ALL)
     private Set<Portfolio> portfolios;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private Set<Feedback> feedbacks;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
