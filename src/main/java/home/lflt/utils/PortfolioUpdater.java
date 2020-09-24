@@ -154,4 +154,14 @@ public class PortfolioUpdater {
         }
         pp.setUstamp(LocalDateTime.now());
     }
+
+    public void updatePortfolioSellLot(long pid, String symb) {
+        Portfolio pp = portfolioRepo.getById(pid);
+
+        Lot lot = lotRepo.getByPortfolioIdAndSymbol(pid, symb);
+        lotRepo.delete(lot);
+        pp.setBalance(pp.getBalance() + lot.getUnits() * lot.getCp());
+        log.info("balance=" + pp.getBalance() + "; sold=" + lot);
+        pp.setUstamp(LocalDateTime.now());
+    }
 }

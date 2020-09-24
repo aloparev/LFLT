@@ -95,21 +95,23 @@
                     </div>
                 </div>
 
-                <!-- buy form -->
-                <div th:if="${mine}" class="row">
-<!--                    <div class="col text-center">-->
-
-                        <!-- buy symbol and sum -->
-                        <form th:unless="${limit}" class="form-inline" method="POST"
-                              th:action="@{/mine/buy_ticker/{pf}(pf=${pf.getId()})}">
-                            <!-- th:name binds a request parameter -->
-                            <input class="form-control mr-sm-2 ml-3" type="text" id="ticker" th:name="symb"
-                                   placeholder="Stock ticker" aria-label="Ticker" name="ticker">
-                            <input class="form-control mr-sm-2 ml-3" type="text" id="sum" th:name="sum"
-                                   placeholder="sum" aria-label="sum" name="sum">
-                            <button class="btn btn-secondary my-2 my-sm-0" type="submit">Buy</button>
-                        </form>
-<!--                    </div>-->
+                <!-- buy by symbol and sum form -->
+                <div th:if="${mine}" class="row justify-content-around">
+                    <form th:unless="${limit}" class="form-inline" method="POST"
+                          th:action="@{/mine/buy_ticker/{pf}(pf=${pf.getId()})}">
+                        <!-- th:name binds a request parameter -->
+                        <input class="form-control mr-sm-2 ml-3" type="text" id="ticker" th:name="symb"
+                               placeholder="ticker" aria-label="ticker" name="ticker">
+                        <input class="form-control mr-sm-2 ml-3" type="text" id="sum" th:name="sum"
+                               placeholder="sum" aria-label="sum" name="sum">
+                        <button class="btn btn-success my-2 my-sm-0" type="submit">Buy</button>
+                    </form>
+                    <form class="form-inline" method="POST" th:action="@{/mine/sell_ticker/{pf}(pf=${pf.getId()})}">
+                        <!-- th:name binds a request parameter -->
+                        <input class="form-control mr-sm-2 ml-3" type="text" th:name="symb"
+                               placeholder="ticker" aria-label="ticker" name="ticker">
+                        <button class="btn btn-danger my-2 my-sm-0" type="submit">Sell</button>
+                    </form>
                 </div>
             </div>
 

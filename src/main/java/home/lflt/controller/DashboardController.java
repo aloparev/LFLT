@@ -50,9 +50,9 @@ public class DashboardController {
 //        log.info("showPortfolioById=" + id);
 
         Portfolio pf = portfolioRepo.getById(id);
-        log.info("pf.getOwnerName()=" + pf.getOwnerName() + ", getUser.currentUsername()=" + getUser.currentUsername());
+//        log.info("pf.getOwnerName()=" + pf.getOwnerName() + ", getUser.currentUsername()=" + getUser.currentUsername());
         if(Objects.equals(pf.getOwnerName(), getUser.currentUsername())) {
-            log.info("mine=true");
+//            log.info("mine=true");
             model.addAttribute("mine", true);
         }
 

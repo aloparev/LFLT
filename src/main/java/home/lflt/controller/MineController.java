@@ -85,8 +85,18 @@ public class MineController {
     @PostMapping(path = "/buy_ticker/{pf}")
     public String processBuyTickerForPortfolio(@PathVariable(name = "pf") long portfolioId, @RequestParam(name = "symb") String symbol, @RequestParam(name = "sum") int sum) {
 //        log.info("processBuyTicker: pf=" + portfolioId + " symbol=" + symbol);
+        if(symbol != null && !symbol.trim().isEmpty() && sum > 0)
+            portfolioUpdater.updatePortfolioBuyLot(portfolioId, symbol.toUpperCase(), sum);
+
+        // here we address the same pf_id as on top
+        return "redirect:/dashboard/{pf}";
+    }
+
+    @PostMapping(path = "/sell_ticker/{pf}")
+    public String processSellTickerForPortfolio(@PathVariable(name = "pf") long portfolioId, @RequestParam(name = "symb") String symbol) {
+//        log.info("processBuyTicker: pf=" + portfolioId + " symbol=" + symbol);
         if(symbol != null && !symbol.trim().isEmpty())
-            portfolioUpdater.updatePortfolioBuyLot(portfolioId, symbol, sum);
+            portfolioUpdater.updatePortfolioSellLot(portfolioId, symbol.toUpperCase());
 
         // here we address the same pf_id as on top
         return "redirect:/dashboard/{pf}";

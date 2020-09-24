@@ -79,6 +79,6 @@ public class Lot {
     public String toString() {
         return "\n\t" +
                 "Lot [id=" + id + ", pf_id=" + portfolio.getId() + ", symbol=" + symbol + ", name=" + name +
-                ", units=" + units + ", IP=" + ip + ", tstamp=" + tstamp + "]";
+                ", units=" + units + ", IP=" + ip + ", CP=" + cp + ", CPT=" + cpt + ", tstamp=" + tstamp + "]";
     }
 }

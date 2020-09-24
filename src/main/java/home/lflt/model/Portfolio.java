@@ -21,7 +21,7 @@ public class Portfolio {
 
     public Portfolio(String type, int balance, User user) {
         this.name = user.getUsername() + " Portfolio";
-        this.info = "Self-managed by " + user.getUsername();
+        this.info = "self-managed";
         this.type = type; //see utils.constants
         this.balance = balance;
         this.user = user;
