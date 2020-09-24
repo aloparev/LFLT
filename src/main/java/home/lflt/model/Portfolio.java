@@ -17,7 +17,18 @@ import java.util.Set;
 @EqualsAndHashCode(exclude = "lots")
 @Table(name = "portfolios")
 public class Portfolio {
-    public Portfolio(){};
+    public Portfolio() {};
+
+    public Portfolio(String type, int balance, User user) {
+        this.name = user.getUsername() + " Portfolio";
+        this.info = "Self-managed by " + user.getUsername();
+        this.type = type; //see utils.constants
+        this.balance = balance;
+        this.user = user;
+        this.lots = new HashSet<>();
+        this.tstamp = LocalDateTime.now();
+        this.cron = 'd';
+    }
 
     public Portfolio(String name, String type, int balance, double funds, char cron, int delay, int epochs) {
         this.name = name;

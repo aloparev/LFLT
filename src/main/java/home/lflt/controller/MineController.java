@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.Set;
 
+import static home.lflt.utils.Constants.MAX_FUNDS;
+
 @Slf4j
 @Controller
 @RequestMapping("/mine")
@@ -48,45 +50,42 @@ public class MineController {
 
         Set<Portfolio> portfolios = portfolioRepo.getByUserId(user.getId());
         model.addAttribute("portfolios", portfolios);
-        limit += portfolios.size() * 2;
+        limit += portfolios.size();
 
 //        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         Set<Game> games = gameRepo.getByUserId(user.getId());
         model.addAttribute("games", games);
         limit += games.size();
 
-        if(limit > 4)
-            model.addAttribute("limitReached", true);
-        else
-            model.addAttribute("limitReached", false);
+        if(limit >= 2)
+            model.addAttribute("limit", true);
+//        else
+//            model.addAttribute("limitReached", false);
 
         return "mineOverview";
     }
 
-    @GetMapping("/new_portfolio")
-    public String showNewPortfolioForm(Model model) {
-//        log.info("showMineObjects");
-        String header = "New Portfolio";
-        model.addAttribute("pojo", new fPortfolio());
-        model.addAttribute("header", header);
-        model.addAttribute("button", "Create " + header);
-        model.addAttribute("action_link", "/mine/new_portfolio_submit");
-//        model.addAttribute("user", userRepo.findByUsername(getUser.currentUserNameSimple()));
-        return "newPortfolio";
-    }
+//    @GetMapping("/new_portfolio")
+//    public String showNewPortfolioForm(Model model) {
+////        log.info("showMineObjects");
+//        String header = "New Portfolio";
+//        model.addAttribute("pojo", new fPortfolio());
+//        model.addAttribute("header", header);
+//        model.addAttribute("button", "Create " + header);
+//        model.addAttribute("action_link", "/mine/new_portfolio_submit");
+////        model.addAttribute("user", userRepo.findByUsername(getUser.currentUserNameSimple()));
+//        return "newPortfolio";
+//    }
 
-    @PostMapping(path = "/new_portfolio_submit")
-    public String processNewUserPortfolio(@Valid @ModelAttribute("pojo") fPortfolio form, Errors errors) {
-        log.info("processNewUserPortfolio");
-        //necessary for error messages in view
-        if (errors.hasErrors()) {
-            return "mineOverview";
-        }
-
-        form.setUser(getUser.currentUser());
-//        form.setUser(userRepo.findByUsername(getUser.currentUserNameSimple()));
-        log.info("received form: " + form);
-        portfolioRepo.save(form.toUserManagedPortfolio());
+    /**
+     * creates self managed portfolio with 10k start capital
+     */
+    @Transactional
+    @PostMapping(path = "/new_preconfigured_portfolio_submit")
+    public String processNewUserPortfolio() {
+        Portfolio portfolio = new Portfolio("USER_SM", MAX_FUNDS, getUser.currentUser());
+        System.out.println(portfolio);
+        portfolioRepo.save(portfolio);
         return "redirect:/mine";
     }
 

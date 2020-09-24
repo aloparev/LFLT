@@ -25,6 +25,9 @@ public final class Constants {
     }
 
     public enum portfolioType {
-        USER, RANDOM, OVER
+        USER //game participant
+        , USER_SM //self managed
+        , RANDOM
+        , OVER
     }
 }
