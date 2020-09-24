@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+      lang="en">
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" th:href="@{/bs441/css/bootstrap.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/initialStyle.css}"/>
+    <title>LFLT | Error</title>
+</head>
+
+<body>
+<div class="container-fluid min-vh-100 p-0">
+    <div th:insert="fragments :: menu"></div>
+
+    <main class="container-fluid w-auto m-2 p-2 bg-light">
+        <h1 class="text-center">Portfolios</h1>
+        <p class="text-center font-italic mb-4">Currently existing</p>
+
+        <div class="row mb-4">
+            <div class="col"></div>
+
+            <div class="col-12 col-md-10 col-lg-8">
+                <div class="alert alert-info" role="alert">
+                    <h1 class="alert-heading mb-4">&#9785; Something went wrong!</h1>
+                    <p>You can return to the <a href="/" class="alert-link">home page</a> and try again...</p>
+                    <p class="mb-0">or login and leave a feedback about how it happened if you have an account. That will help our engineers to fix the problem.</p>
+                </div>
+            </div>
+
+            <div class="col"></div>
+        </div>
+    </main>
+
+    <div th:insert="fragments :: footer"></div>
+</div>
+
+<!--&lt;!&ndash; import bootstrap &ndash;&gt;-->
+<!--<script th:src="@{/bs441/js/jquery-3.4.1.js}"></script>-->
+<!--<script th:src="@{/bs441/js/bootstrap.bundle.js}"></script>-->
+<div th:insert="fragments :: bootstrap"></div>
+</body>
+</html>
