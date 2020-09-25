@@ -4,6 +4,7 @@ import home.lflt.model.Quote;
 import home.lflt.repo.StockRepo;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.annotation.Before;
+import org.jasypt.util.text.BasicTextEncryptor;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Period;
+import java.util.Objects;
 
 import static home.lflt.utils.Constants.*;
 import static home.lflt.utils.Utils.*;
@@ -176,9 +178,20 @@ class UtilsTest {
         for (int i = 0; i < 10; i++) {
             id = getRandomIntBetween(0, stockRepo.getCount());
             quote = getQuoteMi(stockRepo.getByIndex(id).getSymbol());
-            System.out.println("got quote #" + i + ": " + quote);
+            System.out.println("quote #" + i + ": " + quote);
             assertTrue(quote.getPrice() != 0);
             assertTrue(quote.getChange() != -111);
         }
+    }
+
+    @Test
+    void encryptor() {
+        String text = "text";
+        BasicTextEncryptor encryptor = Utils.encryptor();
+        String code = encryptor.encrypt(text);
+        assertFalse(Objects.equals(text, code));
+
+        String decryption = encryptor.decrypt(code);
+        assertTrue(Objects.equals(text, decryption));
     }
 }

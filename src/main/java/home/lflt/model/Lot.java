@@ -35,7 +35,7 @@ public class Lot {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    @Column(length = 9)
+    @Column(length = 9, nullable = false)
     private String symbol;
 
     @Column(length = 99)

@@ -15,6 +15,7 @@ import javax.validation.Valid;
 import java.util.Set;
 
 import static home.lflt.utils.Constants.MAX_FUNDS;
+import static home.lflt.utils.Utils.stringNotNullAndNotEmpty;
 
 @Slf4j
 @Controller
@@ -37,7 +38,7 @@ public class MineController {
     @Transactional(readOnly = true)
     @GetMapping
     public String showMineObjects(Model model) {
-        log.info("showMineObjects");
+//        log.info("showMineObjects");
         int limit = 0;
 
         model.addAttribute("mine", true);
@@ -83,10 +84,16 @@ public class MineController {
     }
 
     @PostMapping(path = "/buy_ticker/{pf}")
-    public String processBuyTickerForPortfolio(@PathVariable(name = "pf") long portfolioId, @RequestParam(name = "symb") String symbol, @RequestParam(name = "sum") int sum) {
-//        log.info("processBuyTicker: pf=" + portfolioId + " symbol=" + symbol);
-        if(symbol != null && !symbol.trim().isEmpty() && sum > 0)
-            portfolioUpdater.updatePortfolioBuyLot(portfolioId, symbol.toUpperCase(), sum);
+    public String processBuyTickerForPortfolio(@PathVariable(name = "pf") long portfolioId, @RequestParam(name = "symb") String symbol, @RequestParam(name = "sum") String sumStr) {
+        log.info("processBuyTicker: pf=" + portfolioId + ", symbol=" + symbol + ", sumStr=" + sumStr);
+        if(stringNotNullAndNotEmpty(symbol) && stringNotNullAndNotEmpty(sumStr)) {
+            try {
+                int sum = Integer.parseInt(sumStr);
+                portfolioUpdater.updatePortfolioBuyLot(portfolioId, symbol.toUpperCase(), sum);
+            } catch (NumberFormatException nfe) {
+                nfe.printStackTrace();
+            }
+        }
 
         // here we address the same pf_id as on top
         return "redirect:/dashboard/{pf}";

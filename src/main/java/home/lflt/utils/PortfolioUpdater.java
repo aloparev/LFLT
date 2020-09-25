@@ -139,20 +139,21 @@ public class PortfolioUpdater {
         Portfolio pp = portfolioRepo.getById(pid);
 
         Lot newLot = new BuyingAlgorithm(pp, stockRepo, sum).buyStock(symb);
-        pp.setBalance(pp.getBalance() - newLot.getCpt());
-        log.info("balance=" + pp.getBalance() + "; bought lot=" + newLot);
-
-        Lot alreadyExists = lotRepo.getByPortfolioIdAndSymbol(pp.getId(), newLot.getSymbol());
-        if(alreadyExists == null) {
-            pp.getLots().add(newLot);
+        if(newLot != null) {
+            pp.setBalance(pp.getBalance() - newLot.getCpt());
+            log.info("balance=" + pp.getBalance() + "; bought lot=" + newLot);
+            Lot alreadyExists = lotRepo.getByPortfolioIdAndSymbol(pp.getId(), newLot.getSymbol());
+            if (alreadyExists == null) {
+                pp.getLots().add(newLot);
 //                            log.info("alreadyExists == null");
-        } else {
-            alreadyExists.setUnits(alreadyExists.getUnits() + newLot.getUnits());
-            alreadyExists.setIpt(alreadyExists.getIpt() + newLot.getIpt());
-            alreadyExists.setIp(alreadyExists.getIpt() / alreadyExists.getUnits());
+            } else {
+                alreadyExists.setUnits(alreadyExists.getUnits() + newLot.getUnits());
+                alreadyExists.setIpt(alreadyExists.getIpt() + newLot.getIpt());
+                alreadyExists.setIp(alreadyExists.getIpt() / alreadyExists.getUnits());
 //                            log.info("alreadyExists exists");
+            }
+            pp.setUstamp(LocalDateTime.now());
         }
-        pp.setUstamp(LocalDateTime.now());
     }
 
     public void updatePortfolioSellLot(long pid, String symb) {

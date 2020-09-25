@@ -40,8 +40,13 @@ public class BuyingAlgorithm {
         Quote quote = getQuoteMi(symbol);
         Stock stock = stockRepo.getBySymbol(symbol);
         int units = (int) (funds / quote.getPrice());
-        portfolio.setBalance(portfolio.getBalance() - units * quote.getPrice());
-        return new Lot(portfolio, symbol, stock.getName(), units, quote.getPrice());
+
+        if(units > 0) {
+            portfolio.setBalance(portfolio.getBalance() - units * quote.getPrice());
+            return new Lot(portfolio, symbol, stock.getName(), units, quote.getPrice());
+        } else {
+            return null;
+        }
     }
 
     public Lot buyStockRandomly() {

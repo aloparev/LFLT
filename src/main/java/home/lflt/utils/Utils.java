@@ -172,4 +172,8 @@ public class Utils {
 
         return num;
     }
+
+    public static boolean stringNotNullAndNotEmpty(String str) {
+        return str != null && !str.trim().isEmpty();
+    }
 }
