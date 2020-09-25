@@ -1,8 +1,14 @@
 package home.lflt.utils;
 
-import home.lflt.model.MarketsInsiderHead;
+import home.lflt.model.Quote;
+import home.lflt.repo.StockRepo;
 import lombok.extern.slf4j.Slf4j;
+import org.aspectj.lang.annotation.Before;
 import org.junit.jupiter.api.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
 
 import java.time.Duration;
 import java.time.LocalDate;
@@ -10,10 +16,11 @@ import java.time.LocalDateTime;
 import java.time.Period;
 
 import static home.lflt.utils.Constants.*;
-import static home.lflt.utils.Utils.miGetQuote;
+import static home.lflt.utils.Utils.*;
 import static org.junit.jupiter.api.Assertions.*;
-import static home.lflt.utils.Utils.checkPortfolio;
 
+@RunWith(SpringRunner.class)
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Slf4j
 class UtilsTest {
     private final LocalDateTime now = LocalDateTime.now();
@@ -23,6 +30,9 @@ class UtilsTest {
     private final int five = 5;
     private final int seven = 7;
     private final int twelve = 12;
+
+    @Autowired
+    private StockRepo stockRepo;
 
 //    @Before()
 //    public void setUp() {
@@ -152,9 +162,23 @@ class UtilsTest {
 
     @Test
     void miQuoteShallDeliverValues() {
-        MarketsInsiderHead quote = miGetQuote("GOOG");
+        Quote quote = getQuoteMi("GOOG");
         System.out.println(quote);
         assertTrue(quote.getPrice() != 0);
         assertTrue(quote.getChange() != -111);
+    }
+
+    @Test
+    void miQuoteTenRandomCalls() {
+        Quote quote;
+        int id;
+
+        for (int i = 0; i < 10; i++) {
+            id = getRandomIntBetween(0, stockRepo.getCount());
+            quote = getQuoteMi(stockRepo.getByIndex(id).getSymbol());
+            System.out.println("got quote #" + i + ": " + quote);
+            assertTrue(quote.getPrice() != 0);
+            assertTrue(quote.getChange() != -111);
+        }
     }
 }

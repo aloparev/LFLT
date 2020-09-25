@@ -7,7 +7,7 @@ import javax.persistence.*;
 
 @Builder
 @Data
-public class MarketsInsiderHead {
+public class Quote {
     private String symbol;
     private double price;
     private double change;

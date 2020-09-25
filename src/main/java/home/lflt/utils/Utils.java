@@ -1,7 +1,7 @@
 package home.lflt.utils;
 
 import com.google.gson.Gson;
-import home.lflt.model.MarketsInsiderHead;
+import home.lflt.model.Quote;
 import home.lflt.model.fmpQuote;
 import lombok.extern.slf4j.Slf4j;
 import org.jasypt.util.text.BasicTextEncryptor;
@@ -16,6 +16,7 @@ import java.text.NumberFormat;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.Locale;
+import java.util.Random;
 
 import static home.lflt.utils.Constants.*;
 
@@ -96,43 +97,45 @@ public class Utils {
         }
     }
 
-    public static MarketsInsiderHead miGetQuote(String symbol) {
-        String miBaseUrlStart = "https://markets.businessinsider.com/stocks/";
-        String miBaseUrlEnd = "-stock";
-        String link = miBaseUrlStart.concat(symbol).concat(miBaseUrlEnd);
+    public static Quote getQuoteMi(String symbol) {
+        String baseUrlPrefix = "https://markets.businessinsider.com/stocks/";
+        String baseUrlSuffix = "-stock";
+        String link = baseUrlPrefix.concat(symbol.toLowerCase()).concat(baseUrlSuffix);
         double price = 0;
         double change = -111;
         double changeAbs = -1;
-
         Document doc = null;
+//        log.info("link: " + link);
+
         try {
             doc = Jsoup.connect(link).get();
         } catch (IOException e) {
-            log.info(symbol + " not found\n" + e.getMessage());
+            log.info("couldn't download: " + link);
         }
+//        log.info("html=" + doc);
 
-        try {
-            String priceStr = doc.select("span.price-section__current-value").text();
-            String changeStr = doc.select("span.price-section__relative-value").text();
-//            System.out.println(priceStr + "; " + changeStr);
-//            String changeStr = doc.select("#pushBorder div.aktien-big-font.text-nowrap span").last().text();
-            NumberFormat nf = NumberFormat.getInstance(Locale.US); // Looks like a US format
-            price = nf.parse(priceStr).doubleValue();
-
-            if(changeStr.charAt(1) == '+') {
-                change = nf.parse(changeStr.substring(1, changeStr.length()-2)).doubleValue();
+//        String priceSection = doc.select("div.price-section__values").text();
+//        log.info("priceSection: " + priceSection);
+        if(doc != null) {
+            try {
+                String priceStr = doc.selectFirst("span.price-section__current-value").text();
+                String changeStr = doc.selectFirst("span.price-section__relative-value").text();
+                //            log.info("priceStr=" + priceStr + "; changeStr=" + changeStr);
+                //            String changeStr = doc.select("#pushBorder div.aktien-big-font.text-nowrap span").last().text();
+                NumberFormat nf = NumberFormat.getInstance(Locale.US); // Looks like a US format
+                price = nf.parse(priceStr).doubleValue();
+                //            log.info("price=" + price);
+                if (changeStr.charAt(0) == '+') {
+                    change = nf.parse(changeStr.substring(1, changeStr.length() - 2)).doubleValue();
+                    //                log.info("changeStr.substring(1, changeStr.length() - 2): " + changeStr.substring(1, changeStr.length() - 2));
+                } else {
+                    change = nf.parse(changeStr.substring(0, changeStr.length() - 2)).doubleValue();
+                    //                log.info("changeStr.substring(0, changeStr.length() - 2): " + changeStr.substring(0, changeStr.length() - 2));
+                }
+                //            log.info("change=" + change);
+            } catch (Exception ee) {
+                log.info("couldn't parse values from html, error: " + ee.getMessage());
             }
-            else {
-                change = nf.parse(changeStr.substring(0, changeStr.length()-2)).doubleValue();
-            }
-
-//            log.info("changeAbs " + doc.select("#pushBorder div.aktien-big-font.text-nowrap span.push-data.colorRed.aktien-big-font.text-nowrap.big-font-small.colorBlack").text());
-//            log.info("scraped title: " + doc.title());
-//            log.info("price " + price);
-//            log.info("change " + change);
-//            log.info("changeAbs " + changeAbs);
-        } catch (Exception ne) {
-            log.info("couldn't scrape values from page");
         }
 
         if(change == -111) {
@@ -142,7 +145,7 @@ public class Utils {
         } else
             changeAbs = price * change / 100;
 
-        return MarketsInsiderHead.builder()
+        return Quote.builder()
                 .symbol(symbol)
                 .price(price)
                 .changeAbs(changeAbs)
@@ -155,5 +158,18 @@ public class Utils {
 //        System.out.println("System.getenv(\"salt\")=" + System.getenv("salt"));
         encryptor.setPassword(System.getenv("salt"));
         return encryptor;
+    }
+
+    public static int getRandomIntBetween(int min, int max) {
+        boolean loop = true;
+        Random rand = new Random();
+        int num = 0;
+
+        while(loop) {
+            num = rand.nextInt(max); // upper limit excluded
+            if(min <= num && num <= max) loop = false;
+        }
+
+        return num;
     }
 }

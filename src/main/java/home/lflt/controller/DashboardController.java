@@ -13,7 +13,7 @@ import java.util.Objects;
 import java.util.Set;
 
 import static home.lflt.utils.Utils.fmpGetQuote;
-import static home.lflt.utils.Utils.miGetQuote;
+import static home.lflt.utils.Utils.getQuoteMi;
 
 @Slf4j
 @Controller
@@ -70,7 +70,7 @@ public class DashboardController {
         Set<Lot> lots = pf.getLots();
 //        log.info(">> pf.getLots();");
         for(Lot lot : lots) {
-            MarketsInsiderHead quote = miGetQuote(lot.getSymbol());
+            Quote quote = getQuoteMi(lot.getSymbol());
 //            log.info("got quote for: " + quote);
 
             lot.setYesterdayClose(lot.getCp());

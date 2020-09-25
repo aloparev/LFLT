@@ -3,13 +3,11 @@ package home.lflt.utils;
 import home.lflt.model.*;
 import home.lflt.repo.StockRepo;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 
-import java.time.LocalDateTime;
 import java.util.Random;
 
-import static home.lflt.utils.Utils.fmpGetQuote;
-import static home.lflt.utils.Utils.miGetQuote;
+import static home.lflt.utils.Utils.getQuoteMi;
+import static home.lflt.utils.Utils.getRandomIntBetween;
 
 @Slf4j
 public class BuyingAlgorithm {
@@ -39,7 +37,7 @@ public class BuyingAlgorithm {
      * @return new lot
      */
     public Lot buyStock(String symbol) {
-        MarketsInsiderHead quote = miGetQuote(symbol);
+        Quote quote = getQuoteMi(symbol);
         Stock stock = stockRepo.getBySymbol(symbol);
         int units = (int) (funds / quote.getPrice());
         portfolio.setBalance(portfolio.getBalance() - units * quote.getPrice());
@@ -48,7 +46,7 @@ public class BuyingAlgorithm {
 
     public Lot buyStockRandomly() {
         Stock stock = null;
-        MarketsInsiderHead quote = null;
+        Quote quote = null;
 
         String symbol = "UNDEFINED";
         int units = -1;
@@ -56,9 +54,9 @@ public class BuyingAlgorithm {
 
         if(stockRepo.count() != 0) {
             while (!picked) {
-                int randomIndex = getRandomMargins(0, stockCounter);
+                int randomIndex = getRandomIntBetween(0, stockCounter);
                 stock = stockRepo.getByIndex(randomIndex);
-                quote = miGetQuote(stock.getSymbol());
+                quote = getQuoteMi(stock.getSymbol());
                 if (quote.getPrice() <= funds) picked = true;
             }
 
@@ -69,18 +67,4 @@ public class BuyingAlgorithm {
 
         return new Lot(symbol, symbol, units, price);
     }
-
-    public int getRandomMargins(int min, int max) {
-        boolean loop = true;
-        Random rand = new Random();
-        int num = 0;
-
-        while(loop) {
-            num = rand.nextInt(max); // border not included
-            if(min <= num && num <= max) loop = false;
-        }
-
-        return num;
-    }
-
 }
