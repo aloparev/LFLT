@@ -102,8 +102,12 @@ public class MineController {
     @PostMapping(path = "/sell_ticker/{pf}")
     public String processSellTickerForPortfolio(@PathVariable(name = "pf") long portfolioId, @RequestParam(name = "symb") String symbol) {
 //        log.info("processBuyTicker: pf=" + portfolioId + " symbol=" + symbol);
-        if(symbol != null && !symbol.trim().isEmpty())
-            portfolioUpdater.updatePortfolioSellLot(portfolioId, symbol.toUpperCase());
+        if(stringNotNullAndNotEmpty(symbol))
+            try {
+                portfolioUpdater.updatePortfolioSellLot(portfolioId, symbol.toUpperCase());
+            } catch (IllegalArgumentException iae) {
+                iae.printStackTrace();
+            }
 
         // here we address the same pf_id as on top
         return "redirect:/dashboard/{pf}";
