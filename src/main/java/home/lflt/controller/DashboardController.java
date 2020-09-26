@@ -9,6 +9,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -42,25 +44,28 @@ public class DashboardController {
     /**
      * generate portfolio stats on the fly by aggregating all lots
      * depends on utils.getQuote
+     * list just to make it reusable with games view
      */
     @Transactional(readOnly = true)
     @GetMapping("/{id}")
     public String showPortfolioById(@PathVariable("id") Long id, Model model) {
 //        log.info("showPortfolioById=" + id);
 
-        Portfolio pf = preparePortfolioRendering(portfolioRepo.getById(id));
+        List<Portfolio> portfolios = new ArrayList<Portfolio>(){{
+            add(preparePortfolioRendering(portfolioRepo.getById(id)));
+        }};
 //        log.info("pf.getOwnerName()=" + pf.getOwnerName() + ", getUser.currentUsername()=" + getUser.currentUsername());
-        model.addAttribute("pf", pf);
+        model.addAttribute("portfolios", portfolios);
 
-        if(Objects.equals(pf.getOwnerName(), getUser.currentUsername()) && Objects.equals(pf.getType(), "USER_SM")) {
+        if(Objects.equals(portfolios.get(0).getOwnerName(), getUser.currentUsername()) && Objects.equals(portfolios.get(0).getType(), "USER_SM")) {
 //            log.info("mine=true");
             model.addAttribute("mine", true);
         }
 
-        if(pf.getEpochs() < 1)
+        if(portfolios.get(0).getEpochs() < 1)
             model.addAttribute("limit", true);
 
-        if(pf.getGame() != null)
+        if(portfolios.get(0).getGame() != null)
             model.addAttribute("game", true);
 
         return "portfolioDashboard";

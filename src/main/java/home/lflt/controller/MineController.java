@@ -66,11 +66,9 @@ public class MineController {
     public String showGameById(@PathVariable("id") long id, Model model) {
         Optional<Game> gameOptional = gameRepo.findById(id);
         if(gameOptional.isPresent()) {
-            User user = getUser.currentUser();
             Game game = gameOptional.get();
             Portfolio mypf = preparePortfolioRendering(game.getPortfolios().get(0));
             Portfolio oppopf = preparePortfolioRendering(game.getPortfolios().get(1));
-            user.getGames().add(game);
         }
         return "/";
     }

@@ -20,99 +20,103 @@
             <div class="col"></div>
 
             <div class="col-12 col-md-10 col-lg-8">
-                <h1 class="text-center"><span th:text="${pf.getName()}"/></h1>
-                <p class="text-center font-italic mb-4">
-                    <span th:text="${pf.getInfo()}"/>
-<!--                    <span th:text="${mine}"></span>-->
-                </p>
+                <div th:fragment="pf_dashboard" th:each="pf : ${portfolios}">
+                    <h1 class="text-center"><span th:text="${pf.getName()}"/></h1>
+                    <p class="text-center font-italic mb-4">
+                        <span th:text="${pf.getInfo()}"/>
+                        <!--                    <span th:text="${mine}"></span>-->
+                    </p>
 
-                <!-- pf summary box -->
-                <div class="jumbotron shadow-black p-3 mb-4 rounded" style="background-color: var(--tableJumbotronColor)">
-                    <div class="row font-weight-bold">
-                        <div class="col" th:fragment="pf_summary_worth">
-                            <p>Worth</p>
-                            <p><span th:text="${#numbers.formatDecimal(pf.getCptSum(), 1, 2)}"/> &dollar;</p>
-                        </div>
+                    <!-- pf summary box -->
+                    <div class="jumbotron shadow-black p-3 mb-4 rounded"
+                         style="background-color: var(--tableJumbotronColor)">
+                        <div class="row font-weight-bold">
+                            <div class="col" th:fragment="pf_summary_worth">
+                                <p>Worth</p>
+                                <p><span th:text="${#numbers.formatDecimal(pf.getCptSum(), 1, 2)}"/> &dollar;</p>
+                            </div>
 
-                        <div class="col" th:if="${mine}">
-                            <p>Funds</p>
-                            <p><span th:text="${#numbers.formatDecimal(pf.getBalance(), 1, 2)}"/> &dollar;</p>
-                        </div>
+                            <div class="col" th:if="${mine}">
+                                <p>Funds</p>
+                                <p><span th:text="${#numbers.formatDecimal(pf.getBalance(), 1, 2)}"/> &dollar;</p>
+                            </div>
 
-                        <div class="col" th:fragment="pf_summary_change">
-                            <p>Change</p>
-                            <p th:classappend="${pf.getChange() > 0 ? 'text-success' : 'text-danger'}"><span
-                                    th:text="${#numbers.formatDecimal(pf.getChange(), 1, 2)}"/> &percnt;</p>
-                        </div>
+                            <div class="col" th:fragment="pf_summary_change">
+                                <p>Change</p>
+                                <p th:classappend="${pf.getChange() > 0 ? 'text-success' : 'text-danger'}"><span
+                                        th:text="${#numbers.formatDecimal(pf.getChange(), 1, 2)}"/> &percnt;</p>
+                            </div>
 
-                        <div class="col" th:fragment="pf_summary_pl">
-                            <p class="font-weight-bold">P&L</p>
-                            <p th:classappend="${pf.getPlTotalSum() > 0 ? 'text-success' : 'text-danger'}"><span
-                                    th:text="${#numbers.formatDecimal(pf.getPlTotalSum(), 1, 2)}"/> &dollar;</p>
+                            <div class="col" th:fragment="pf_summary_pl">
+                                <p class="font-weight-bold">P&L</p>
+                                <p th:classappend="${pf.getPlTotalSum() > 0 ? 'text-success' : 'text-danger'}"><span
+                                        th:text="${#numbers.formatDecimal(pf.getPlTotalSum(), 1, 2)}"/> &dollar;</p>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <!-- lots header row -->
-                <div class="row" th:fragment="lot_table">
-                    <div class="table-responsive m-3">
-                        <table class="table table-hover table-striped">
-                            <thead style="background-color: var(--tableJumbotronColor)">
-                            <tr>
-                                <th>Stock</th>
-                                <th>U</th>
-                                <th>IP</th>
-                                <th>CP</th>
-                                <th>P&L</th>
-                            </tr>
-                            </thead>
+                    <!-- lots header row -->
+                    <div class="row" th:fragment="lot_table">
+                        <div class="table-responsive m-3">
+                            <table class="table table-hover table-striped">
+                                <thead style="background-color: var(--tableJumbotronColor)">
+                                <tr>
+                                    <th>Stock</th>
+                                    <th>U</th>
+                                    <th>IP</th>
+                                    <th>CP</th>
+                                    <th>P&L</th>
+                                </tr>
+                                </thead>
 
-                            <!-- data rows -->
-                            <tbody>
-                            <tr th:each="ii : ${pf.getLots()}" th:classappend="${ii.getError() ? 'bg-warning' : ''}">
-                                <td class="px-4">
-                                    <div class="row">
-                                        <span th:text="${ii.getSymbol()}"></span>
-                                    </div>
-                                    <div class="row">
-                                        <!--                                    <span class="small">Alexandria Real Estate Equities</span>-->
-                                        <span class="small" th:text="${ii.getName()}"/>
+                                <!-- data rows -->
+                                <tbody>
+                                <tr th:each="ii : ${pf.getLots()}"
+                                    th:classappend="${ii.getError() ? 'bg-warning' : ''}">
+                                    <td class="px-4">
+                                        <div class="row">
+                                            <span th:text="${ii.getSymbol()}"></span>
+                                        </div>
+                                        <div class="row">
+                                            <!--                                    <span class="small">Alexandria Real Estate Equities</span>-->
+                                            <span class="small" th:text="${ii.getName()}"/>
 
-                                    </div>
-                                </td>
-                                <td th:text="${ii.getUnits()}"/>
-                                <td th:text="${#numbers.formatDecimal(ii.getIp(), 1, 2)}"/>
-                                <!--                            <td th:text="${ii.getIpt()}"/>-->
+                                        </div>
+                                    </td>
+                                    <td th:text="${ii.getUnits()}"/>
+                                    <td th:text="${#numbers.formatDecimal(ii.getIp(), 1, 2)}"/>
+                                    <!--                            <td th:text="${ii.getIpt()}"/>-->
 
-                                <!--                            <td th:text="${#numbers.formatDecimal(ii.getChange(), 1, 2)}"/>-->
-                                <td th:text="${#numbers.formatDecimal(ii.getCp(), 1, 2)}"/>
-                                <!--                            <td th:text="${ii.getCpt()}"/>-->
-                                <!--                            <td th:text="${ii.getPld()}"/>-->
-                                <td th:text="${#numbers.formatDecimal(ii.getPlt(), 1, 2)}"/>
-                            </tr>
-                            </tbody>
-                        </table>
+                                    <!--                            <td th:text="${#numbers.formatDecimal(ii.getChange(), 1, 2)}"/>-->
+                                    <td th:text="${#numbers.formatDecimal(ii.getCp(), 1, 2)}"/>
+                                    <!--                            <td th:text="${ii.getCpt()}"/>-->
+                                    <!--                            <td th:text="${ii.getPld()}"/>-->
+                                    <td th:text="${#numbers.formatDecimal(ii.getPlt(), 1, 2)}"/>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
-                </div>
 
-                <!-- buy by symbol and sum form -->
-                <div th:if="${mine}" class="row justify-content-around">
-                    <form th:unless="${limit}" class="form-inline" method="POST"
-                          th:action="@{/mine/buy_ticker/{pf}(pf=${pf.getId()})}">
-                        <!-- th:name binds a request parameter -->
-                        <input class="form-control mr-sm-2 ml-3" type="text" id="ticker" th:name="symb"
-                               placeholder="ticker" aria-label="ticker" name="ticker">
-                        <input class="form-control mr-sm-2 ml-3" type="text" id="sum" th:name="sum"
-                               placeholder="sum" aria-label="sum" name="sum">
-                        <button class="btn btn-success my-2 my-sm-0" type="submit">Buy</button>
-                    </form>
-                    <form class="form-inline" method="POST"
-                          th:unless="${game}" th:action="@{/mine/sell_ticker/{pf}(pf=${pf.getId()})}">
-                        <!-- th:name binds a request parameter -->
-                        <input class="form-control mr-sm-2 ml-3" type="text" th:name="symb"
-                               placeholder="ticker" aria-label="ticker" name="ticker">
-                        <button class="btn btn-danger my-2 my-sm-0" type="submit">Sell</button>
-                    </form>
+                    <!-- buy by symbol and sum form -->
+                    <div th:if="${mine}" class="row justify-content-around">
+                        <form th:unless="${limit}" class="form-inline" method="POST"
+                              th:action="@{/mine/buy_ticker/{pf}(pf=${pf.getId()})}">
+                            <!-- th:name binds a request parameter -->
+                            <input class="form-control mr-sm-2 ml-3" type="text" id="ticker" th:name="symb"
+                                   placeholder="ticker" aria-label="ticker" name="ticker">
+                            <input class="form-control mr-sm-2 ml-3" type="text" id="sum" th:name="sum"
+                                   placeholder="sum" aria-label="sum" name="sum">
+                            <button class="btn btn-success my-2 my-sm-0" type="submit">Buy</button>
+                        </form>
+                        <form class="form-inline" method="POST"
+                              th:unless="${game}" th:action="@{/mine/sell_ticker/{pf}(pf=${pf.getId()})}">
+                            <!-- th:name binds a request parameter -->
+                            <input class="form-control mr-sm-2 ml-3" type="text" th:name="symb"
+                                   placeholder="ticker" aria-label="ticker" name="ticker">
+                            <button class="btn btn-danger my-2 my-sm-0" type="submit">Sell</button>
+                        </form>
+                    </div>
                 </div>
             </div>
 
