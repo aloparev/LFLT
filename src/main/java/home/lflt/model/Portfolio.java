@@ -44,9 +44,10 @@ public class Portfolio {
         this.tstamp = LocalDateTime.now();
     }
 
-    public Portfolio(String name, String type, double funds, char cron, int delay, int epochs, User user) {
+    public Portfolio(String name, String type, double funds, char cron, int delay, int epochs, User user, Game game) {
         this(name, type, 0, funds, cron, delay, epochs);
         this.user = user;
+        this.game = game;
     }
 
     @Id
@@ -74,7 +75,7 @@ public class Portfolio {
     private User user;
 
     @Transient
-    private double cptSum; // current stock price total + balance
+    private double cptSum; // current stock price total ( + balance = worth )
 
     @Transient
     private double change;
@@ -92,5 +93,29 @@ public class Portfolio {
             return "";
         else
             return user.getUsername();
+    }
+
+    @Override
+    public String toString() {
+        return "Portfolio{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", info='" + info + '\'' +
+                ", type='" + type + '\'' +
+                ", balance=" + balance +
+                ", funds=" + funds +
+                ", cron=" + cron +
+                ", delay=" + delay +
+                ", epochs=" + epochs +
+                ", tstamp=" + tstamp +
+                ", ustamp=" + ustamp +
+                ", lots=" + lots +
+                ", game=" + game.getName() +
+                ", user=" + user.getUsername() +
+                ", cptSum=" + cptSum +
+                ", change=" + change +
+                ", plDailySum=" + plDailySum +
+                ", plTotalSum=" + plTotalSum +
+                '}';
     }
 }

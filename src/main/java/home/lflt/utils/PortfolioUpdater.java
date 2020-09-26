@@ -4,22 +4,15 @@ import home.lflt.model.Lot;
 import home.lflt.model.Portfolio;
 import home.lflt.repo.LotRepo;
 import home.lflt.repo.PortfolioRepo;
-import home.lflt.repo.QuoteRepo;
 import home.lflt.repo.StockRepo;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Set;
 
-import static home.lflt.utils.Utils.checkPortfolio;
+import static home.lflt.utils.Utils.checkPortfolioUpdate;
 
 @Transactional
 @Slf4j
@@ -54,7 +47,7 @@ public class PortfolioUpdater {
 
         for(Portfolio pp : portfolios) {
 //            log.info("pp found: " + pp);
-            boolean update = checkPortfolio(pp.getUstamp(), pp.getCron(), pp.getDelay());
+            boolean update = checkPortfolioUpdate(pp.getUstamp(), pp.getCron(), pp.getDelay());
             log.info("update = " + update);
 
             if(update)
@@ -98,7 +91,7 @@ public class PortfolioUpdater {
 
         for(Portfolio pp : portfolios) {
 //            log.info("pp found: " + pp);
-            boolean update = checkPortfolio(pp.getUstamp(), pp.getCron(), pp.getDelay());
+            boolean update = checkPortfolioUpdate(pp.getUstamp(), pp.getCron(), pp.getDelay());
             log.info("update = " + update);
 
             if(update) {

@@ -1,6 +1,8 @@
 package home.lflt.utils;
 
 import com.google.gson.Gson;
+import home.lflt.model.Lot;
+import home.lflt.model.Portfolio;
 import home.lflt.model.Quote;
 import home.lflt.model.fmpQuote;
 import lombok.extern.slf4j.Slf4j;
@@ -17,12 +19,13 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.Locale;
 import java.util.Random;
+import java.util.Set;
 
 import static home.lflt.utils.Constants.*;
 
 @Slf4j
 public class Utils {
-    public static boolean checkPortfolio(LocalDateTime then, char updateFreq, int delay) {
+    public static boolean checkPortfolioUpdate(LocalDateTime then, char updateFreq, int delay) {
         log.info("then = " + then + ", updateFreq=" + updateFreq + ", epochs=" + delay);
         LocalDateTime now = LocalDateTime.now();
 //        boolean update = true;
@@ -41,6 +44,45 @@ public class Utils {
                     log.info("updateFreq doesn't match any switch option");
                     return false;
             }
+    }
+
+    /**
+     * prepare portfolio for rendering by fetching it from the db
+     * and filling transient values
+     */
+    public static Portfolio preparePortfolioRendering(Portfolio pf) {
+        pf.setCptSum(pf.getBalance());
+        pf.setChange(0);
+        pf.setPlTotalSum(0);
+//        log.info(">> pf after set = " + pf.toString());
+
+        Set<Lot> lots = pf.getLots();
+//        log.info(">> pf.getLots();");
+        for(Lot lot : lots) {
+            Quote quote = getQuoteMi(lot.getSymbol());
+//            log.info("got quote for: " + quote);
+
+            lot.setYesterdayClose(lot.getCp());
+            if (quote.getPrice() != 0) {
+                lot.setCp(quote.getPrice());
+//                lot.setUstamp(LocalDateTime.now());
+            } else {
+                lot.setError(true);
+            }
+            lot.setCpt(lot.getUnits() * lot.getCp());
+            lot.setIpt(lot.getUnits() * lot.getIp());
+            lot.setChange(quote.getChange());
+            lot.setPlt(lot.getCpt() - lot.getIpt());
+
+            pf.setCptSum(pf.getCptSum() + lot.getCpt());
+            pf.setChange(pf.getChange() + lot.getChange());
+            pf.setPlTotalSum(pf.getPlTotalSum() + lot.getPlt());
+
+//            if(lot.getYesterdayClose() == lot.getCp())
+        }
+//        log.info("pf after transient update=" + pf.toString());
+
+        return pf;
     }
 
     public static void fmpHistoricalPrice(String symbol, String from, String to) {

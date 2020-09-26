@@ -12,8 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Objects;
 import java.util.Set;
 
-import static home.lflt.utils.Utils.fmpGetQuote;
-import static home.lflt.utils.Utils.getQuoteMi;
+import static home.lflt.utils.Utils.*;
 
 @Slf4j
 @Controller
@@ -49,9 +48,11 @@ public class DashboardController {
     public String showPortfolioById(@PathVariable("id") Long id, Model model) {
 //        log.info("showPortfolioById=" + id);
 
-        Portfolio pf = portfolioRepo.getById(id);
+        Portfolio pf = preparePortfolioRendering(portfolioRepo.getById(id));
 //        log.info("pf.getOwnerName()=" + pf.getOwnerName() + ", getUser.currentUsername()=" + getUser.currentUsername());
-        if(Objects.equals(pf.getOwnerName(), getUser.currentUsername())) {
+        model.addAttribute("pf", pf);
+
+        if(Objects.equals(pf.getOwnerName(), getUser.currentUsername()) && Objects.equals(pf.getType(), "USER_SM")) {
 //            log.info("mine=true");
             model.addAttribute("mine", true);
         }
@@ -59,41 +60,9 @@ public class DashboardController {
         if(pf.getEpochs() < 1)
             model.addAttribute("limit", true);
 
-//        if(pf.getUser() != null && pf.getUser().getUsername().equals(getUser.currentUserNameSimple()))
-//            model.addAttribute("mine", true);
-//
-        pf.setCptSum(pf.getBalance());
-        pf.setChange(0);
-        pf.setPlTotalSum(0);
-//        log.info(">> pf after set = " + pf.toString());
+        if(pf.getGame() != null)
+            model.addAttribute("game", true);
 
-        Set<Lot> lots = pf.getLots();
-//        log.info(">> pf.getLots();");
-        for(Lot lot : lots) {
-            Quote quote = getQuoteMi(lot.getSymbol());
-//            log.info("got quote for: " + quote);
-
-            lot.setYesterdayClose(lot.getCp());
-            if (quote.getPrice() != 0) {
-                lot.setCp(quote.getPrice());
-//                lot.setUstamp(LocalDateTime.now());
-            } else {
-                lot.setError(true);
-            }
-            lot.setCpt(lot.getUnits() * lot.getCp());
-            lot.setIpt(lot.getUnits() * lot.getIp());
-            lot.setChange(quote.getChange());
-            lot.setPlt(lot.getCpt() - lot.getIpt());
-
-            pf.setCptSum(pf.getCptSum() + lot.getCpt());
-            pf.setChange(pf.getChange() + lot.getChange());
-            pf.setPlTotalSum(pf.getPlTotalSum() + lot.getPlt());
-
-//            if(lot.getYesterdayClose() == lot.getCp())
-        }
-//        log.info("pf after transient update=" + pf.toString());
-
-        model.addAttribute("pf", pf);
         return "portfolioDashboard";
     }
 

@@ -26,8 +26,7 @@
                 <div class="card-columns" th:fragment="portfolio_overview">
                     <div class="card border-secondary" th:each="pp : ${portfolios}">
                         <div class="card-body">
-                            <h5 class="card-title"
-                                th:text="${pp.getType() != 'OVER' ? pp.getName() + ' [a]': pp.getName() + ' [c]'}"/>
+                            <h5 class="card-title" th:text="${pp.getType() != 'OVER' ? pp.getName() + ' [active]': pp.getName() + ' [closed]'}"/>
                             <p class="card-text" th:text="${pp.getInfo()}"/>
 
                             <a th:href="@{/dashboard/{path}(path=${pp.getId()})}"

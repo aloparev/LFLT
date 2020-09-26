@@ -26,8 +26,8 @@
 <!--                    <span th:text="${mine}"></span>-->
                 </p>
 
+                <!-- pf summary box -->
                 <div class="jumbotron shadow-black p-3 mb-4 rounded" style="background-color: var(--tableJumbotronColor)">
-                    <!-- pf summary row -->
                     <div class="row font-weight-bold">
                         <div class="col" th:fragment="pf_summary_worth">
                             <p>Worth</p>
@@ -106,7 +106,8 @@
                                placeholder="sum" aria-label="sum" name="sum">
                         <button class="btn btn-success my-2 my-sm-0" type="submit">Buy</button>
                     </form>
-                    <form class="form-inline" method="POST" th:action="@{/mine/sell_ticker/{pf}(pf=${pf.getId()})}">
+                    <form class="form-inline" method="POST"
+                          th:unless="${game}" th:action="@{/mine/sell_ticker/{pf}(pf=${pf.getId()})}">
                         <!-- th:name binds a request parameter -->
                         <input class="form-control mr-sm-2 ml-3" type="text" th:name="symb"
                                placeholder="ticker" aria-label="ticker" name="ticker">

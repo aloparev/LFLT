@@ -3,7 +3,6 @@ package home.lflt.utils;
 import home.lflt.model.Quote;
 import home.lflt.repo.StockRepo;
 import lombok.extern.slf4j.Slf4j;
-import org.aspectj.lang.annotation.Before;
 import org.jasypt.util.text.BasicTextEncryptor;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -43,72 +42,72 @@ class UtilsTest {
 
     @Test
     void dayUpdateYesterday() {
-        assertTrue(checkPortfolio(now.minusDays(one), 'd', one));
+        assertTrue(checkPortfolioUpdate(now.minusDays(one), 'd', one));
     }
 
     @Test
     void dayUpdateYesterdayLowerBound() {
-        assertTrue(checkPortfolio(now.minusMinutes(DAY_IN_MINUTES - DAY_OFFSET_IN_MINUTES + one), 'd', one));
+        assertTrue(checkPortfolioUpdate(now.minusMinutes(DAY_IN_MINUTES - DAY_OFFSET_IN_MINUTES + one), 'd', one));
     }
 
     @Test
     void dayNoUpdateAlmostYesterday() {
-        assertFalse(checkPortfolio(now.minusMinutes(DAY_IN_MINUTES - DAY_OFFSET_IN_MINUTES - one), 'd', one));
+        assertFalse(checkPortfolioUpdate(now.minusMinutes(DAY_IN_MINUTES - DAY_OFFSET_IN_MINUTES - one), 'd', one));
     }
 
     @Test
     void dayUpdateTwo() {
-        assertTrue(checkPortfolio(now.minusDays(two), 'd', two));
+        assertTrue(checkPortfolioUpdate(now.minusDays(two), 'd', two));
     }
 
     @Test
     void dayUpdateFive() {
-        assertTrue(checkPortfolio(now.minusDays(five), 'd', five));
+        assertTrue(checkPortfolioUpdate(now.minusDays(five), 'd', five));
     }
 
     @Test
     void weekUpdateLast() {
-        assertTrue(checkPortfolio(now.minusDays(seven), 'w', one));
+        assertTrue(checkPortfolioUpdate(now.minusDays(seven), 'w', one));
     }
 
     @Test
     void weekUpdateLastWeekLowerBound() {
-        assertTrue(checkPortfolio(now.minusHours(WEEK_IN_HOURS - WEEK_OFFSET_IN_HOURS + one), 'w', one));
+        assertTrue(checkPortfolioUpdate(now.minusHours(WEEK_IN_HOURS - WEEK_OFFSET_IN_HOURS + one), 'w', one));
     }
 
     @Test
     void weekNoUpdateLessThanLast() {
-        assertFalse(checkPortfolio(now.minusHours(WEEK_IN_HOURS - WEEK_OFFSET_IN_HOURS - one), 'w', one));
+        assertFalse(checkPortfolioUpdate(now.minusHours(WEEK_IN_HOURS - WEEK_OFFSET_IN_HOURS - one), 'w', one));
     }
 
     @Test
     void weekUpdateThree() {
-        assertTrue(checkPortfolio(now.minusHours(WEEK_IN_HOURS * three), 'w', three));
+        assertTrue(checkPortfolioUpdate(now.minusHours(WEEK_IN_HOURS * three), 'w', three));
     }
 
     @Test
     void weekNoUpdateThree() {
-        assertFalse(checkPortfolio(now.minusHours(WEEK_IN_HOURS * three - WEEK_OFFSET_IN_HOURS - one), 'w', three));
+        assertFalse(checkPortfolioUpdate(now.minusHours(WEEK_IN_HOURS * three - WEEK_OFFSET_IN_HOURS - one), 'w', three));
     }
 
     @Test
     void monthUpdateLast() {
-        assertTrue(checkPortfolio(now.minusMonths(one), 'M', one));
+        assertTrue(checkPortfolioUpdate(now.minusMonths(one), 'M', one));
     }
 
     @Test
     void monthUpdateFive() {
-        assertTrue(checkPortfolio(now.minusHours(MONTH_IN_HOURS * five), 'M', five));
+        assertTrue(checkPortfolioUpdate(now.minusHours(MONTH_IN_HOURS * five), 'M', five));
     }
 
     @Test
     void monthUpdateTwelve() {
-        assertTrue(checkPortfolio(now.minusHours(MONTH_IN_HOURS * twelve), 'M', twelve));
+        assertTrue(checkPortfolioUpdate(now.minusHours(MONTH_IN_HOURS * twelve), 'M', twelve));
     }
 
     @Test
     void monthNoUpdateLessThanOne() {
-        assertFalse(checkPortfolio(now.minusHours(MONTH_IN_HOURS - MONTH_OFFSET_IN_HOURS - one), 'M', one));
+        assertFalse(checkPortfolioUpdate(now.minusHours(MONTH_IN_HOURS - MONTH_OFFSET_IN_HOURS - one), 'M', one));
 //        LocalDateTime then = now.minusHours(MONTH_IN_HOURS - one);
 //        long duration = Duration.between(then, now).toHours();
 //        long expected = MONTH_IN_HOURS - MONTH_OFFSET_IN_HOURS;
@@ -119,17 +118,17 @@ class UtilsTest {
 
     @Test
     void updateNullDaily() {
-        assertTrue(checkPortfolio(null, 'd', two));
+        assertTrue(checkPortfolioUpdate(null, 'd', two));
     }
 
     @Test
     void updateNullWeekly() {
-        assertTrue(checkPortfolio(null, 'w', three));
+        assertTrue(checkPortfolioUpdate(null, 'w', three));
     }
 
     @Test
     void updateNullMonthly() {
-        assertTrue(checkPortfolio(null, 'M', five));
+        assertTrue(checkPortfolioUpdate(null, 'M', five));
     }
 
     @Test

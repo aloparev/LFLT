@@ -1,6 +1,7 @@
 package home.lflt.model;
 
 import home.lflt.security.GetUser;
+import lombok.Builder;
 import lombok.Data;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -8,6 +9,7 @@ import javax.validation.constraints.*;
 
 import static home.lflt.utils.Constants.*;
 
+@Builder
 @Data
 public class fPortfolio {
 
@@ -40,13 +42,14 @@ public class fPortfolio {
     private int epochs;
 
     private User user;
+    private Game game;
 
     public Portfolio toUserManagedPortfolio() {
-        return new Portfolio(name, "USER", funds, 'd', delay, epochs, user);
+        return new Portfolio(user.getUsername() + name, "USER", funds, 'd', delay, epochs, user, game);
     }
 
     public Portfolio toRandomPortfolio() {
-        return new Portfolio(name + " (opponent)", "RANDOM", funds, 'd', delay, epochs, user);
+        return new Portfolio("opponent" + name, "RANDOM", funds, 'd', delay, epochs, user, game);
     }
 
     @Override

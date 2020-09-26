@@ -19,33 +19,58 @@
         <h1 class="text-center">Mine</h1>
         <p class="text-center font-italic mb-4">my portfolios & games</p>
 
+        <!-- content row -->
         <div class="row mb-4">
+            <!-- placeholder left -->
             <div class="col"></div>
 
+            <!-- content col -->
             <div class="col-12 col-md-10 col-lg-8">
-                <div th:insert="portfolioOverview :: portfolio_overview"></div>
-                <div class="col text-center">
-<!--                    <a th:unless="${limitReached}" class="btn btn-secondary mt-4"-->
-<!--                       href="/mine/new_portfolio" role="button">Create New Portfolio</a>-->
-<!--                    <span class="text-danger" th:if="${limitReached}">Portfolio Limit Reached</span>-->
+                <!-- portfolios -->
+                <div th:insert="portfolioOverview :: portfolio_overview"/>
 
-                    <form th:unless="${limit}" class="form-inline justify-content-center" method="POST"
-                          th:action="@{/mine/new_preconfigured_portfolio_submit}">
-                        <button class="btn btn-secondary my-2 my-sm-0" type="submit">Create New Portfolio</button>
-                    </form>
-                </div>
+                <!-- portfolios new button -->
+                <form th:unless="${limit}" class="form-inline justify-content-center" method="POST"
+                      th:action="@{/mine/new_preconfigured_portfolio_submit}">
+                    <button class="btn btn-secondary my-2 my-sm-0" type="submit">Create New Portfolio</button>
+                </form>
 
                 <!-- separator between portfolios & games -->
                 <hr>
 
-                <!-- cards with summary, more details inside -->
+                <!-- cards with game summaries -->
+                <div class="card-columns" th:fragment="game_overview">
+                    <!-- card single -->
+                    <div class="card border-secondary" th:each="gg : ${games}">
+                        <!-- card body -->
+                        <div class="card-body">
+                            <h5 class="card-title" th:text="${gg.getPortfolios().get(0).getType() != 'OVER' ? gg.getName() + ' [active]' : gg.getName() + ' [closed]'}"/>
+                            <p class="card-text" th:text="${gg.getDescription()}"/>
 
-<!--                <div class="col text-center">-->
-<!--                    <a th:unless="${limit}" class="btn btn-secondary mt-4"-->
-<!--                       href="/mine/new_game" role="button">Start New Game</a>-->
-<!--                    <span class="text-danger" th:if="${limit}">Game Limit Reached</span>-->
-<!--                </div>-->
+                            <a th:href="@{/mine/game/{path}(path=${gg.getId()})}" class="btn btn-secondary btn-sm mt-1">See more</a>
+
+                            <form method="POST" th:action="@{/mine/game_rm/{id}(id=${gg.getId()})}" class="form-inline float-right">
+                                <button class="btn btn-danger btn-sm mt-1 ml-1" type="submit">Delete</button>
+                            </form>
+                        </div>
+
+                        <!-- card footer -->
+                        <div class="card-footer bg-white">
+                            <small class="text-muted">Last updated
+                                <span th:text="${#temporals.format(gg.getPortfolios().get(0).getUstamp(), 'dd-MM-yyyy HH:mm')}"></span>
+                            </small>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- games new button -->
+                <form th:unless="${limit}" class="form-inline justify-content-center" method="POST"
+                      th:action="@{/mine/new_preconfigured_game_submit}">
+                    <button class="btn btn-secondary my-2 my-sm-0" type="submit">Create New Game</button>
+                </form>
             </div>
+
+            <!-- placeholder right -->
             <div class="col"></div>
         </div>
     </main>

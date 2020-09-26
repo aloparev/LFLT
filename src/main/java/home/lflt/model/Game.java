@@ -6,8 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 /**
  * game belongs to a player and uses his id as a shared key
@@ -16,18 +15,21 @@ import java.util.Set;
 @Data
 @Slf4j
 @Entity
-@EqualsAndHashCode(exclude = "portfolios")
+@EqualsAndHashCode(exclude = {"portfolios", "users"})
 @Table(name = "games")
 public class Game {
     public Game(){};
 
-    public Game(String name, String description) {
-        this.name = name;
-        this.description = description;
+    public Game(User user) {
+        this.name = user.getUsername() + "'s Game";
+        this.description = "make the best of daily 2k investments during a week";
 //        this.balance_user = funds;
 //        this.balance_enemy = funds;
-        this.portfolios = new HashSet<>();
-        this.users = new HashSet<>();
+        this.portfolios = new ArrayList<>();
+        this.users = new ArrayList<User>(){{
+            add(user);
+        }};
+//        this.users = new ArrayList<>(Arrays.asList(user));
     }
 
     @Id
@@ -43,11 +45,22 @@ public class Game {
 
     // pojo in portfolio class, CRUD propagation, no orphan removal to allow null values
     @OneToMany(mappedBy = "game", cascade = CascadeType.ALL)
-    private Set<Portfolio> portfolios;
+    private List<Portfolio> portfolios;
 
     @ManyToMany(mappedBy = "games")
-    private Set<User> users;
+    private List<User> users;
 
     @Transient
     private double delta; // user balance - enemy
+
+    @Override
+    public String toString() {
+        return "Game{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", portfolios=" + portfolios +
+                ", delta=" + delta +
+                '}';
+    }
 }

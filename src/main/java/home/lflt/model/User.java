@@ -60,7 +60,7 @@ public class User implements UserDetails {
     @Column(name="premium_expires")
     private LocalDateTime premiumExpires;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "user_game",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "game_id"))
