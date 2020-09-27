@@ -15,8 +15,9 @@ import java.util.*;
 @Data
 @Slf4j
 @Entity
-@EqualsAndHashCode(exclude = {"portfolios", "users"})
 @Table(name = "games")
+@EqualsAndHashCode(exclude = {"portfolios", "users"})
+@NamedEntityGraph(name = "Game.portfolios", attributeNodes = @NamedAttributeNode("portfolios"))
 public class Game {
     public Game(){};
 

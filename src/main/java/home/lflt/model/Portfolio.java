@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 //@Builder
@@ -93,6 +94,14 @@ public class Portfolio {
             return "";
         else
             return user.getUsername();
+    }
+
+    public boolean noEpochsLeft() {
+        return epochs < 1;
+    }
+
+    public boolean ownedByUser(String username) {
+        return Objects.equals(getOwnerName(), username);
     }
 
     @Override

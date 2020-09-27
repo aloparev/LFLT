@@ -4,7 +4,9 @@ import home.lflt.model.*;
 import home.lflt.repo.*;
 import home.lflt.security.GetUser;
 import home.lflt.utils.PortfolioUpdater;
+import home.lflt.utils.Utils;
 import lombok.extern.slf4j.Slf4j;
+import org.hibernate.Hibernate;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -49,8 +51,9 @@ public class MineController {
         model.addAttribute("portfolios", portfolios);
         limit += portfolios.size();
 
-        Set<Game> games = gameRepo.getByUserId(getUser.currentUserId());
-        log.info("games=" + games);
+        Set<Game> games = gameRepo.getByUserIdAndFetchPortfoliosEagerly(getUser.currentUserId());
+//        Set<Game> games = gameRepo.getByUserId(getUser.currentUserId());
+//        log.info("games=" + games);
         model.addAttribute("games", games);
         limit += games.size();
 
@@ -62,15 +65,21 @@ public class MineController {
         return "mineOverview";
     }
 
+    @Transactional
     @GetMapping("/game/{id}")
     public String showGameById(@PathVariable("id") long id, Model model) {
         Optional<Game> gameOptional = gameRepo.findById(id);
         if(gameOptional.isPresent()) {
             Game game = gameOptional.get();
-            Portfolio mypf = preparePortfolioRendering(game.getPortfolios().get(0));
-            Portfolio oppopf = preparePortfolioRendering(game.getPortfolios().get(1));
+            game.getPortfolios().forEach(Utils::preparePortfolioRendering);
+            model.addAttribute("portfolios", game.getPortfolios());
+//            model.addAttribute("mine", true);
+//            model.addAttribute("game", true);
+
+//            Portfolio mypf = preparePortfolioRendering(game.getPortfolios().get(0));
+//            Portfolio oppopf = preparePortfolioRendering(game.getPortfolios().get(1));
         }
-        return "/";
+        return "portfolioDashboard";
     }
 
     @PostMapping(path = "/game_rm/{id}")

@@ -57,16 +57,13 @@ public class DashboardController {
 //        log.info("pf.getOwnerName()=" + pf.getOwnerName() + ", getUser.currentUsername()=" + getUser.currentUsername());
         model.addAttribute("portfolios", portfolios);
 
-        if(Objects.equals(portfolios.get(0).getOwnerName(), getUser.currentUsername()) && Objects.equals(portfolios.get(0).getType(), "USER_SM")) {
-//            log.info("mine=true");
-            model.addAttribute("mine", true);
-        }
+//        if(Objects.equals(portfolios.get(0).getOwnerName(), getUser.currentUsername()) && Objects.equals(portfolios.get(0).getType(), "USER_SM")) {
+////            log.info("mine=true");
+//            model.addAttribute("mine", true);
+//        }
 
-        if(portfolios.get(0).getEpochs() < 1)
-            model.addAttribute("limit", true);
-
-        if(portfolios.get(0).getGame() != null)
-            model.addAttribute("game", true);
+//        if(portfolios.get(0).getGame() != null)
+//            model.addAttribute("game", true);
 
         return "portfolioDashboard";
     }
