@@ -72,7 +72,7 @@ public class Portfolio {
     @ManyToOne(fetch = FetchType.LAZY)
     private Game game;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     private User user;
 
     @Transient

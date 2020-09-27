@@ -62,6 +62,8 @@ public class MineController {
 //        else
 //            model.addAttribute("limitReached", false);
 
+
+
         return "mineOverview";
     }
 
@@ -71,15 +73,15 @@ public class MineController {
         Optional<Game> gameOptional = gameRepo.findById(id);
         if(gameOptional.isPresent()) {
             Game game = gameOptional.get();
+            model.addAttribute("game", game);
+
             game.getPortfolios().forEach(Utils::preparePortfolioRendering);
             model.addAttribute("portfolios", game.getPortfolios());
-//            model.addAttribute("mine", true);
-//            model.addAttribute("game", true);
 
 //            Portfolio mypf = preparePortfolioRendering(game.getPortfolios().get(0));
 //            Portfolio oppopf = preparePortfolioRendering(game.getPortfolios().get(1));
         }
-        return "portfolioDashboard";
+        return "gameDashboard";
     }
 
     @PostMapping(path = "/game_rm/{id}")

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+      lang="en">
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" th:href="@{/bs441/css/bootstrap.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/initialStyle.css}"/>
+    <title>LFLT | Game</title>
+</head>
+
+<body>
+<div class="container-fluid min-vh-100 p-0">
+    <div th:insert="fragments :: menu"></div>
+
+    <main class="container-fluid w-auto m-2 p-2 bg-light">
+        <h1 class="text-center" th:text="${game.getName()}"/>
+        <p class="text-center font-italic mb-4" th:text="${game.getDescription()}"/>
+
+        <div class="row mb-4">
+            <div class="col"></div>
+
+            <div class="col-12 col-md-10 col-lg-8" th:with="pf=${game.getPortfolios().get(0)}, opf=${game.getPortfolios().get(1)}">
+                <!-- summary box colored -->
+                <div class="alert my-4 shadow-black" th:classappend="${pf.getCptSum() > opf.getCptSum() ? 'alert-success' : 'alert-danger'}" role="alert">
+                    <div class="row font-weight-bold">
+                        <div class="col">
+                            <p>Your Worth</p>
+                            <p><span th:text="${#numbers.formatDecimal(pf.getCptSum(), 1, 2)}"/> &dollar;</p>
+                        </div>
+
+                        <div class="col">
+                            <p>Opponent's Worth</p>
+                            <p><span th:text="${#numbers.formatDecimal(opf.getCptSum(), 1, 2)}"/> &dollar;</p>
+                        </div>
+
+                        <div class="col">
+                            <p>Difference</p>
+                            <p><span th:text="${#numbers.formatDecimal(pf.getCptSum() - opf.getCptSum(), 1, 2)}"/> &dollar;</p>
+                        </div>
+
+                        <div class="col">
+                            <p>Rounds Left</p>
+                            <p th:text="${pf.getEpochs()}"/>
+                        </div>
+                    </div>
+                </div>
+
+                <h2 class="my-4">Portfolios</h2>
+
+                <!-- portfolios dashboard -->
+                <div th:insert="portfolioDashboard :: pf_dashboard"/>
+            </div>
+
+            <div class="col"></div>
+        </div>
+    </main>
+
+    <div th:insert="fragments :: footer"></div>
+</div>
+
+<!--&lt;!&ndash; import bootstrap &ndash;&gt;-->
+<!--<script th:src="@{/bs441/js/jquery-3.4.1.js}"></script>-->
+<!--<script th:src="@{/bs441/js/bootstrap.bundle.js}"></script>-->
+<div th:insert="fragments :: bootstrap"></div>
+</body>
+</html>
