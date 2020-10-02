@@ -22,7 +22,7 @@ public class StockController {
 
     @GetMapping
     public String showStocks(Model model) {
-        LocalDateTime minTstamp = stockRepo.getMinDate();
+        LocalDateTime minTstamp = stockRepo.getMaxDate();
         model.addAttribute("tstamp", minTstamp);
 
         Iterable<Stock> stocks = stockRepo.findAll();
