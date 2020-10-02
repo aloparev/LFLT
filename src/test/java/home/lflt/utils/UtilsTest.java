@@ -187,6 +187,7 @@ class UtilsTest {
     void encryptor() {
         String text = "text";
         BasicTextEncryptor encryptor = Utils.encryptor();
+        encryptor.setPassword("test");
         String code = encryptor.encrypt(text);
         assertFalse(Objects.equals(text, code));
 

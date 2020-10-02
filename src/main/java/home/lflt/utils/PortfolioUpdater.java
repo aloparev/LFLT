@@ -131,21 +131,23 @@ public class PortfolioUpdater {
     public void updatePortfolioBuyLot(long pid, String symb, int sum) {
         Portfolio pp = portfolioRepo.getById(pid);
 
-        Lot newLot = new BuyingAlgorithm(pp, stockRepo, sum).buyStock(symb);
-        if(newLot != null) {
-            pp.setBalance(pp.getBalance() - newLot.getCpt());
-            log.info("balance=" + pp.getBalance() + "; bought lot=" + newLot);
-            Lot alreadyExists = lotRepo.getByPortfolioIdAndSymbol(pp.getId(), newLot.getSymbol());
-            if (alreadyExists == null) {
-                pp.getLots().add(newLot);
+        if(pp.getBalance() >= sum) {
+            Lot newLot = new BuyingAlgorithm(pp, stockRepo, sum).buyStock(symb);
+            if (newLot != null) {
+                pp.setBalance(pp.getBalance() - newLot.getCpt());
+                log.info("balance=" + pp.getBalance() + "; bought lot=" + newLot);
+                Lot alreadyExists = lotRepo.getByPortfolioIdAndSymbol(pp.getId(), newLot.getSymbol());
+                if (alreadyExists == null) {
+                    pp.getLots().add(newLot);
 //                            log.info("alreadyExists == null");
-            } else {
-                alreadyExists.setUnits(alreadyExists.getUnits() + newLot.getUnits());
-                alreadyExists.setIpt(alreadyExists.getIpt() + newLot.getIpt());
-                alreadyExists.setIp(alreadyExists.getIpt() / alreadyExists.getUnits());
+                } else {
+                    alreadyExists.setUnits(alreadyExists.getUnits() + newLot.getUnits());
+                    alreadyExists.setIpt(alreadyExists.getIpt() + newLot.getIpt());
+                    alreadyExists.setIp(alreadyExists.getIpt() / alreadyExists.getUnits());
 //                            log.info("alreadyExists exists");
+                }
+                pp.setUstamp(LocalDateTime.now());
             }
-            pp.setUstamp(LocalDateTime.now());
         }
     }
 

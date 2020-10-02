@@ -106,6 +106,12 @@ public class Portfolio {
 
     @Override
     public String toString() {
+        String gameString = "NULL";
+        String userString = "NULL";
+
+        if(game != null) gameString = game.getName();
+        if(user != null) userString = user.getUsername();
+
         return "Portfolio{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
@@ -119,8 +125,8 @@ public class Portfolio {
                 ", tstamp=" + tstamp +
                 ", ustamp=" + ustamp +
                 ", lots=" + lots +
-                ", game=" + game.getName() +
-                ", user=" + user.getUsername() +
+                ", game=" + gameString +
+                ", user=" + userString +
                 ", cptSum=" + cptSum +
                 ", change=" + change +
                 ", plDailySum=" + plDailySum +
