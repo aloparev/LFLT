@@ -23,7 +23,7 @@ public class Game {
 
     public Game(User user) {
         this.name = user.getUsername() + "'s Game";
-        this.description = "make the best of daily 2k investments during a week";
+        this.description = "Make the best of daily 2k investments during a week. The funding occurs only Mon-Fri.";
 //        this.balance_user = funds;
 //        this.balance_enemy = funds;
         this.portfolios = new ArrayList<>();

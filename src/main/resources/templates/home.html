@@ -28,15 +28,24 @@
             <div class="col"></div>
 
             <div class="col-12 col-md-9 col-lg-6 text-justify">
-                <h4 class="h4-custom">The Illusion of Validity</h4>
-                <p>
-                    In chapter 20, "The Illusion of Validity", Kahneman argues that so called stock-picking skill is somewhat an illusion. He illustrates that even the professional stock traders (on average) fail the basic test of skill - permanent achievement. In other words - the traders play the game of chance since there is no correlation between their picks and their profits.
-                </p>
+                <div th:each="post : ${posts}">
+                    <h4 class="h4-custom" th:text="${post.getHeader()}"/>
+                    <p th:utext="${post.getBody()}"/>
+                </div>
+<!--                <h4 class="h4-custom">The Illusion of Validity</h4>-->
+<!--                <p>-->
+<!--                    In chapter 20, "The Illusion of Validity", Kahneman argues that so called "stock-picking skill" is somewhat an illusion. He illustrates that even the professional stock traders (on average) fail the basic test of skill &#8210; permanent achievement. In other words &#8210; the traders play the game of chance since there is no correlation between their picks and their profits.-->
+<!--                </p>-->
 
-                <h4 class="h4-custom">What is it about?</h4>
-                <p>
-                    Now, what we are doing here is testing the premise made earlier. Under the experiment, we randomly buy some of the S&P 500 stocks to see how they will perform over time. If you register, there is an option to create your own portfolio and manage it with nominal dollars to try and beat the market. Furthermore, you can compete against the random buy.
-                </p>
+<!--                <h4 class="h4-custom">What is LFLT about?</h4>-->
+<!--                <p>-->
+<!--                    Now, what we are doing here is testing the premise made earlier. Under <a href="/dashboard">the experiment</a>, we have some portfolios, which randomly buy some of the S&P 500 stocks to see how they will perform over time. If you register, there is an option to create your own portfolio and manage it with nominal currency units to try and beat the market or to compete against the "random buy".-->
+<!--                </p>-->
+
+<!--                <h4 class="h4-custom">Why LFLT?</h4>-->
+<!--                <p>-->
+<!--                    High-frequency trading (HFT) is a strategy of buying and selling within very brief periods of time, way smaller than a second. It emerged shortly before the 21st century with the rise of computers and telecommunication networks. HFT made money by using the price update latency on the stock exchange.-->
+<!--                </p>-->
             </div>
 
             <div class="col"></div>

@@ -13,9 +13,9 @@ public class WebConfig implements WebMvcConfigurer {
 //    path and view template
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addViewController("/").setViewName("home");
+//        registry.addViewController("/").setViewName("home");
         registry.addViewController("/awake").setViewName("home");
 //        registry.addViewController("/login");
-        registry.addViewController("/game").setViewName("home");
+//        registry.addViewController("/game").setViewName("home");
     }
 }

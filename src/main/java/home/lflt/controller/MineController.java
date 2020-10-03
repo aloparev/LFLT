@@ -158,7 +158,7 @@ public class MineController {
     }
 
     @PostMapping(path = "/new_game_submit")
-    public String processNewUserGame(@Valid @ModelAttribute("pojo") fPortfolio form, Errors errors) {
+    public String processPreconfiguredNewUserGame(@Valid @ModelAttribute("pojo") fPortfolio form, Errors errors) {
         log.info("processNewUserGame");
         //necessary for error messages in view
         if (errors.hasErrors()) {
@@ -177,7 +177,7 @@ public class MineController {
 
     @Transactional
     @PostMapping(path = "/new_preconfigured_game_submit")
-    public String processNewUserGame() {
+    public String processPreconfiguredNewUserGame() {
         User user = getUser.currentUser();
         Game game = new Game(getUser.currentUser());
 
