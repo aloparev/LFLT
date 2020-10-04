@@ -20,8 +20,6 @@ import static home.lflt.utils.Constants.*;
 import static home.lflt.utils.Utils.*;
 import static org.junit.jupiter.api.Assertions.*;
 
-@RunWith(SpringRunner.class)
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Slf4j
 class UtilsTest {
     private final LocalDateTime now = LocalDateTime.now();
@@ -31,9 +29,6 @@ class UtilsTest {
     private final int five = 5;
     private final int seven = 7;
     private final int twelve = 12;
-
-    @Autowired
-    private StockRepo stockRepo;
 
 //    @Before()
 //    public void setUp() {
@@ -162,32 +157,9 @@ class UtilsTest {
     }
 
     @Test
-    void miQuoteShallDeliverValues() {
-        Quote quote = getQuoteMi("GOOG");
-        System.out.println(quote);
-        assertTrue(quote.getPrice() != 0);
-        assertTrue(quote.getChange() != -111);
-    }
-
-    @Test
-    void miQuoteTenRandomCalls() {
-        Quote quote;
-        int id;
-
-        for (int i = 0; i < 10; i++) {
-            id = getRandomIntBetween(0, stockRepo.getCount());
-            quote = getQuoteMi(stockRepo.getByIndex(id).getSymbol());
-            System.out.println("quote #" + i + ": " + quote);
-            assertTrue(quote.getPrice() != 0);
-            assertTrue(quote.getChange() != -111);
-        }
-    }
-
-    @Test
     void encryptor() {
         String text = "text";
         BasicTextEncryptor encryptor = Utils.encryptor();
-        encryptor.setPassword("test");
         String code = encryptor.encrypt(text);
         assertFalse(Objects.equals(text, code));
 
