@@ -75,6 +75,10 @@ public class Lot {
         return error;
     }
 
+    public double getIpt() {
+        return units * ip;
+    }
+
     @Override
     public String toString() {
         return "\n\t" +

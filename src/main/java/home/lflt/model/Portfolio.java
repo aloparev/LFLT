@@ -104,6 +104,10 @@ public class Portfolio {
         return Objects.equals(getOwnerName(), username);
     }
 
+    public void updateUstamp() {
+        ustamp = LocalDateTime.now();
+    }
+
     @Override
     public String toString() {
         String gameString = "NULL";

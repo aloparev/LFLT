@@ -31,8 +31,8 @@ public class PortfolioUpdater {
 //    sec, min, hour, day of month, month, weekday
 //    here: 13h 2min 1sec
 //    @Transactional
-    @Scheduled(cron = "1 2 13 * * MON-FRI", zone = "GMT")
-//    @Scheduled(cron = "1 * * * * ?")
+//    @Scheduled(cron = "1 2 13 * * MON-FRI", zone = "GMT")
+    @Scheduled(cron = "1 * * * * ?")
     public void update() {
         log.info("start updater 1+2");
         updateRandomPortfolios();
@@ -46,9 +46,9 @@ public class PortfolioUpdater {
         Iterable<Portfolio> portfolios = portfolioRepo.getByType("RANDOM");
 
         for(Portfolio pp : portfolios) {
-//            log.info("pp found: " + pp);
+            log.info("pp before update: " + pp);
             boolean update = checkPortfolioUpdate(pp.getUstamp(), pp.getCron(), pp.getDelay());
-            log.info("update = " + update);
+            log.info("updateRandomPortfolios update flag: " + update);
 
             if(update)
                 switch (pp.getType()) {
@@ -60,11 +60,11 @@ public class PortfolioUpdater {
                         break;
                     default:
                         decrementEpochs(pp);
-
-                        Lot newLot = new BuyingAlgorithm(stockRepo, pp.getBalance() + pp.getFunds()).buyStockRandomly();
+                        double cash = pp.getBalance() + pp.getFunds();
+                        Lot newLot = new BuyingAlgorithm(stockRepo, cash).buyStockRandomly();
                         newLot.setPortfolio(pp);
-                        pp.setBalance(pp.getBalance() + pp.getFunds() - newLot.getIpt());
-                        log.info("balance=" + pp.getBalance() + "; bought lot=" + newLot);
+                        pp.setBalance(cash - newLot.getIpt());
+                        log.info("balance left = " + pp.getBalance() + "; bought lot=" + newLot);
 
                         Lot alreadyExists = lotRepo.getByPortfolioIdAndSymbol(pp.getId(), newLot.getSymbol());
                         if(alreadyExists == null) {
@@ -76,8 +76,8 @@ public class PortfolioUpdater {
                             alreadyExists.setIp(alreadyExists.getIpt() / alreadyExists.getUnits());
 //                            log.info("alreadyExists exists");
                         }
-                        pp.setUstamp(LocalDateTime.now());
-//                        log.info("pp updated: " + pp);
+                        pp.updateUstamp();
+                        log.info("updateRandomPortfolios pp updated: " + pp);
                         break;
                 }
         }
@@ -90,13 +90,15 @@ public class PortfolioUpdater {
         Iterable<Portfolio> portfolios = portfolioRepo.getByType("USER");
 
         for(Portfolio pp : portfolios) {
-//            log.info("pp found: " + pp);
+            log.info("fundUserPortfolios pp found: " + pp);
             boolean update = checkPortfolioUpdate(pp.getUstamp(), pp.getCron(), pp.getDelay());
             log.info("update = " + update);
 
             if(update) {
                 decrementEpochs(pp);
                 pp.setBalance(pp.getBalance() + pp.getFunds());
+                pp.updateUstamp();
+                log.info("fundUserPortfolios pp after: " + pp);
             }
         }
     }

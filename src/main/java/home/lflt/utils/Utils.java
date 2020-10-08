@@ -25,6 +25,7 @@ import static home.lflt.utils.Constants.*;
 
 @Slf4j
 public class Utils {
+//    TODO: shift to pf class
     public static boolean checkPortfolioUpdate(LocalDateTime then, char updateFreq, int delay) {
         log.info("then = " + then + ", updateFreq=" + updateFreq + ", epochs=" + delay);
         LocalDateTime now = LocalDateTime.now();
